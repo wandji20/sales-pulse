@@ -28,4 +28,11 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  users:
+    password:
+      instruction_sent: "Password reset successfully sent."
+      reset_successful: "Password has been successfully reset."
+      invalid_token: "Password reset token is invalid or has expired."
+    session:
+      invalid_credentials: "Invalid email or password."
+      rate_limit_exceeded: "Try again later."
