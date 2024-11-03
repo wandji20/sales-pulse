@@ -1,0 +1,22 @@
+@layer components {
+  .btn {
+    @apply relative flex rounded bg-white text-sm focus:outline-none;
+  }
+
+  .btn-link {
+    @apply relative flex rounded-full bg-white text-sm focus:outline-none;
+  }
+
+  .icon-btn {
+    @apply relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none;
+  }
+
+  .nav-link {
+    @apply inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700;
+
+    &.active {
+      @apply border-indigo-500 text-gray-900;
+    }
+  }
+
+}

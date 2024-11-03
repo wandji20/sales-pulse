@@ -1,3 +1,6 @@
+@import "./tailwind/button.css";
+@import "./tailwind/dropdown.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
