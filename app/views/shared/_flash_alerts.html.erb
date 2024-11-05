@@ -1,0 +1,15 @@
+<div id="flash-notifications" class="container mx-auto mt-2">
+  <% flash.each do |type, message| %>
+    <% next unless displayable_flash_type?(type) %>
+
+    <div class="alert <%= flash_alert_class(type) %>" data-controller="alert">
+      <%= render flash_icon(type) %>
+      <span class="ms-2"><%= message %></span>
+      
+      <button type="button" class="icon-btn ms-auto" data-action="alert#removeAlert">
+        <span class="sr-only"><%= t('general.close') %></span>
+        <%= render 'shared/svgs/close' %>
+      </button>
+    </div>
+  <% end %>
+</div>

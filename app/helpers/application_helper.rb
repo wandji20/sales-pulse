@@ -17,4 +17,32 @@ module ApplicationHelper
 
     "active"
   end
+
+  def displayable_flash_type?(type)
+    %w[success alert error notice].include?(type)
+  end
+
+  def flash_alert_class(type)
+    case type
+    when "success"
+      "alert-success"
+    when "error"
+      "alert-danger"
+    when "alert"
+      "alert-alert"
+    else
+      "alert-info"
+    end
+  end
+
+  def flash_icon(type)
+    case type
+    when "error", "alert"
+      "shared/svgs/exclamation_triangle"
+    when "success"
+      "shared/svgs/check_circle"
+    else
+      "shared/svgs/information_circle"
+    end
+  end
 end

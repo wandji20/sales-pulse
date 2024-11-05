@@ -28,6 +28,8 @@
 #       enabled: "ON"
 
 en:
+  general:
+    close: "Close"
   navabar:
     navbar:
       navbar:
