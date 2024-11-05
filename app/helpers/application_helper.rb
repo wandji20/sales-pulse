@@ -1,6 +1,6 @@
 module ApplicationHelper
   def avatar_image
-    return image_tag("icons/person.svg", class: "h-6 w-6 rounded-full") if true
+    return render "shared/svgs/person", svg_class: "rounded-full" if true
 
     image_tag("https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80", class: "h-6 w-6 rounded-full")
   end
