@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ['flyout', 'modal']
+  static targets = ['flyout', 'modal', 'dropdown']
 
   connect() {
     document.addEventListener('click', this.#handleNavAndDropdowns.bind(this));
@@ -15,12 +15,16 @@ export default class extends Controller {
     document.querySelector('#mobile-menu').classList.toggle('hidden');
   }
 
+  toggleDropdown(event) {
+    event.target.closest('.dropdown').querySelector('.dropdown-menu').classList.toggle('hidden');
+  }
+
   #handleNavAndDropdowns(event) {
     // close opened sidebar
     if (!event.target.closest('#off-canvas-content'))
       this.#closeOffCanvas(event);
   
-    this.#openDropdown(event);
+    this.#closeDropdowns(event);
   }
 
   #closeOffCanvas(event) {
@@ -30,14 +34,11 @@ export default class extends Controller {
     document.querySelector('#mobile-menu').classList.add('hidden');
   }
 
-  #openDropdown(event = null) {
-    const dropdown = event.target.closest('.dropdown');
-    // Close all dropdowns and toggle hidden class for targeted dropdown
-    document.querySelectorAll('.dropdown .dropdown-menu').forEach((menu) => {
-      if (!dropdown)
-        menu.classList.add('hidden');
-      else
-        dropdown.querySelector('.dropdown-menu').classList.toggle('hidden');
+  #closeDropdowns(event) {
+    this.dropdownTargets.forEach((dropdown) => {
+      // clse all dropdowns except targeted dropdown
+      if(!event.target.closest('.dropdown-toggle'))
+        dropdown.querySelector('.dropdown-menu').classList.add('hidden')
     });
   }
 }
