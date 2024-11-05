@@ -1,0 +1,55 @@
+.alert {
+  @apply flex items-center rounded p-1.5;
+
+  .icon-btn {
+    @apply inline-flex rounded-md p-1.5 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2;
+  }
+
+  &.alert-success {
+    @apply bg-green-50;
+
+    .icon-btn {
+      @apply bg-green-50 text-green-500 hover:bg-green-100 focus:ring-2 focus:ring-green-600 focus:ring-offset-green-50;
+    }
+
+    svg {
+      @apply text-green-400;
+    }
+  }
+
+  &.alert-danger {
+    @apply bg-red-50;
+
+    .icon-btn {
+      @apply bg-red-50 text-red-500 hover:bg-red-100 focus:ring-2 focus:ring-red-600 focus:ring-offset-red-50;
+    }
+
+    svg {
+      @apply text-red-400;
+    }
+  }
+
+  &.alert-info {
+    @apply bg-blue-50;
+
+    .icon-btn {
+      @apply bg-blue-50 text-blue-500 hover:bg-blue-100 focus:ring-2 focus:ring-blue-600 focus:ring-offset-blue-50;
+    }
+
+    svg {
+      @apply text-blue-400;
+    }
+  }
+
+  &.alert-alert {
+    @apply bg-yellow-50;
+
+    .icon-btn {
+      @apply bg-yellow-50 text-yellow-500 hover:bg-yellow-100 focus:ring-2 focus:ring-yellow-600 focus:ring-offset-yellow-50;
+    }
+
+    svg {
+      @apply text-yellow-400;
+    }
+  }
+}

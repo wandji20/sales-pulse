@@ -19,12 +19,14 @@
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+  <body class='h-full' data-controller="components">
+    <%# <div class="form-group form-control form-control:disabled is-invalid invalid-feedback form-label cursor-not-allowed bg-gray-50 text-gray-500 ring-gray-200"><!-- This forces the Tailwind CSS classes for form builder to be loaded --></div> %>
+    <%= render 'navbar/navbar' %>
+    <%= render 'shared/flash_alerts' %>
+    <main class="container mx-auto px-4">
       <%= yield %>
     </main>
   </body>

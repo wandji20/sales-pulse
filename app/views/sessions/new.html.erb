@@ -1,0 +1,23 @@
+<div class="mx-auto md:w-3/5 w-4/5 mt-12">
+  <h1 class="text-2xl tracking-tight text-gray-900 mb-10">
+    <%= t('.log_in') %>
+  </h1>
+
+  <%= form_with url: session_url, builder: CustomFormBuilder do |form| %>
+    <%= form.email_field :email_address, required: true, autofocus: true,  label: t('.email.label'),
+        autocomplete: "username", placeholder: t('.email.placeholder'), value: params[:email_address] %>
+
+    <%= form.password_field :password, required: true,  label: t('.password.label'),
+        autocomplete: "current-password", placeholder: t('.password.placeholder'), maxlength: 72 %>
+
+    <%= form.submit t('.submit'), class: "mt-6 btn btn-primary" %>
+
+    <div class="mt-3 text-xs text-gray-500">
+      <p>
+        <%= t('.do_not_have_account') %>
+        <%= link_to t('.sign_up'), "#", class: "ps-1 link" %>
+      </p>
+      <p><%= link_to t('.forgot_password'), new_password_path, class: "link" %></p>
+    </div>
+  <% end %>
+</div>
