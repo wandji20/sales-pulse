@@ -42,10 +42,25 @@ en:
         logo: 'Sales pulse logo'
       signed_out_links:
         log_in: "Log In"
+        sign_up: "Sign up"
       signed_in_links:
         log_out: "Log out"
         account: "Account"
   users:
+    new:
+      sign_up: "Sign Up"
+      log_in: "Log in"
+      submit: "Create account"
+      already_have_account: "Already have an account?"
+      email:
+        label: "Email"
+        placeholder: "Enter your email address"
+      password:
+        label: "Password"
+        placeholder: "Enter your password"
+      password_confirmation:
+        label: "Password confirmation"
+        placeholder: "Enter your password confirmation"
     sessions:
       invalid_credentials: "Invalid email or password."
       rate_limit_exceeded: "Try again later."
