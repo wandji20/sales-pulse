@@ -1,8 +1,9 @@
 class User < ApplicationRecord
   normalizes :email_address, with: ->(e) { e.strip.downcase }
 
-  # Associations
   has_secure_password
+  # Associations
+  has_one_attached :avatar
   has_many :sessions, dependent: :destroy
 
   # Validations
