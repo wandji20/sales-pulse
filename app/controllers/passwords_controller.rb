@@ -9,14 +9,14 @@ class PasswordsController < ApplicationController
       PasswordsMailer.reset(user).deliver_later
     end
 
-    redirect_to new_session_url, notice: t("users.password.instructions_sent")
+    redirect_to login_url, notice: t("users.password.instructions_sent")
   end
 
   def edit; end
 
   def update
     if @user.update(password_params)
-      redirect_to new_session_url, notice: t("users.password.rest_successful")
+      redirect_to login_url, notice: t("users.password.rest_successful")
     else
       render :edit, status: :unprocessable_entity
     end
