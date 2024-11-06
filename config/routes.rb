@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
-  resource :session
+  get "login", to: "sessions#new"
+  post "login", to: "sessions#crete"
+  delete "logout", to: "sessions#destroy"
+  get "account", to: "users#account"
+
+  resources :users
+
   resources :passwords, param: :token
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
