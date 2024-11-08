@@ -42,6 +42,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_06_230250) do
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.integer "user_id", null: false
+    t.boolean "archived", default: false
     t.integer "archived_by_id"
     t.datetime "archived_on"
     t.datetime "created_at", null: false
@@ -65,7 +66,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_06_230250) do
     t.string "password_digest", null: false
     t.string "full_name"
     t.string "telephone"
-    t.boolean "is_admin", default: false
+    t.integer "role", default: 0
     t.boolean "is_deleted", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
