@@ -1,8 +1,8 @@
-<div id="flash-notifications" class="container mx-auto mt-2">
+<div id="flash-notifications" class="container mx-auto">
   <% flash.each do |type, message| %>
     <% next unless displayable_flash_type?(type) %>
 
-    <div class="alert <%= flash_alert_class(type) %>" data-controller="alert">
+    <div class="alert mt-2<%= flash_alert_class(type) %>" data-controller="alert">
       <%= render flash_icon(type) %>
       <span class="ms-2"><%= message %></span>
       

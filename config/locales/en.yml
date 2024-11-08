@@ -30,22 +30,21 @@
 en:
   general:
     close: "Close"
-  navabar:
+  navbar:
     navbar:
-      navbar:
-        open_menu: "Open mobile menu"
-        view_notifications: "View notifications"
-        open_user_menu: "Open user menu"
-        dashboard: 'Dashboard'
-        products: "Products"
-        customers: "Customers"
-        logo: 'Sales pulse logo'
-      signed_out_links:
-        log_in: "Log In"
-        sign_up: "Sign up"
-      signed_in_links:
-        log_out: "Log out"
-        account: "Account"
+      open_menu: "Open mobile menu"
+      view_notifications: "View notifications"
+      open_user_menu: "Open user menu"
+      dashboard: 'Dashboard'
+      products: "Products"
+      customers: "Customers"
+      logo: 'Sales pulse logo'
+    signed_out_links:
+      log_in: "Log In"
+      sign_up: "Sign up"
+    signed_in_links:
+      log_out: "Log out"
+      account: "Account"
   users:
     new:
       sign_up: "Sign Up"
