@@ -1,0 +1,28 @@
+<li class="col-span-1 rounded-lg bg-white shadow p-3" id="<%= dom_id(product) %>">
+  <div class="flex w-full items-center justify-between">
+    <div class="flex-1 truncate">
+      <h3 class="truncate text-sm font-medium text-gray-900">
+        <%= product.name %>
+      </h3>
+      <p class="mt-4 truncate text-sm text-gray-500 flex items-center gap-2">
+        <span><%= t('.total') %></span>
+        <span><%= product.total %></span>
+      </p>
+    </div>
+    <div class='flex gap-2 text-sm self-start'>
+      <%= link_to t('.edit'), edit_product_path(product), class: "link" %>
+      <%= button_to t('.delete'), product_path(product), method: :destroy, class: "link delete", form_class: 'text-sm' %>
+    </div>
+  </div>
+  <div class="flex w-full items-center justify-between">
+    <div class="flex-1 truncate">
+      <p class="mt-1 truncate text-sm text-gray-500 flex items-center gap-2">
+        <span><%= t('.variants', count: product.variants.count) %></span>
+        <span><%= product.variants.count %></span>
+      </p>
+    </div>
+    <p class=''>
+      <%= link_to t('.view_all'), edit_product_path(product, anchor: "variants"), class: "link text-sm" %>
+    </p>
+  </div>
+</li>

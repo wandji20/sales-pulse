@@ -1,10 +1,13 @@
 class User < ApplicationRecord
   normalizes :email_address, with: ->(e) { e.strip.downcase }
 
+  enum :role, %i[customer admin]
+
   has_secure_password
   # Associations
   has_one_attached :avatar
   has_many :sessions, dependent: :destroy
+  has_many :products, dependent: :destroy
 
   # Validations
   validates :email_address, presence: true, uniqueness: true

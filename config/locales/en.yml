@@ -102,4 +102,20 @@ en:
       password_confirmation:
         label: "Password confirmation"
         placeholder: "Enter your password confirmation"
+  products:
+    index:
+      products: "Products"
+      search: "Search products"
+      product: "Product"
+      no_match: "No products found for search query %{search}"
+    product:
+      edit: "Edit"
+      delete: "Delete"
+      total: "Total:"
+      view_all: "View all"
+      variants:
+        one: "Variant:"
+        other: "Variants:"
+    
+
     

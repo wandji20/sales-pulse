@@ -15,6 +15,7 @@ RSpec.describe User, type: :model do
   it { should validate_uniqueness_of(:telephone).case_insensitive }
 
   it { should have_one_attached(:avatar) }
+  it { should have_many(:products) }
 
   describe "validating format" do
     context 'email address' do

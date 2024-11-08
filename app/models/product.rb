@@ -6,4 +6,8 @@ class Product < ApplicationRecord
   validates :name, presence: true,
             uniqueness: true,
             length: { within: (Constants::MIN_NAME_LENGTH..Constants::MAX_NAME_LENGTH) }
+
+  def total
+    variants.sum(:quantity)
+  end
 end
