@@ -1,12 +1,12 @@
 module ApplicationHelper
   def avatar_image
-    return render "shared/svgs/person", svg_class: "rounded-full" if true
+    return image_tag(current_user.avatar, class: "h-8 w-8 rounded-full") if current_user&.avatar&.attached?
 
-    image_tag("https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80", class: "h-6 w-6 rounded-full")
+    render "shared/svgs/person", svg_class: "rounded-full"
   end
 
   def nav_user_links
-    return render "navbar/signed_in_links" if true
+    return render "navbar/signed_in_links" if current_user
 
     render "navbar/signed_out_links"
   end

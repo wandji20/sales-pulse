@@ -3,7 +3,7 @@ module Authentication
 
   included do
     before_action :require_authentication
-    helper_method :authenticated?
+    helper_method :authenticated?, :current_user
   end
 
   class_methods do
@@ -21,6 +21,9 @@ module Authentication
       resume_session || request_authentication
     end
 
+    def current_user
+      @current_user ||= Current.session&.user
+    end
 
     def resume_session
       Current.session ||= find_session_by_cookie
@@ -33,7 +36,7 @@ module Authentication
 
     def request_authentication
       session[:return_to_after_authenticating] = request.url
-      redirect_to new_session_url
+      redirect_to login_url
     end
 
     def after_authentication_url

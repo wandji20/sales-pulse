@@ -51,9 +51,11 @@ class CustomFormBuilder < ActionView::Helpers::FormBuilder
     return unless object.present?
 
     @template.content_tag(:div, class: "invalid-feedback") do
-      object.errors[method].each do |message|
-        @template.content_tag(:span, message)
-      end
+      @template.safe_join(
+        object.errors[method].map do |message|
+          @template.content_tag(:span, message)
+        end
+      )
     end
   end
 end
