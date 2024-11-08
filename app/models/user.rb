@@ -18,7 +18,7 @@ class User < ApplicationRecord
             on: :create
 
   validates :telephone, uniqueness: true
-  validates :telephone, format: { with: /\d{9}/ }, unless: -> { telephone.blank? }
+  validates :telephone, format: { with: /\A\d{9}\z/ }, unless: -> { telephone.blank? }
 
   validates :full_name, presence: true,
             length: { within: (Constants::MIN_NAME_LENGTH..Constants::MAX_NAME_LENGTH) },

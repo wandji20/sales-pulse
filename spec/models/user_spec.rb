@@ -53,6 +53,14 @@ RSpec.describe User, type: :model do
           expect(subject.errors.full_messages).to_not include(/Telephone is invalid/)
         end
       end
+
+      context 'correct format with invalid start and end characters' do
+        subject { build(:user, telephone: '~123654789!') }
+        it 'fails with invalid telephone' do
+          expect(subject.valid?).to be(false)
+          expect(subject.errors.full_messages).to include(/Telephone is invalid/)
+        end
+      end
     end
   end
 end
