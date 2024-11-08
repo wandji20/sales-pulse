@@ -32,7 +32,7 @@ class UsersController < ApplicationController
   private
 
   def require_admin
-    head :unthorized unless current_user.is_admin
+    head :unathorized unless current_user.admin?
   end
 
   def user_params

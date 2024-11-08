@@ -8,7 +8,7 @@
   }
 
   .icon-btn {
-    @apply relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none;
+    @apply relative inline-flex gap-1 items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none;
   }
 
   .nav-link {
