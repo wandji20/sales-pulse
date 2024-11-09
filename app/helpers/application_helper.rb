@@ -23,7 +23,7 @@ module ApplicationHelper
   end
 
   def flash_alert_class(type)
-    case type
+    case type.to_s
     when "success"
       "alert-success"
     when "error"
@@ -36,7 +36,7 @@ module ApplicationHelper
   end
 
   def flash_icon(type)
-    case type
+    case type.to_s
     when "error", "alert"
       "shared/svgs/exclamation_triangle"
     when "success"
