@@ -6,6 +6,13 @@ Rails.application.routes.draw do
 
   resources :users, except: :edit
   resources :products
+  resources :products, only: [] do
+    resources :variants, only: %i[create edit destroy]
+    resources :varaints, only: [] do
+      resources :stocks, only: %i[new create]
+    end
+  end
+
 
   resources :passwords, param: :token
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

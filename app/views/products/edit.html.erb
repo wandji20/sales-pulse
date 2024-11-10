@@ -1,0 +1,21 @@
+<section class="container pt-3" id="<%= dom_id(@product, :edit) %>">
+  <%= render 'edit_header_and_form', product: @product %>
+</section>
+
+<section class="mt-5" id="variants">
+  <div class="flex w-full items-center mx-auto py-2">
+    <h2 class="text-2xl font-semi-bold tracking-tight text-gray-900">
+      <%= t('.variants', count: 2) %>
+    </h2>
+    <div class="flex gap-2 ml-auto">
+      <button class="btn icon-btn btn-primary">
+        <%= render "shared/svgs/plus" %>
+        <span><%= t('.variants', count: 1) %></span>
+      </button>
+    </div>
+  </div>
+
+  <ul role="list" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 p-3">
+    <%= render partial: 'variants/variant', collection: @product.variants, locals: { product: @product } %>
+  </ul>
+</section>

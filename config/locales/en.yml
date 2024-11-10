@@ -30,6 +30,9 @@
 en:
   general:
     close: "Close"
+  flash_delete:
+    success: "Successfully deleted %{name}"
+    failure: "Failed to delete %{name}"
   navbar:
     navbar:
       open_menu: "Open mobile menu"
@@ -116,6 +119,26 @@ en:
       variants:
         one: "Variant:"
         other: "Variants:"
+    edit:
+      variants:
+        one: "Variant"
+        other: "Variants"
+    edit_header_and_form:
+      title: "Edit %{product}"
+      name: 
+        label: "Name"
+        placeholder: "Enter product name"
+      submit: "Save"
+  variants:
+    variant:
+      delete: "Delete"
+      edit: "Edit"
+      quantity: "Quantity"
+      selling_price: "Selling price"
+      price_value: "%{price} FCFA"
+      save: "Save"
+
+      
     
 
     
