@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get "account", to: "users#edit"
 
   resources :users, except: :edit
-  resources :products, only: %i[index edit destroy]
+  resources :products
 
   resources :passwords, param: :token
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
