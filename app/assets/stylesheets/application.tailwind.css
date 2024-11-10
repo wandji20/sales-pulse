@@ -2,6 +2,7 @@
 @import "tailwind/button.css";
 @import "tailwind/dropdown.css";
 @import "tailwind/input.css";
+@import "tailwind/modal.css";
 
 @tailwind base;
 @tailwind components;
