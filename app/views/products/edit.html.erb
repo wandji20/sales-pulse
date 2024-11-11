@@ -8,14 +8,28 @@
       <%= t('.variants', count: 2) %>
     </h2>
     <div class="flex gap-2 ml-auto">
-      <button class="btn icon-btn btn-primary">
+      <button class="btn icon-btn btn-primary" data-components-target='modalTrigger'
+            data-modal-target="variants-modal" data-url="<%= new_product_variant_path(@product) %>">
         <%= render "shared/svgs/plus" %>
         <span><%= t('.variants', count: 1) %></span>
       </button>
     </div>
   </div>
-
-  <ul role="list" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 p-3">
-    <%= render partial: 'variants/variant', collection: @product.variants, locals: { product: @product } %>
-  </ul>
+  <div class="container rounded bg-gray-100">
+    <ul id="<%= "product-#{@product.id}-variants" %>" role="list" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 p-3">
+      <%= render partial: 'variants/variant', collection: @product.variants, locals: { product: @product } %>
+    </ul>
+  </div>
 </section>
+
+<div class="modal hidden" aria-labelledby="modal-title" role="dialog"
+  aria-modal="true" data-modal-lazy-load-content-value="<%= true %>" data-controller="modal" id="variants-modal">
+  <div class="modal-backdrop" data-modal-target="backdrop" aria-hidden="true"></div>
+
+  <div class='modal-dailog'>
+    <div class="modal-box">
+      <div class="modal-content" data-modal-target="content">
+      </div>
+    </div>
+  </div>
+</div>
