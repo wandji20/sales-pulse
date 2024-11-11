@@ -77,7 +77,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_06_230250) do
   create_table "variants", force: :cascade do |t|
     t.string "name"
     t.float "price"
-    t.integer "quantity"
+    t.integer "quantity", default: 0
     t.integer "product_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

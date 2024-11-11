@@ -17,8 +17,8 @@
   <div class="flex w-full items-center justify-between">
     <div class="flex-1 truncate">
       <p class="mt-1 truncate text-sm text-gray-500 flex items-center gap-2">
-        <span><%= t('.variants', count: product.total_quantity) %></span>
-        <span><%= product.total_quantity %></span>
+        <span><%= t('.variants', count: product.variants.count) %></span>
+        <span><%= product.variants.count %></span>
       </p>
     </div>
     <p class=''>

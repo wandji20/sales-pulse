@@ -13,13 +13,18 @@ class ProductsController < ApplicationController
 
   def new
     @product = current_user.products.new
+    respond_to do |format|
+      format.html
+      format.json { render json: { html: render_to_string("products/new", layout: false, formats: :html) } }
+    end
   end
 
   def create
-    product = current_user.products.build(product_params)
+    @product = current_user.products.build(product_params)
 
-    if product.save
-      redirect_to edit_product_path
+    if @product.save
+      flash[:success] = t("flash_create.success", name: @product.name)
+      redirect_to edit_product_path(@product)
     else
       render :new, status: :unprocessable_entity
     end
@@ -29,9 +34,9 @@ class ProductsController < ApplicationController
 
   def update
     if @product.update(product_params)
-      render :edit
+      render :update
     else
-      render :edit, status: :unprocessable_entity
+      render :update, status: :unprocessable_entity
     end
   end
 

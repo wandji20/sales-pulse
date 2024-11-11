@@ -3,7 +3,7 @@ class CreateVariants < ActiveRecord::Migration[8.0]
     create_table :variants do |t|
       t.string :name
       t.float :price
-      t.integer :quantity
+      t.integer :quantity, default: 0
       t.integer :product_id, null: false
 
       t.timestamps

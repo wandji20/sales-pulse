@@ -31,8 +31,8 @@ en:
   general:
     close: "Close"
   flash_delete:
-    success: "Successfully deleted %{name}"
-    failure: "Failed to delete %{name}"
+    success: "Successfully created %{name}"
+    failure: "Failed to create %{name}"
   flash_create:
     success: "Successfully created %{name}"
     failure: "Failed to create %{name}"
@@ -123,9 +123,18 @@ en:
         one: "Variant:"
         other: "Variants:"
     edit:
+      no_variants_for_product: "No variants for this product"
       variants:
         one: "Variant"
         other: "Variants"
+    new:
+      title: 'Create new Product'
+    form:
+      submit: 'Create'
+      cancel: 'Cancel'
+      name:
+        label: "Name"
+        placeholder: "Enter product name"
     edit_header_and_form:
       title: "Edit %{product}"
       name: 
