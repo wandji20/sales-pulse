@@ -140,6 +140,7 @@ en:
       selling_price: "Selling price"
       price_value: "%{price} FCFA"
       save: "Save"
+      set_stock: 'Set Stock'
     new:
       title: 'New variant for %{product}'
     edit:

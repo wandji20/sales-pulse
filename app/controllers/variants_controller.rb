@@ -54,9 +54,6 @@ class VariantsController < ApplicationController
     render :destroy, status: :unprocessable_entity
   end
 
-  def set_stock
-  end
-
   private
 
   def set_product

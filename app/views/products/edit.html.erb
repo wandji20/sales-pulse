@@ -17,7 +17,7 @@
   </div>
   <div class="container rounded bg-gray-100">
     <ul id="<%= "product-#{@product.id}-variants" %>" role="list" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 p-3">
-      <%= render partial: 'variants/variant', collection: @product.variants, locals: { product: @product } %>
+      <%= render partial: 'variants/variant', collection: @product.variants.order(created_at: :desc), locals: { product: @product } %>
     </ul>
   </div>
 </section>

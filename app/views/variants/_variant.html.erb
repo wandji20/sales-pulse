@@ -25,7 +25,10 @@
       </p>
     </div>
     <p class=''>
-      <%= link_to t('.set_stock'), new_product_varaint_stock_path(product, variant), class: "link text-sm" %>
+      <button class="btn-link link" data-components-target='modalTrigger'
+            data-modal-target="variants-modal" data-url="<%= new_product_variant_stock_path(product, variant) %>">
+        <%= t('.set_stock') %>
+      </button>
     </p>
   </div>
 </li>

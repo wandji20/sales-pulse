@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :products
   resources :products, only: [] do
     resources :variants, except: :index
-    resources :varaints, only: [] do
+    resources :variants, only: [] do
       resources :stocks, only: %i[new create]
     end
   end
