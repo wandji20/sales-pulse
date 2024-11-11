@@ -3,7 +3,7 @@
     <div class="relative flex h-16 justify-between">
       <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
         <!-- Mobile menu button -->
-        <button type="button" class="navbar-toggle icon-btn" aria-controls="mobile-menu" aria-expanded="false" data-action="components#toggleNavMenu">
+        <button type="button" class="icon-btn" aria-controls="mobile-menu" aria-expanded="false" data-components-target="sidebarToggle">
           <span class="absolute -inset-0.5"></span>
           <span class="sr-only"><%= t('.open_menu') %></span>
 
@@ -30,9 +30,9 @@
         </button>
 
         <!-- Profile dropdown -->
-        <div class="dropdown ml-0" data-components-target='dropdown'>
+        <div class="dropdown ml-0">
           <div>
-            <button type="button" class="icon-btn rounded-full dropdown-toggle" id="user-menu-button" aria-expanded="false" aria-haspopup="true" data-action="components#toggleDropdown">
+            <button type="button" class="icon-btn rounded-full dropdown-toggle" id="user-menu-button" aria-expanded="false" aria-haspopup="true" data-components-target="dropdownToggle">
               <span class="absolute -inset-1.5"></span>
               <span class="sr-only"><%= t('.open_user_menu') %></span>
               <%= avatar_image %>

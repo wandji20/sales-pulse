@@ -6,6 +6,12 @@ class CustomFormBuilder < ActionView::Helpers::FormBuilder
     end
   end
 
+  def number_field(method, options = {})
+    form_group(method, options) do
+      super(method, form_control_options(method, options))
+    end
+  end
+
   def email_field(method, options = {})
     form_group(method, options) do
       super(method, form_control_options(method, options))

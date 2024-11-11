@@ -1,4 +1,4 @@
-<div id="flash-notifications" class="container absolute top-0 z-20 mt-2 mx-auto">
+<div id="flash-notifications" class="container fixed top-0 z-20 mt-2 mx-auto">
   <% flash.each do |type, message| %>
     <% next unless displayable_flash_type?(type) %>
 
