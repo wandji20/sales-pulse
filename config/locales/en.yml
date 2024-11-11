@@ -33,6 +33,9 @@ en:
   flash_delete:
     success: "Successfully deleted %{name}"
     failure: "Failed to delete %{name}"
+  flash_create:
+    success: "Successfully created %{name}"
+    failure: "Failed to create %{name}"
   navbar:
     navbar:
       open_menu: "Open mobile menu"
@@ -137,6 +140,20 @@ en:
       selling_price: "Selling price"
       price_value: "%{price} FCFA"
       save: "Save"
+    new:
+      title: 'New variant for %{product}'
+    edit:
+      title: 'Edit variant for %{product}'
+    form:
+      submit: 'Create'
+      cancel: 'Cancel'
+      name:
+        label: "Name"
+        placeholder: "Enter variant name"
+      price:
+        label: "Selling price"
+        placeholder: "Enter selling price"
+      
 
       
     

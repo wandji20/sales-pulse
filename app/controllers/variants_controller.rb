@@ -1,6 +1,6 @@
 class VariantsController < ApplicationController
   before_action :set_product
-  before_action :set_variant, only: %i[edit destroy]
+  before_action :set_variant, only: %i[edit destroy update]
 
   def create
     @variant = @product.variants.build(variant_params)
@@ -8,11 +8,16 @@ class VariantsController < ApplicationController
       @type, @message = [ :success, t("flash_delete.success", name: @variant.name) ]
       render :create
     else
+      @target = "new-product-#{@product.id}-variant"
       render :new, status: :unprocessable_entity
     end
   end
 
   def edit
+    respond_to do |format|
+      format.html
+      format.json { render json: { html: render_to_string("variants/edit", layout: false, formats: :html) } }
+    end
   end
 
   def new
@@ -20,6 +25,16 @@ class VariantsController < ApplicationController
     respond_to do |format|
       format.html
       format.json { render json: { html: render_to_string("variants/new", layout: false, formats: :html) } }
+    end
+  end
+
+  def update
+    if @variant.update(variant_params)
+      @type, @message = [ :success, t("flash_update.success", name: @variant.name) ]
+      render :update
+    else
+      @target = "edit-product-#{@product.id}-variant-#{@variant.id}"
+      render :new, status: :unprocessable_entity
     end
   end
 

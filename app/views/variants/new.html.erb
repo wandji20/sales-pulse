@@ -3,5 +3,6 @@
     <%= t('.title', product: @product.name) %>
   </h3>
 
-  <%= render 'variants/form', product: @product, variant: @variant %>
+  <%= render 'variants/form', product: @product, variant: @variant,
+              id: "new-product-#{@product.id}-variant" %>
 </div>

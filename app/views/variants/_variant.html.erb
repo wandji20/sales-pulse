@@ -10,7 +10,10 @@
       </p>
     </div>
     <div class='flex gap-3 text-sm self-start'>
-      <%= link_to t('.edit'), edit_product_variant_path(product, variant), class: "link" %>
+      <button class="btn-link link" data-components-target='modalTrigger'
+            data-modal-target="variants-modal" data-url="<%= edit_product_variant_path(product, variant) %>">
+        <%= t('.edit') %>
+      </button>
       <%= button_to t('.delete'), product_variant_path(product, variant), method: :delete, class: "link delete", form_class: 'text-sm' %>
     </div>
   </div>
