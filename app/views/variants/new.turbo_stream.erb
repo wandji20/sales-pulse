@@ -1,0 +1,5 @@
+<turbo-stream action='replace' target="<%= "new-product-#{@product.id}-variant" %>" >
+  <template>
+    <%= render 'variants/form', product: @product, variant: @variant %>
+  </template>
+</turbo-stream>
