@@ -1,4 +1,13 @@
-<div>
-  <h1 class="font-bold text-4xl">Users#edit</h1>
-  <p>Find me in app/views/users/edit.html.erb</p>
+<div class="w-full pt-6">
+  <h1 class="text-3xl font-semi-bold tracking-tight text-gray-900 mb-10">
+    <%= t('.my_account') %>
+  </h1>
+
+  <section class='pb-6'>
+    <h1 class="text-2xl font-semi-bold tracking-tight text-gray-900 mb-10">
+      <%= t('.personal_details') %>
+    </h1>
+    <%= render 'users/details_form' %>
+  </section>
 </div>
+
