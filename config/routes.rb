@@ -4,7 +4,10 @@ Rails.application.routes.draw do
   delete "logout", to: "sessions#destroy"
   get "account", to: "users#edit"
 
-  resources :users, except: :edit
+  resources :users, except: :edit do
+    put :preferences, on: :member
+  end
+
   resources :products
   resources :products, only: [] do
     resources :variants, except: :index
@@ -12,7 +15,6 @@ Rails.application.routes.draw do
       resources :stocks, only: %i[new create]
     end
   end
-
 
   resources :passwords, param: :token
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

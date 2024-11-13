@@ -1,0 +1,11 @@
+<turbo-stream action="update" target="flash-notifications">
+  <template>
+    <%= render "shared/flash_message", type: :success, message: t('flash_update.success', name: t('users.preferences.setting')) %>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="replace" target='current-user-preferences'>
+  <template>
+    <%= render 'users/preferences' %>
+  <template>
+</turbo-stream>

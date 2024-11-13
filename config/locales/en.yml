@@ -28,6 +28,9 @@
 #       enabled: "ON"
 
 en:
+  errors:
+    messages:
+      format: "is invalid"
   general:
     close: "Close"
   flash_delete:
@@ -79,6 +82,7 @@ en:
     edit:
       my_account: "My Account"
       personal_details: "Personal Details"
+      preferences: "Preferences"
     details_form:
       change: "Change"
       name:
@@ -91,6 +95,13 @@ en:
         label: "Telephone"
         placeholder: "Enter telephone"
       submit: 'Save'
+    preferences:
+      setting: 'setting'
+      low_stock_reminder: "Low stock reminder"
+      end_of_day_sales: "End of day sales"
+      time: "Time"
+      show_profit_on_sales: "Show profit on sales"
+      save: "Save"
   sessions:
     new:
       log_in: "Log in"
