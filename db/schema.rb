@@ -68,6 +68,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_06_230250) do
     t.string "telephone"
     t.integer "role", default: 0
     t.boolean "is_deleted", default: false
+    t.text "settings", default: "{}"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email_address"], name: "index_users_on_email_address", unique: true

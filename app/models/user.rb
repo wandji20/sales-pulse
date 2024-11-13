@@ -1,5 +1,10 @@
 class User < ApplicationRecord
+  # Serialize the settings column as JSON
+  serialize :settings, coder: ActiveRecord::Coders::JSON
+
+  # Hooks
   normalizes :email_address, with: ->(e) { e.strip.downcase }
+  before_save -> { self.settings = default_settings }
 
   enum :role, %i[customer admin]
 
@@ -26,4 +31,22 @@ class User < ApplicationRecord
   validates :full_name, presence: true,
             length: { within: (Constants::MIN_NAME_LENGTH..Constants::MAX_NAME_LENGTH) },
             on: :update
+  validate :settings_structure
+
+  private
+
+  def settings_structure
+    errors.add(:settings, :format) unless settings.is_a?(Hash)
+  end
+
+  def default_settings
+    { notifications: {
+      low_stock_reminder: true,
+      end_of_day_sales: true
+    },
+    preferences: {
+      end_of_day_time: "19:00",
+      show_profit_on_sales: false
+    } }
+  end
 end
