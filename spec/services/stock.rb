@@ -25,8 +25,8 @@ RSpec.describe Stock, type: :model do
       end
 
       it 'fails with invalid stock_threshold' do
-        service_object = described_class.new('add', 10, variant, -10)
-        expect(service_object.valid?).to be_falsey
+        service_object = described_class.new('add', 10, variant, -10, true)
+        expect(service_object.save).to be_falsey
         expect(service_object.errors[:stock_threshold]).to include("must be greater than 0")
       end
     end

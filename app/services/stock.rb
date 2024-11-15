@@ -1,12 +1,13 @@
 class Stock
-  attr_reader :errors
+  attr_reader :errors, :operation, :quantity, :stock_threshold, :show_stock_threshold, :id
 
-  def initialize(operation, quantity, variant, stock_threshold)
+  def initialize(operation = nil, quantity = nil, variant = nil, stock_threshold = nil, show_stock_threshold = false)
     @operation = operation
     @quantity = quantity
     @variant = variant
     @stock_threshold = stock_threshold
     @errors = default_errors
+    @show_stock_threshold = show_stock_threshold
   end
 
   def save
@@ -28,6 +29,8 @@ class Stock
 
   def update_variant_stock!
     previous_quantity = @variant.quantity
+    @quantity = @quantity.to_i
+    @show_stock_threshold = @show_stock_threshold == "1" ? true : false
     case @operation
     when "add"
       new_quantity = previous_quantity + @quantity
@@ -54,8 +57,11 @@ class Stock
     unless @operation.in?(Constants::STOCK_OPERATIONS)
       @errors[:operation] << I18n.t("stocks.errors.inclusion", options: Constants::STOCK_OPERATIONS.join(", "))
     end
-    @errors[:quantity] << I18n.t("stocks.errors.blank") if @quantity.nil?
-    @errors[:stock_threshold] << I18n.t("stocks.errors.numericality", value: 0) if @stock_threshold.present? && @stock_threshold <= 0
+    @errors[:quantity] << I18n.t("stocks.errors.blank") unless @quantity.present?
+    @errors[:stock_threshold] << I18n.t("stocks.errors.blank") if @show_stock_threshold && !@stock_threshold.present?
+    if @show_stock_threshold && @stock_threshold.present? && @stock_threshold.to_i <= 0
+      @errors[:stock_threshold] << I18n.t("stocks.errors.numericality", value: 0)
+    end
   end
 
   def default_errors
