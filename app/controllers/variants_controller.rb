@@ -1,6 +1,6 @@
 class VariantsController < ApplicationController
   before_action :set_product
-  before_action :set_variant, only: %i[edit destroy update]
+  before_action :set_variant, except: %i[create new]
 
   def create
     @variant = @product.variants.build(variant_params)

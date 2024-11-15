@@ -10,5 +10,13 @@ export default class extends Controller {
         });
       }
     });
+
+    this.element.querySelectorAll('select').forEach(select => {
+      if (select.id) {
+        select.addEventListener('change', () => {
+          submitButton.disabled = false;
+        });
+      }
+    });
   }
 }

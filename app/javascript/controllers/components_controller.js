@@ -13,14 +13,10 @@ export default class extends Controller {
     document.addEventListener('keydown', this.#closeModal.bind(this));
 
     // Attach event handler for opening modals
-    this.modalTriggerTargets.forEach((modalTrigger) => {
-      modalTrigger.addEventListener('click', this.#openModal.bind(this));
-    });
+    document.addEventListener('click', this.#handleModalTrigger.bind(this))
 
     // Attach event handler for toggling dropdowns
-    this.dropdownToggleTargets.forEach((dropdownToggle) => {
-      dropdownToggle.addEventListener('click', this.#toggleDropdown);
-    });
+    document.addEventListener('click', this.#handleDropdownToggle.bind(this))
 
     // Attach event handler for toggling sidebar
     this.sidebarToggleTargets.forEach((sidebarToggle) => {
@@ -36,14 +32,10 @@ export default class extends Controller {
     document.removeEventListener('keydown', this.#closeModal.bind(this));
 
     // Remove event handler for opening modals
-    this.modalTriggerTargets.forEach((modalTrigger) => {
-      modalTrigger.removeEventListener('click', this.#openModal.bind(this))
-    });
+    document.removeEventListener('click', this.#handleModalTrigger.bind(this));
 
     // Remove event handler for toggling dropdowns
-    this.dropdownToggleTargets.forEach((dropdownToggle) => {
-      dropdownToggle.removeEventListener('click', this.#toggleDropdown);
-    });
+    document.removeEventListener('click', this.#handleDropdownToggle.bind(this))
 
     // Remove event handler for toggling sidebar
     this.sidebarToggleTargets.forEach((sidebarToggle) => {
@@ -51,14 +43,21 @@ export default class extends Controller {
     });
   }
 
-  #toggleDropdown(event) {
-    event.target.closest('.dropdown').querySelector('.dropdown-menu').classList.toggle('hidden');
+  #handleModalTrigger(event) {
+    const modalTrigger = event.target.closest("[data-components-target='modalTrigger']")
+
+    if (modalTrigger)
+      this.#openModal.bind(this)(modalTrigger)
   }
 
-  #openModal(event) {
-    event.preventDefault();
+  #handleDropdownToggle(event) {
+    const dropdownToggle = event.target.closest('.dropdown')
 
-    const triggerElement = event.currentTarget;
+    if(dropdownToggle)
+      dropdownToggle.querySelector('.dropdown-menu').classList.toggle('hidden')
+  }
+
+  #openModal(triggerElement) {
     const targetElement = document.getElementById(triggerElement.dataset.modalTarget);
 
     this.triggerOpen('modal:open', targetElement, triggerElement);
