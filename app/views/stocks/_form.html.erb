@@ -4,7 +4,7 @@
     <div class="form-group w-1/2">
       <%= form.label :operation, t('.operation.label'), class: 'form-label'  %>
       <%= form.select :operation, stock_operations, { include_blank: t('.operation.placeholder'), selected: stock.operation },
-            { data: { action: 'variant-stock#recalculateStock' },
+            { data: { action: 'variant-stock#recalculateStock', 'variant-stock-target': 'operation' },
             class: "form-control #{'is-invalid' if stock.errors[:operation].present?}" } %>
       
       <% if stock.errors[:operation].present? %>
@@ -18,7 +18,8 @@
 
     <div class="form-group w-1/2">
       <%= form.label :quantity, t('.quantity.label'), placeholder: t('.quantity.placeholder'), class: 'form-label' %>
-      <%= form.number_field :quantity, class: "form-control #{'is-invalid' if stock.errors[:quantity].present?}", value: stock.quantity  %>
+      <%= form.number_field :quantity, class: "form-control #{'is-invalid' if stock.errors[:quantity].present?}",
+            value: stock.quantity, data: { action: 'variant-stock#recalculateStock', 'variant-stock-target': 'quantity' }  %>
     
       <% if stock.errors[:quantity].present? %>
         <div class="invalid-feedback">
