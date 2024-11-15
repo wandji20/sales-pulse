@@ -5,6 +5,8 @@ class CreateVariants < ActiveRecord::Migration[8.0]
       t.float :price
       t.integer :quantity, default: 0
       t.integer :product_id, null: false
+      t.integer :previous_quantity
+      t.integer :stock_threshold
 
       t.timestamps
     end

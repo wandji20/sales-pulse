@@ -80,6 +80,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_06_230250) do
     t.float "price"
     t.integer "quantity", default: 0
     t.integer "product_id", null: false
+    t.integer "previous_quantity"
+    t.integer "stock_threshold"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name", "product_id"], name: "index_variants_on_name_and_product_id", unique: true
