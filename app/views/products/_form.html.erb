@@ -1,0 +1,12 @@
+<%= form_with(model: product, builder: CustomFormBuilder, class: "mt-3", id: dom_id(product), data: { controller: 'form' }) do |form| %>
+  <%= form.text_field :name, required: true, autocomplete: false,
+      autofocus: true, label: t('.name.label'), autocomplete: 'name',
+      placeholder: t('.name.placeholder') %>
+
+  <div class="flex justify-end items-center mt-8 mb-6 gap-2">
+    <%= form.submit t('.submit'), class: "btn btn-primary", disabled: true %>
+    <button type='button' class="btn btn-secondary" data-action="modal#closeModal">
+      <%= t('.cancel') %>
+    </button>
+  </div>
+<% end %>

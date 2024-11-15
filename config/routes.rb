@@ -4,7 +4,20 @@ Rails.application.routes.draw do
   delete "logout", to: "sessions#destroy"
   get "account", to: "users#edit"
 
-  resources :users, except: :edit
+  resources :users, except: :edit do
+    put :preferences, on: :member
+  end
+
+  resources :products
+  resources :products, only: [] do
+    resources :variants, except: :index
+    resources :variants, only: [] do
+      resources :stocks, only: [] do
+        get :edit, on: :collection
+        put :update, on: :collection
+      end
+    end
+  end
 
   resources :passwords, param: :token
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -18,5 +31,5 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  # root "posts#index"
+  root "products#index"
 end

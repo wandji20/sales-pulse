@@ -1,0 +1,74 @@
+<%= form_with(url: product_variant_stocks_path(product, variant), class: "mt-3", id: "edit-variant-#{variant.id}-stock",
+              method: :put, data: { controller: 'form variant-stock', 'variant-stock-quantity-value': variant.quantity }) do |form| %>
+  <div class="flex items-between w-full gap-3">
+    <div class="form-group w-1/2">
+      <%= form.label :operation, t('.operation.label'), class: 'form-label'  %>
+      <%= form.select :operation, stock_operations, { include_blank: t('.operation.placeholder'), selected: stock.operation },
+            { data: { action: 'variant-stock#recalculateStock', 'variant-stock-target': 'operation' },
+            class: "form-control #{'is-invalid' if stock.errors[:operation].present?}" } %>
+      
+      <% if stock.errors[:operation].present? %>
+        <div class="invalid-feedback">
+          <% stock.errors[:operation].each do |error| %>
+            <span><%= error %></span>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="form-group w-1/2">
+      <%= form.label :quantity, t('.quantity.label'), placeholder: t('.quantity.placeholder'), class: 'form-label' %>
+      <%= form.number_field :quantity, class: "form-control #{'is-invalid' if stock.errors[:quantity].present?}",
+            value: stock.quantity, data: { action: 'variant-stock#recalculateStock', 'variant-stock-target': 'quantity' }  %>
+    
+      <% if stock.errors[:quantity].present? %>
+        <div class="invalid-feedback">
+          <% stock.errors[:quantity].each do |error| %>
+            <span><%= error %></span>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="flex justify-between items-center mt-3 mb-5 text-gray-500 text-normal">
+    <div class="bg-gray-100 text-center rounded p-5">
+      <span class="block"><%= t('.current_quantity') %></span>
+      <span class="block mt-2"><%= variant.quantity %></span>
+    </div>
+
+    <%= render 'shared/svgs/arrow_long_right' %>
+
+    <div class="bg-gray-100 text-center rounded p-5">
+      <span class="block"><%= t('.new_quantity') %></span>
+      <span class="block mt-2" data-variant-stock-target='newQuantity'><%= variant.quantity %></span>
+    </div>
+  </div>
+
+  <div class='mb-5'>
+    <div class="flex gap-3 mb-3 items-center">
+      <%= form.checkbox :show_stock_threshold, data: { action: 'variant-stock#toggleThreshholdInput'},
+            class: 'form-checkbox', checked: stock.show_stock_threshold %>
+      <%= form.label :show_stock_threshold, t('.notify_on_low_stock'),
+            value: stock.show_stock_threshold, class: 'form-label !mb-0' %>
+    </div>
+
+    <div class="form-group <%= 'hidden' if !stock.show_stock_threshold %>"
+      data-variant-stock-target="threshold">
+      <%= form.label :stock_threshold, t('.quantity.label'),
+          placeholder: t('.quantity.placeholder'), class: 'form-label' %>
+      <%= form.number_field :stock_threshold, minimum: 0, value: stock.stock_threshold,
+            class: "form-control #{'is-invalid' if stock.errors[:stock_threshold].present?}"  %>
+
+      <% if stock.errors[:stock_threshold].present? %>
+        <div class="invalid-feedback">
+          <% stock.errors[:stock_threshold].each do |error| %>
+            <span><%= error %></span>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <%= form.submit t('.submit'), class: 'btn btn-primary', disabled: true %>
+<% end %>

@@ -28,24 +28,35 @@
 #       enabled: "ON"
 
 en:
+  errors:
+    messages:
+      format: "is invalid"
   general:
     close: "Close"
-  navabar:
+  flash_delete:
+    success: "Successfully created %{name}"
+    failure: "Failed to create %{name}"
+  flash_update:
+    success: "Successfully updated %{name}"
+    failure: "Failed to update %{name}"
+  flash_create:
+    success: "Successfully created %{name}"
+    failure: "Failed to create %{name}"
+  navbar:
     navbar:
-      navbar:
-        open_menu: "Open mobile menu"
-        view_notifications: "View notifications"
-        open_user_menu: "Open user menu"
-        dashboard: 'Dashboard'
-        products: "Products"
-        customers: "Customers"
-        logo: 'Sales pulse logo'
-      signed_out_links:
-        log_in: "Log In"
-        sign_up: "Sign up"
-      signed_in_links:
-        log_out: "Log out"
-        account: "Account"
+      open_menu: "Open mobile menu"
+      view_notifications: "View notifications"
+      open_user_menu: "Open user menu"
+      dashboard: 'Dashboard'
+      products: "Products"
+      customers: "Customers"
+      logo: 'Sales pulse logo'
+    signed_out_links:
+      log_in: "Log In"
+      sign_up: "Sign up"
+    signed_in_links:
+      log_out: "Log out"
+      account: "Account"
   users:
     new:
       sign_up: "Sign Up"
@@ -68,6 +79,29 @@ en:
       instruction_sent: "Password reset successfully sent."
       reset_successful: "Password has been successfully reset."
       invalid_token: "Password reset token is invalid or has expired."
+    edit:
+      my_account: "My Account"
+      personal_details: "Personal Details"
+      preferences: "Preferences"
+    details_form:
+      change: "Change"
+      name:
+        label: "Full Name"
+        placeholder: "Enter full name"
+      email:
+        label: "Email"
+        placeholder: "Enter email address"
+      telephone:
+        label: "Telephone"
+        placeholder: "Enter telephone"
+      submit: 'Save'
+    preferences:
+      setting: 'setting'
+      low_stock_reminder: "Low stock reminder"
+      end_of_day_sales: "End of day sales"
+      time: "Time"
+      show_profit_on_sales: "Show profit on sales"
+      save: "Save"
   sessions:
     new:
       log_in: "Log in"
@@ -103,4 +137,91 @@ en:
       password_confirmation:
         label: "Password confirmation"
         placeholder: "Enter your password confirmation"
+  products:
+    index:
+      products: "Products"
+      search: "Search products"
+      product: "Product"
+      no_match: "No products found for search query %{search}"
+    product:
+      edit: "Edit"
+      delete: "Delete"
+      total: "Total:"
+      view_all: "View all"
+      variants:
+        one: "Variant:"
+        other: "Variants:"
+    edit:
+      no_variants_for_product: "No variants for this product"
+      variants:
+        one: "Variant"
+        other: "Variants"
+    new:
+      title: 'Create new Product'
+    form:
+      submit: 'Create'
+      cancel: 'Cancel'
+      name:
+        label: "Name"
+        placeholder: "Enter product name"
+    edit_header_and_form:
+      title: "Edit %{product}"
+      name: 
+        label: "Name"
+        placeholder: "Enter product name"
+      submit: "Save"
+  variants:
+    variant:
+      delete: "Delete"
+      edit: "Edit"
+      quantity: "Quantity"
+      selling_price: "Selling price"
+      price_value: "%{price} FCFA"
+      save: "Save"
+      manage_stock: 'Manage Stock'
+    new:
+      title: 'New variant for %{product}'
+    edit:
+      title: 'Edit variant for %{product}'
+    form:
+      submit: 'Save'
+      cancel: 'Cancel'
+      name:
+        label: "Name"
+        placeholder: "Enter variant name"
+      price:
+        label: "Selling price"
+        placeholder: "Enter selling price"
+  stocks:
+    errors:
+      inclusion: "must be one of %{options}"
+      blank: "can't be blank"
+      numericality: "must be greater than %{value}"
+      negative_quantity: "result quantity cannot be less than zero"
+    operations:
+      add: "Add"
+      remove: "Remove"
+      set: "Set to"
+    edit:
+      title: "Manage Stock for %{name}"
+    form:
+      operation:
+        label: "Operation"
+        placeholder: "Select operation"
+      add: "Add"
+      remove: "Remove"
+      set: "Set"
+      quantity:
+        label: "Quantity"
+        placeholder: "Enter quantity"
+      current_quantity: "Current Quantity"
+      new_quantity: "New Quantity"
+      notify_on_low_stock: "Notify me when stock is slow?"
+      submit: "Save"
+      cancel: "Cancel"
+      
+
+      
+    
+
     

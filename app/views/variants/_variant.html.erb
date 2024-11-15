@@ -1,0 +1,35 @@
+<li class="col-span-1 rounded-lg bg-white shadow p-3" id="<%= dom_id(variant, :product) %>">
+  <div class="flex w-full items-center justify-between">
+    <div class="flex-1 truncate">
+      <h3 class="truncate text-sm font-medium text-gray-900">
+        <%= variant.name %>
+      </h3>
+      <p class="mt-4 truncate text-sm text-gray-500 flex items-center gap-2">
+        <span><%= t('.quantity') %></span>
+        <span><%= variant.quantity %></span>
+      </p>
+    </div>
+    <div class='flex gap-3 text-sm self-start'>
+      <button class="btn-link link" data-components-target='modalTrigger'
+            data-modal-target="variants-modal" data-url="<%= edit_product_variant_path(product, variant) %>">
+        <%= t('.edit') %>
+      </button>
+      <%= button_to t('.delete'), product_variant_path(product, variant),
+          method: :delete, class: "link delete", form_class: 'text-sm' %>
+    </div>
+  </div>
+  <div class="flex w-full items-center justify-between">
+    <div class="flex-1 truncate">
+      <p class="mt-1 truncate text-sm text-gray-500 flex items-center gap-2">
+        <span><%= t('.selling_price') %></span>
+        <span><%= t('.price_value', price: variant.price) %></span>
+      </p>
+    </div>
+    <p class=''>
+      <button class="btn-link link" data-components-target='modalTrigger'
+            data-modal-target="variants-modal" data-url="<%= edit_product_variant_stocks_path(product, variant) %>">
+        <%= t('.manage_stock') %>
+      </button>
+    </p>
+  </div>
+</li>

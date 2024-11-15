@@ -1,6 +1,10 @@
 @layer components {
   .btn {
-    @apply relative flex rounded bg-white text-sm focus:outline-none;
+    @apply relative flex rounded bg-white text-sm focus:outline-none cursor-pointer;
+
+    &:disabled {
+      @apply pointer-events-none;
+    }
   }
 
   .btn-link {
@@ -8,7 +12,7 @@
   }
 
   .icon-btn {
-    @apply relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none;
+    @apply relative inline-flex gap-1 items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none;
   }
 
   .nav-link {
@@ -20,10 +24,38 @@
   }
 
   .btn.btn-primary {
-    @apply rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600;
+    @apply rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500;
+
+    &:disabled {
+      @apply bg-indigo-300;
+    }
   }
 
   .btn.btn-secondary {
     @apply rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50;
+  }
+
+  .toggle-button {
+    @apply relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none;
+
+    &.enabled {
+      @apply bg-indigo-600;
+    }
+
+    &.disabled {
+      @apply bg-gray-200;
+    }
+
+    .toggler {
+      @apply pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out;
+
+      &.enabled {
+        @apply translate-x-5;
+      }
+  
+      &.disabled {
+        @apply translate-x-0;
+      }
+    }
   }
 }

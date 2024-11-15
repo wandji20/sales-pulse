@@ -1,0 +1,11 @@
+<turbo-stream action="update" target="flash-notifications">
+  <template>
+    <%= render "shared/flash_message", type: :success, message: t('flash_update.success', name: @variant.name) %>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="replace" target="<%= dom_id(@variant, :product) %>">
+  <template>
+    <%= render "variants/variant", product: @product, variant: @variant %>
+  </template>
+</turbo-stream>
