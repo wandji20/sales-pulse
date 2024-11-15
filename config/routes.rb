@@ -12,7 +12,10 @@ Rails.application.routes.draw do
   resources :products, only: [] do
     resources :variants, except: :index
     resources :variants, only: [] do
-      resources :stocks, only: %i[new create]
+      resources :stocks, only: [] do
+        get :edit, on: :collection
+        put :update, on: :collection
+      end
     end
   end
 

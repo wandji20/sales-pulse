@@ -11,4 +11,7 @@ class Constants
   MAX_PASSWORD_LENGTH = 128
   MIN_PRICE = 10
   MAX_PRICE = 1000000000
+
+  # Stocks
+  STOCK_OPERATIONS = [ "add", "remove", "set" ]
 end

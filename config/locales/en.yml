@@ -178,13 +178,13 @@ en:
       selling_price: "Selling price"
       price_value: "%{price} FCFA"
       save: "Save"
-      set_stock: 'Set Stock'
+      manage_stock: 'Manage Stock'
     new:
       title: 'New variant for %{product}'
     edit:
       title: 'Edit variant for %{product}'
     form:
-      submit: 'Create'
+      submit: 'Save'
       cancel: 'Cancel'
       name:
         label: "Name"
@@ -192,6 +192,33 @@ en:
       price:
         label: "Selling price"
         placeholder: "Enter selling price"
+  stocks:
+    errors:
+      inclusion: "must be one of %{options}"
+      blank: "can't be blank"
+      numericality: "must be greater than %{value}"
+      negative_quantity: "result quantity cannot be less than zero"
+    operations:
+      add: "Add"
+      remove: "Remove"
+      set: "Set to"
+    edit:
+      title: "Manage Stock for %{name}"
+    form:
+      operation:
+        label: "Operation"
+        placeholder: "Select operation"
+      add: "Add"
+      remove: "Remove"
+      set: "Set"
+      quantity:
+        label: "Quantity"
+        placeholder: "Enter quantity"
+      current_quantity: "Current Quantity"
+      new_quantity: "New Quantity"
+      notify_on_low_stock: "Notify me when stock is slow?"
+      submit: "Save"
+      cancel: "Cancel"
       
 
       
