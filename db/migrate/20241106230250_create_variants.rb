@@ -2,7 +2,8 @@ class CreateVariants < ActiveRecord::Migration[8.0]
   def change
     create_table :variants do |t|
       t.string :name
-      t.float :price
+      t.float :supply_price
+      t.float :buying_price
       t.integer :quantity, default: 0
       t.integer :product_id, null: false
       t.integer :previous_quantity

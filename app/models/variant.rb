@@ -4,6 +4,6 @@ class Variant < ApplicationRecord
   validates :name, presence: true,
             uniqueness: { scope: :product_id },
             length: { within: (Constants::MIN_NAME_LENGTH..Constants::MAX_NAME_LENGTH) }
-  validates :price, presence: true,
+  validates :supply_price, :buying_price, presence: true,
             numericality: { in: (Constants::MIN_PRICE..Constants::MAX_PRICE) }
 end

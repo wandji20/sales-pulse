@@ -53,14 +53,17 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_15_234234) do
   end
 
   create_table "records", force: :cascade do |t|
-    t.integer "category"
-    t.float "price"
+    t.integer "category", default: 0
+    t.float "unit_price", null: false
+    t.integer "quantity", null: false
     t.integer "variant_id"
     t.integer "user_id", null: false
-    t.integer "status"
+    t.integer "status", default: 0
     t.integer "service_item_id"
+    t.integer "customer_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_records_on_customer_id"
     t.index ["service_item_id"], name: "index_records_on_service_item_id"
     t.index ["user_id"], name: "index_records_on_user_id"
     t.index ["variant_id"], name: "index_records_on_variant_id"
@@ -100,7 +103,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_15_234234) do
 
   create_table "variants", force: :cascade do |t|
     t.string "name"
-    t.float "price"
+    t.float "supply_price"
+    t.float "buying_price"
     t.integer "quantity", default: 0
     t.integer "product_id", null: false
     t.integer "previous_quantity"

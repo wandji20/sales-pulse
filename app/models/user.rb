@@ -13,6 +13,8 @@ class User < ApplicationRecord
   has_one_attached :avatar
   has_many :sessions, dependent: :destroy
   has_many :products, dependent: :destroy
+  has_many :service_items, dependent: :destroy
+  has_many :records, dependent: :destroy
 
   # Validations
   validates :email_address, presence: true, uniqueness: true
@@ -33,6 +35,10 @@ class User < ApplicationRecord
             on: :update
   validate :settings_structure
 
+  def date_format
+    settings.dig(:preferences, :date_format) || Constants::DEFAULT_DATE_FORMAT
+  end
+
   private
 
   def settings_structure
@@ -45,6 +51,7 @@ class User < ApplicationRecord
       end_of_day_sales: true
     },
     preferences: {
+      date_format: Constants::DEFAULT_DATE_FORMAT,
       end_of_day_time: "19:00",
       show_profit_on_sales: false
     } }
