@@ -1,0 +1,30 @@
+<table class="table">
+  <thead class='table-head'>
+    <tr>
+      <% Record::HEADERS.each do |header| %>
+        <th scope="col" class="<%= header_class(header) %>"><%= t(".#{header}") %></th>
+      <% end %>
+      <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6 <%= header_class('action') %>">
+        <span class="sr-only"><%= t('.actions') %></span>
+      </th>
+    </tr>
+  </thead>
+  <tbody class="table-body">
+    <% records.each do |record| %>
+      <tr>
+        <td><%= record.item_name %></td>
+        <td><%= record.quantity %></td>
+        <td><%= record.unit_price %></td>
+        <td><%= t(".categories.#{record.category}") %></td>
+        <td><%= t(".statuses.#{record.status}") %></td>
+        <td><%= record.customer %></td>
+        <td><%= l(record.created_at, format: :full, date_format: current_user.date_format) %></td>
+        <td class="text-xs">
+          <a href="#" class="text-indigo-600 hover:text-indigo-900"><%= t('.more') %><span class="sr-only">, Lindsay Walton</span></a>
+          <span>|</span>
+          <a href="#" class="text-indigo-600 hover:text-indigo-900"><%= t('.revert') %><span class="sr-only">, Lindsay Walton</span></a>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

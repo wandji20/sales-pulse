@@ -28,6 +28,14 @@
 #       enabled: "ON"
 
 en:
+  date:
+    formats:
+      full: "%{date_format}"
+      full_date: "%{date_format}"
+  time:
+    formats:
+      full: "%{date_format} %H:%M"
+      time: "%H:%M"
   errors:
     messages:
       format: "is invalid"
@@ -175,7 +183,7 @@ en:
       delete: "Delete"
       edit: "Edit"
       quantity: "Quantity"
-      selling_price: "Selling price"
+      supply_price: "Supply price"
       price_value: "%{price} FCFA"
       save: "Save"
       manage_stock: 'Manage Stock'
@@ -219,6 +227,35 @@ en:
       notify_on_low_stock: "Notify me when stock is slow?"
       submit: "Save"
       cancel: "Cancel"
+  records:
+    errors:
+      exceeds_stock_quantity: "exceeds available stock for %{name}"
+    index:
+      records: "Records"
+      sale: "Sale"
+      service: "Service"
+      search: "Search records"
+      product: "Product"
+      no_match: "No records found for search query %{search}"
+    table:
+      item_name: 'Item name'
+      quantity: "Quantity"
+      unit_price: "Unit price"
+      category: "Category"
+      status: "Status"
+      customer: "Customer"
+      created_at: "Created On"
+      more: "More"
+      revert: "Revert"
+      statuses:
+        paid: "Paid"
+        unpaid: "Unpaid"
+        revert: "Revert"
+      categories:
+        retail: "Retail"
+        supply: "Supply"
+        service: 'Service'
+        loss: "Loss"
       
 
       
