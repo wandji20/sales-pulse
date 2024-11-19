@@ -25,4 +25,16 @@
   .form-control:disabled {
     @apply disabled:cursor-not-allowed bg-gray-50 text-gray-500 ring-gray-200;
   }
+
+  .form-check-wrapper {
+    @apply inline-flex gap-2 ml-4 items-center;
+
+    .form-check-label {
+      @apply block text-sm/6 font-medium text-gray-500;
+    }
+
+    .form-check-input {
+      @apply size-4 border-gray-300 text-indigo-600;
+    }
+  }
 }

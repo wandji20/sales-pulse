@@ -19,7 +19,7 @@
     }
   }
 
-  .form-checkbox {
+  .form-checkbox, .form-check-input{
     &:focus {
       outline: none;
       box-shadow: none;

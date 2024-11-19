@@ -30,6 +30,22 @@ class CustomFormBuilder < ActionView::Helpers::FormBuilder
     end
   end
 
+  def collection_radio_buttons(method, collection, value_method, text_method, options = {}, html_options = {})
+    form_group(method, options) do
+      html_options[:class] = [ html_options[:class], "form-check-input" ].compact.join(" ")
+      html_options[:class] << " is-invalid" if object&.errors[method]&.any?
+
+      @template.collection_radio_buttons(
+        object_name, method, collection, value_method, text_method,
+        options.reverse_merge(item_wrapper_tag: :div, item_wrapper_class: "form-check")
+      ) do |b|
+        @template.content_tag(:div, class: "form-check-wrapper") do
+          b.radio_button(html_options) + b.label(class: "form-check-label")
+        end
+      end
+    end
+  end
+
   private
 
   def form_group(method, options = {}, &block)
