@@ -12,12 +12,12 @@
 
       <div class='ml-3 flex gap-2'>
         <button class="btn icon-btn btn-primary" data-components-target='modalTrigger'
-              data-modal-target="new-record-modal" data-url="<%= new_record_path(category: :sale) %>">
+              data-modal-target="manage-record-modal" data-url="<%= new_record_path %>">
           <%= render "shared/svgs/plus" %>
           <span><%= t('.sale') %></span>
         </button>
         <button class="btn icon-btn btn-primary" data-components-target='modalTrigger'
-              data-modal-target="new-record-modal" data-url="<%= new_record_path(category: :service) %>">
+              data-modal-target="manage-record-modal" data-url="<%= new_record_path(category: :service) %>">
           <%= render "shared/svgs/plus" %>
           <span><%= t('.service') %></span>
         </button>

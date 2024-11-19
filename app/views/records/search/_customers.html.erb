@@ -1,0 +1,20 @@
+<% list_class = local_assigns[:list_class] || '' %>
+
+<ul class="combobox <%= list_class %>" id="customer-options" role="listbox" data-show="<%= customers.exists? %>" data-combobox-target="options">
+  <% customers.each do |customer| %>
+    <li class="combobox-item <%= 'selected' if customer.id == selected %>" id="<%= dom_id(customer, :option) %>" role="option" tabindex="-1"
+      data-action="click->combobox#selectOption" data-value="<%= customer.id %>">
+      <!-- Selected: "font-semibold" -->
+      <span class="block truncate label"><%= customer.full_name %></span>
+
+      <!--
+        Checkmark, only display for selected option.
+
+        Active: "text-white", Not Active: "text-indigo-600"
+      -->
+      <span class="combobox-check">
+        <%= render 'shared/svgs/check' %>
+      </span>
+    </li>
+  <% end %>
+</ul>
