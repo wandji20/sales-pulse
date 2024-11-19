@@ -95,9 +95,11 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_15_234234) do
     t.integer "role", default: 0
     t.boolean "is_deleted", default: false
     t.text "settings", default: "{}"
+    t.integer "supplier_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
+    t.index ["supplier_id"], name: "index_users_on_supplier_id"
     t.index ["telephone"], name: "index_users_on_telephone", unique: true
   end
 

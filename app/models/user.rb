@@ -15,6 +15,8 @@ class User < ApplicationRecord
   has_many :products, dependent: :destroy
   has_many :service_items, dependent: :destroy
   has_many :records, dependent: :destroy
+  belongs_to :supplier, class_name: "User", optional: true
+  has_many :customers, class_name: "User", foreign_key: :supplier_id
 
   # Validations
   validates :email_address, presence: true, uniqueness: true

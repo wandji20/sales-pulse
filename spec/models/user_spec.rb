@@ -16,6 +16,8 @@ RSpec.describe User, type: :model do
 
   it { should have_one_attached(:avatar) }
   it { should have_many(:products) }
+  it { should belong_to(:supplier).optional.class_name("User") }
+  it { should have_many(:customers).class_name("User") }
 
   describe "validating format" do
     context 'email address' do
