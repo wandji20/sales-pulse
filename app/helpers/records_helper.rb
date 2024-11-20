@@ -4,7 +4,7 @@ module RecordsHelper
   end
 
   def form_statuses
-    Record.statuses.keys.map { |status| [ status, t("records.sales_form.status.#{status}") ] }
+    Record.statuses.except(:revert).keys.map { |status| [ status, t("records.sales_form.status.#{status}") ] }
   end
 
   def form_categories

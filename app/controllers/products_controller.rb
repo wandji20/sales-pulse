@@ -14,6 +14,7 @@ class ProductsController < ApplicationController
   def new
     @product = current_user.products.new
     respond_to do |format|
+      format.turbo_stream
       format.html
       format.json { render json: { html: render_to_string("products/new", layout: false, formats: :html) } }
     end
