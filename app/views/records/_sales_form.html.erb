@@ -1,5 +1,6 @@
 <div data-controller="combobox" data-combobox-search-url-value="<%= search_variants_records_path %>"
     data-combobox-selected-value="<%= record.variant_id %>">
+
   <label for="variant" class="form-label" data-combobox-target="label"><%= t('.variant.label') %></label>
   <div class="relative mb-5">
     <%= form.hidden_field :variant_id, data: { "combobox-target": "hiddenInput" } %>
@@ -42,7 +43,7 @@
     <%= form.hidden_field :customer_id, value: record.customer_id || params.dig(:record, :customer_id),
            data: { "combobox-target": "hiddenInput" } %>
     <input id="customer" type="text" name="search_customer" class="form-control <%= "#{'is-invalid' if record.errors[:customer_id].present?}" %>"
-      role="combobox" value="<%= record.customer&.name || params.dig(:record, :customer_id) %>"
+      role="combobox" value="<%= record.customer&.persisted? ? record.customer&.full_name : params.dig(:record, :customer_id) %>"
       aria-controls="customer-options" aria-expanded="false" placeholder="<%= t('.customer.placeholder') %>"
       data-combobox-target="input" data-action="combobox#search keydown.esc->combobox#closeList">
 
@@ -60,5 +61,12 @@
     <% end %>
   
     <%= render "records/search/customers", customers: customers, list_class: 'hidden', selected: record.customer_id %>
+
+    <p class="py-4"> <button class="link text-xs" type="button" data-action="combobox#toggleNewOptionGroup"> <%= t('.add_customer') %> </button> </p>
+
+    <div data-combobox-target="newOptionGroup"
+          class="<%= 'hidden' unless params[:add_customer] == 'true' %>">
+      <%= render 'records/new_customer_form', form:, record: %>
+    </div>
   </div>
 </div>

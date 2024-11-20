@@ -228,10 +228,12 @@ en:
       submit: "Save"
       cancel: "Cancel"
   records:
+    create_success: "Successfuly add sale record for %{name}"
     errors:
-      exceeds_stock_quantity: "exceeds available stock for %{name}"
+      exceeds_stock_quantity: "exceeds available stock for product item"
     index:
-      records: "Records"
+      name: "Sales record"
+      records: "Sales Records"
       sale: "Sale"
       service: "Service"
       search: "Search records"
@@ -245,6 +247,7 @@ en:
       status: "Status"
       customer: "Customer"
       created_at: "Created On"
+    table_row:
       more: "More"
       revert: "Revert"
       statuses:
@@ -256,9 +259,39 @@ en:
         supply: "Supply"
         service: 'Service'
         loss: "Loss"
-      
-
-      
-    
-
-    
+    new:
+      title: "Record new Sale"
+    form:
+      submit: "Save"
+      cancel: "Cancel"
+    sales_form:
+      variant:
+        label: "Product Item"
+        placeholder: "Search product items"
+      quantity:
+        label: "Quantity"
+        placeholder: "Enter quantity"
+      price:
+        label: "Unit price"
+        placeholder: "Enter unit price"
+      status:
+        label: "Status"
+        paid: "Paid"
+        unpaid: "Unpaid"
+        revert: "Revert"
+      category:
+        label: "Category"
+        retail: "Retail"
+        supply: "Supply"
+        loss: "Loss"
+      customer:
+        label: "Customer"
+        placeholder: "Search customers"
+      add_customer: "Add new customer instead?"
+    new_customer_form:
+      full_name:
+        label: "Customer full name"
+        placeholder: "Enter customer full name"
+      telephone:
+        label: "Customer telephone"
+        placeholder: "Enter customer telephone"

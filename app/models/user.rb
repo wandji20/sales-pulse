@@ -19,8 +19,8 @@ class User < ApplicationRecord
   has_many :customers, class_name: "User", foreign_key: :supplier_id
 
   # Validations
-  validates :email_address, presence: true, uniqueness: true
-  validates :email_address, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :email_address, presence: true, uniqueness: true, if: -> { !customer? || email_address.present? }
+  validates :email_address, format: { with: URI::MailTo::EMAIL_REGEXP }, unless: -> { email_address.blank? }
 
   validates :password, presence: true,
             length: { within: (Constants::MIN_PASSWORD_LENGTH..Constants::MAX_PASSWORD_LENGTH) },
@@ -29,9 +29,13 @@ class User < ApplicationRecord
             length: { within: (Constants::MIN_PASSWORD_LENGTH..Constants::MAX_PASSWORD_LENGTH) },
             on: :create
 
-  validates :telephone, uniqueness: true
+  validates :telephone, presence: true, if: -> { customer? }
+  validates :telephone, uniqueness: true, if: -> { telephone.present? || (customer? && !email_address.present?) }
   validates :telephone, format: { with: /\A\d{9}\z/ }, unless: -> { telephone.blank? }
 
+  validates :full_name, presence: true,
+            length: { within: (Constants::MIN_NAME_LENGTH..Constants::MAX_NAME_LENGTH) },
+            if: -> { customer? }
   validates :full_name, presence: true,
             length: { within: (Constants::MIN_NAME_LENGTH..Constants::MAX_NAME_LENGTH) },
             on: :update

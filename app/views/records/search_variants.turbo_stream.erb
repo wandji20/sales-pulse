@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "variant-options" do %>
+  <%= render "records/search/variants", variants: @variants, selected: params[:search_variant] %>
+<% end %>

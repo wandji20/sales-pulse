@@ -1,0 +1,8 @@
+<%= form.fields_for record.customer || User.new do |customer_form| %>
+  <%= customer_form.hidden_field :add_customer, name: 'add_customer',
+        value: params[:add_customer] == 'true' ? 'true' : 'false' %>  
+  <%= customer_form.text_field :full_name, name: 'customer[full_name]',
+        label: t('.full_name.label'), placeholder: t('.full_name.placeholder') %>  
+  <%= customer_form.text_field :telephone, name: 'customer[telephone]',
+        label: t('.telephone.label'), placeholder: t('.telephone.placeholder') %>
+<% end %>

@@ -21,7 +21,13 @@ Rails.application.routes.draw do
 
   resources :passwords, param: :token
 
-  resources :records
+  resources :records, except: :show
+  resources :records, only: [] do
+    collection do
+      get :search_variants
+      get :search_customers
+    end
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe Record, type: :model do
   let(:variant) { create(:variant, quantity: 20) }
   let(:user) { create(:user, role: :admin) }
+  subject { create(:record) }
+
   it { should validate_presence_of(:unit_price) }
   it { should validate_numericality_of(:unit_price).is_greater_than(0) }
   it { should validate_presence_of(:quantity) }
@@ -19,7 +21,7 @@ RSpec.describe Record, type: :model do
     context 'when category is retail, supply' do
       let(:attrs) do
         { variant:, user:, unit_price: variant.buying_price + 200,
-          category: [ 'retail', 'supply' ].sample, quantity: 10 }
+          category: [ 'retail', 'supply' ].sample, quantity: 10, current_user: user }
       end
       it 'adds new sale and updates variant quantity' do
         new_record = described_class.add_record(attrs)
@@ -39,6 +41,42 @@ RSpec.describe Record, type: :model do
         expect(variant.quantity).to eq(20)
         expect(variant.previous_quantity).to eq(10)
         expect(new_record.status).to eq('revert')
+      end
+
+      it "adds customer to record" do
+        customer = create(:user, role: :customer, email_address: nil)
+        new_record = described_class.add_record(attrs.merge({ customer_id: customer.id }))
+        expect(new_record.persisted?).to be_truthy
+        expect(new_record.customer_id).to eq(customer.id)
+      end
+
+      it "create and adds new customer to record" do
+        new_record = described_class.add_record(
+          attrs.merge({ customer: { telephone: '678452145', full_name: 'New customer' } }))
+        expect(new_record.persisted?).to be_truthy
+        expect(new_record.customer.telephone).to eq('678452145')
+      end
+
+      it "fails to add new customer to record" do
+        new_record = described_class.add_record(attrs.merge({ customer: {} }))
+        expect(new_record.persisted?).to be_falsey
+        expect(new_record.customer.persisted?).to be_falsey
+
+        expect(new_record.customer.errors.full_messages).to include(/Telephone can't be blank/)
+        expect(new_record.customer.errors.full_messages).to include(/Full name can't be blank/)
+
+        new_record = described_class.add_record(attrs.merge({ customer: { telephone: '12478', full_name: 't' } }))
+        expect(new_record.customer.errors.full_messages).to include(/Telephone is invalid/)
+        expect(new_record.customer.errors.full_messages).to include(/Full name is too short \(minimum is 2 characters\)/)
+        expect(new_record.persisted?).to be_falsey
+      end
+
+      it 'fails to add sale when quantity exceeds variant quantity' do
+        attrs[:quantity] = variant.quantity + 20
+
+        new_record = described_class.add_record(attrs)
+        expect(new_record.persisted?).to be_falsey
+        expect(new_record.errors.messages[:quantity]).to include(/exceeds available stock for product item/)
       end
     end
   end

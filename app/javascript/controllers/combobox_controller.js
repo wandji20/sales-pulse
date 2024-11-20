@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static values = { searchUrl: String, selected: { type: String, default: '' } }
-  static targets = ["input", "hiddenInput", "label", "options"]
+  static targets = ["input", "hiddenInput", "label", "options", "newOptionGroup"]
 
   connect() {
     document.addEventListener('click', this.handleClickOutside.bind(this));
@@ -50,6 +50,16 @@ export default class extends Controller {
       this.closeList(event);
   }
 
+  toggleNewOptionGroup() {
+    if (this.newOptionGroupTarget.classList.contains('hidden')) {
+      this.newOptionGroupTarget.querySelector("input[name='add_customer']").value = 'true';
+      this.newOptionGroupTarget.classList.remove('hidden');
+    } else {
+      this.newOptionGroupTarget.querySelector("input[name='add_customer']").value = 'false';
+      this.newOptionGroupTarget.classList.add('hidden');
+    }
+  }
+
   #updateSelectedOption() {
     const listItem = this.optionsTarget.querySelector(`li[data-value="${this.selectedValue}"]`);
 
@@ -69,7 +79,10 @@ export default class extends Controller {
   
     // set value for hidden input
     if (listItem.dataset.value === 'new') {
-      this.hiddenInputTarget.value = name;
+      if (this.hasNewOptionGroupTarget) {
+        this.newOptionGroupTarget.classList.remove('hidden')
+        this.newOptionGroupTarget.querySelector("input[name='customer[name]']").value = name;
+      }
     } else {
       this.hiddenInputTarget.value = listItem.dataset.value;
     }

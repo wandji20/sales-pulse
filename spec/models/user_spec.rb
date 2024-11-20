@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  subject { create(:user) }
+  subject { create(:user, role: :admin) }
 
   it { should validate_presence_of(:email_address) }
   it { should validate_uniqueness_of(:email_address).case_insensitive }
