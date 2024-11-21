@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     collection do
       get :search_variants
       get :search_customers
+      get :search_service_items
     end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

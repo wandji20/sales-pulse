@@ -21,7 +21,7 @@ RSpec.describe Record, type: :model do
     context 'when category is retail, supply' do
       let(:attrs) do
         { variant:, user:, unit_price: variant.buying_price + 200,
-          category: [ 'retail', 'supply' ].sample, quantity: 10, current_user: user }
+          category: [ 'retail', 'supply' ].sample, quantity: 10 }
       end
       it 'adds new sale and updates variant quantity' do
         new_record = described_class.add_record(attrs)
@@ -77,6 +77,33 @@ RSpec.describe Record, type: :model do
         new_record = described_class.add_record(attrs)
         expect(new_record.persisted?).to be_falsey
         expect(new_record.errors.messages[:quantity]).to include(/exceeds available stock for product item/)
+      end
+    end
+
+    context 'when category is service' do
+      let(:service_item) { create(:service_item, user:) }
+      let(:attrs) { { user:, unit_price: 1000, category: 'service' } }
+
+      it 'succesfully creates a record with valid attrs' do
+        new_record = described_class.add_record(attrs.merge({ service_item_id: service_item.id }))
+        expect(new_record.persisted?).to be_truthy
+        expect(new_record.service_item_id).to eq(service_item.id)
+      end
+
+      it 'succesfully creates a record with and add service item with valid attrs' do
+        new_record = described_class.add_record(attrs.merge(service_item: { name: 'new item' }))
+        expect(new_record.persisted?).to be_truthy
+        expect(new_record.service_item.name).to eq('new item')
+      end
+
+      it 'fails to creates a record with invalid service item attrs' do
+        new_record = described_class.add_record(attrs.merge(service_item: { name: service_item.name }))
+        expect(new_record.persisted?).to be_falsey
+        expect(new_record.service_item.errors[:name]).to include(/has already been taken/)
+
+        new_record = described_class.add_record(attrs.merge(service_item: { name: '' }))
+        expect(new_record.persisted?).to be_falsey
+        expect(new_record.service_item.errors[:name]).to include(/too short/)
       end
     end
   end

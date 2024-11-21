@@ -4,11 +4,12 @@ class Record < ApplicationRecord
 
   # Validations
   validates :unit_price, presence: true, numericality: { greater_than: 0 }
-  validates :quantity, presence: true, numericality: { greater_than: 0 }
+  validates :quantity, presence: true, numericality: { greater_than: 0 }, unless: -> { service? }
   validates :status, presence: true
   validates :category, presence: true
   validates :variant_id, presence: true, unless: -> { service? }
   validate :variant_stock_quantity
+  validate :service_item_presence
 
   # Associations
   belongs_to :user
@@ -29,17 +30,19 @@ class Record < ApplicationRecord
   end
 
   def self.add_record(attrs)
-    current_user = attrs.delete(:current_user)
     customer_attrs = attrs.delete(:customer)
+    service_item_attrs = attrs.delete(:service_item)
 
     new_record = new(attrs)
     transaction do
       new_record.set_variant_stock(:add)
-      new_record.find_or_create_customer(current_user, customer_attrs)
+      new_record.find_or_create_customer(customer_attrs)
+      new_record.find_or_create_service_item(service_item_attrs)
 
       new_record.save!
       new_record.variant.save! if new_record.variant.present?
       new_record.customer.save! if new_record.customer.present?
+      new_record.service_item.save! if new_record.service_item.present?
       new_record
     end
   rescue ActiveRecord::RecordInvalid
@@ -48,9 +51,9 @@ class Record < ApplicationRecord
 
   # Ensure to save variant after calling this method
   def set_variant_stock(method)
+    return if service?
     return unless variant
     return unless quantity
-    return if service?
 
     previous_quantity = variant.quantity
     variant.previous_quantity = previous_quantity
@@ -65,17 +68,22 @@ class Record < ApplicationRecord
     end
   end
 
-  def find_or_create_customer(current_user, attrs)
+  def find_or_create_customer(attrs)
     return if self.customer_id? || attrs.nil?
 
     password = SecureRandom.hex(8)
-    new_customer = current_user.customers
+    new_customer = user.customers
                                 .build(attrs.merge(password:, password_confirmation: password))
     new_customer.valid?
     self.customer = new_customer
-  rescue ActiveRecord::RecordInvalid
-    self.customer = new_customer
-    raise
+  end
+
+  def find_or_create_service_item(attrs)
+    return unless attrs
+
+    new_service_item = user.service_items.build(attrs)
+    new_service_item.valid?
+    self.service_item = new_service_item
   end
 
   private
@@ -88,5 +96,15 @@ class Record < ApplicationRecord
 
     errors.add(:quantity, I18n.t("records.errors.exceeds_stock_quantity"))
     false
+  end
+
+  def service_item_presence
+    # Add blank error when not a new item and no service_item_id is available
+    if service? && !service_item.present?
+      errors.add(:service_item_id, :blank)
+      return false
+    end
+
+    true
   end
 end
