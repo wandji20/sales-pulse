@@ -65,7 +65,7 @@
     <p class="py-4"> <button class="link text-xs" type="button" data-action="combobox#toggleNewOptionGroup"> <%= t('.add_customer') %> </button> </p>
 
     <div data-combobox-target="newOptionGroup"
-          class="<%= 'hidden' unless params[:add_customer] == 'true' %>">
+          class="<%= 'hidden' unless params[:add_new_option] == 'true' %>">
       <%= render 'records/new_customer_form', form:, record: %>
     </div>
   </div>
