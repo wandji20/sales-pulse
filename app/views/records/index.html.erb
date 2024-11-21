@@ -26,15 +26,20 @@
   </div>
 </div>
 
-<turbo-frame id="records-list">
+<turbo-frame id="records-list" action='advance'>
   <div class="scrollable-table container relative rounded border overflow-auto w-full">
     <% if @records.any? %>
-      <%= render 'table', records: @records %>
+      <%= render 'table', records: @records, pagy: @pagy %>
     <% else %>
       <p class="flex h-40 justify-center items-center">
         <%= t('.no_match', search: params[:search]) %>
       </p>
     <% end %>
+  </div>
+
+  <div class='py-2'>
+    <%== pagy_info(@pagy) %>
+    <%== pagy_nav(@pagy, anchor_string: 'data-turbo-action="advance"') %>
   </div>
 </turbo-frame>
 
