@@ -52,10 +52,10 @@ export default class extends Controller {
 
   toggleNewOptionGroup() {
     if (this.newOptionGroupTarget.classList.contains('hidden')) {
-      this.newOptionGroupTarget.querySelector("input[name='add_customer']").value = 'true';
+      this.newOptionGroupTarget.querySelector("input[name='add_new_option']").value = 'true';
       this.newOptionGroupTarget.classList.remove('hidden');
     } else {
-      this.newOptionGroupTarget.querySelector("input[name='add_customer']").value = 'false';
+      this.newOptionGroupTarget.querySelector("input[name='add_new_option']").value = 'false';
       this.newOptionGroupTarget.classList.add('hidden');
     }
   }

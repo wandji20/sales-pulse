@@ -1,12 +1,12 @@
 <%= form_with model: record, builder: CustomFormBuilder,
         id: dom_id(record), data: { controller: "form" } do |form| %>
 
-  <% unless record.service? %>
+  <% if record.service? %>
+    <%= render 'records/service_form', form:, record:, service_items: %>
+  <% else %>
     <div data-sales-record-target="form">
       <%= render 'records/sales_form', form:, record:, customers:, variants: %>
     </div>
-  <% else %>
-    <%= render 'records/service_form', form:, record:, customers:, variants: %>
   <% end %>
 
   <div class="flex justify-end items-center mt-8 mb-6 gap-2">

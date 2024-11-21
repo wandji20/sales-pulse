@@ -1,0 +1,6 @@
+<%= form.fields_for record.service_item || ServiceItem.new do |service_item| %>
+  <%= service_item.hidden_field :add_new_option, name: 'add_new_option',
+        value: params[:add_new_option] == 'true' ? 'true' : 'false' %>  
+  <%= service_item.text_field :name, name: 'service_item[name]',
+        label: t('.name.label'), placeholder: t('.name.placeholder') %>  
+<% end %>

@@ -55,7 +55,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_15_234234) do
   create_table "records", force: :cascade do |t|
     t.integer "category", default: 0
     t.float "unit_price", null: false
-    t.integer "quantity", null: false
+    t.integer "quantity"
     t.integer "variant_id"
     t.integer "user_id", null: false
     t.integer "status", default: 0
