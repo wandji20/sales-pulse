@@ -58,8 +58,8 @@ class Record < ApplicationRecord
   def revert_sale
     Record.transaction do
       set_variant_stock(:revert)
-      variant.save!
-      save!
+      variant.save! if variant.present?
+      revert!
     end
   end
 

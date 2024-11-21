@@ -23,6 +23,7 @@ Rails.application.routes.draw do
 
   resources :records, except: :show
   resources :records, only: [] do
+    put :revert, on: :member
     collection do
       get :search_variants
       get :search_customers

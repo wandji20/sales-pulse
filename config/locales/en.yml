@@ -229,7 +229,12 @@ en:
       cancel: "Cancel"
   records:
     item: "Item"
-    create_success: "Successfuly added %{category} record for %{name}"
+    revert_success: "Successfully revert %{category} record for %{name}"
+    create_success: "Successfully added %{category} record for %{name}"
+    delete_confirm: "Are you sure you want to delete %{category} record for %{name}"
+    revert_confirm: "Are you sure you want to revert %{category} record for %{name}"
+    delete_fail_revert: "Cannot delete unreverted record"
+    errors:
     errors:
       exceeds_stock_quantity: "exceeds available stock for product item"
     index:
@@ -252,6 +257,7 @@ en:
     table_row:
       edit: "Edit"
       revert: "Revert"
+      delete: "Delete"
       statuses:
         paid: "Paid"
         unpaid: "Unpaid"

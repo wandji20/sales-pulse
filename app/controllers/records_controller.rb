@@ -1,5 +1,5 @@
 class RecordsController < ApplicationController
-  before_action :set_record, only: %i[edit update revert]
+  before_action :set_record, only: %i[edit update revert destroy]
   def index
     @records = current_user.records
                            .left_outer_joins(:variant, :customer, :service_item)
@@ -53,6 +53,18 @@ class RecordsController < ApplicationController
   def update
     unless @record.update_record(record_params)
       render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    if !@record.revert?
+      @type = :alert
+      @message = t("records.delete_fail_revert")
+    else
+      @record.destroy!
+      @deleted = true
+      @type = :success
+      @message = t("flash_delete.success", name: @record.name)
     end
   end
 

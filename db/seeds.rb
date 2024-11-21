@@ -60,7 +60,8 @@ def create_sales_and_services
 
   # create service records
   admin.service_items.each do |service_item|
-    admin.records.add_record({ quantity: 1, unit_price: [ 1000, 2000 ].sample, category: 'service' })
+    admin.records.add_record({ quantity: 1, unit_price: [ 1000, 2000 ].sample,
+                                category: 'service', service_item_id: service_item.id })
   end
 
   # revert a some sales
