@@ -2,8 +2,9 @@ class RecordsController < ApplicationController
   before_action :set_record, only: %i[edit update revert]
   def index
     @records = current_user.records
-                           .left_outer_joins(:variant, :customer)
-                           .select("records.*, variants.name AS 'item_name', users.full_name AS 'customer'")
+                           .left_outer_joins(:variant, :customer, :service_item)
+                           .select("records.*, variants.name AS 'variant_name',
+                              users.full_name AS 'customer', service_items.name AS 'item_name'")
                            .order(created_at: :desc)
   end
 
@@ -42,9 +43,17 @@ class RecordsController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    respond_to do |format|
+      format.html
+      format.json { render json: { html: render_to_string("records/edit", layout: false, formats: :html) } }
+    end
+  end
 
   def update
+    unless @record.update_record(record_params)
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def revert
@@ -111,5 +120,9 @@ class RecordsController < ApplicationController
       attrs.merge!({ customer: customer_params }) if params[:add_new_option] == "true"
     end
     attrs
+  end
+
+  def set_record
+    @record = current_user.records.find(params[:id])
   end
 end

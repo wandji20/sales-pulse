@@ -1,6 +1,6 @@
 class Record < ApplicationRecord
   # Constants
-  HEADERS = [ "item_name", "quantity", "unit_price", "category", "status", "customer", "created_on" ]
+  HEADERS = [ "item_name", "quantity", "unit_price", "category", "status", "customer", "created_on", "actions" ]
 
   # Validations
   validates :unit_price, presence: true, numericality: { greater_than: 0 }
@@ -21,11 +21,45 @@ class Record < ApplicationRecord
   enum :category, %i[retail supply service loss]
   enum :status, %i[paid unpaid revert]
 
+  def name
+    return service_item.name if service? && service_item_id?
+    return variant.name if !service? && variant_id?
+
+    I18n.t("records.item")
+  end
+
+  def variant_name
+    return if service?
+
+    attributes["variant_name"] || variant&.name
+  end
+
+  def item_name
+    return unless service?
+
+    attributes["item_name"] || service_item&.name
+  end
+
+  def customer_name
+    attributes["customer"] || customer&.full_name
+  end
+
+  def update_record(attrs)
+    Record.transaction do
+      set_variant_stock(:edit, attrs)
+      variant.save! if variant.present?
+      attrs.select! { |k, _v| [ :status, :category, :unit_price ].include?(k.to_sym) }
+      update!(attrs)
+    end
+  rescue ActiveRecord::RecordInvalid
+    false
+  end
+
   def revert_sale
     Record.transaction do
       set_variant_stock(:revert)
       variant.save!
-      revert!
+      save!
     end
   end
 
@@ -50,7 +84,7 @@ class Record < ApplicationRecord
   end
 
   # Ensure to save variant after calling this method
-  def set_variant_stock(method)
+  def set_variant_stock(method, attrs = nil)
     return if service?
     return unless variant
     return unless quantity
@@ -60,6 +94,12 @@ class Record < ApplicationRecord
     case method
     when :add
       variant.quantity = previous_quantity - quantity
+    when :edit
+      if attrs[:quantity].present?
+        difference = quantity - attrs[:quantity].to_i
+        variant.quantity = variant.quantity + difference
+      end
+      self.quantity = attrs[:quantity]
     when :revert
       variant.quantity = previous_quantity + quantity
       self.status = "revert"

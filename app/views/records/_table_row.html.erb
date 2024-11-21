@@ -1,14 +1,24 @@
 <tr id="<%= dom_id(record) %>">
-  <td><%= record.item_name %></td>
+  <td><%= record.variant_name || record.item_name %></td>
   <td><%= record.quantity %></td>
   <td><%= record.unit_price %></td>
   <td><%= t(".categories.#{record.category}") %></td>
   <td><%= t(".statuses.#{record.status}") %></td>
   <td><%= record.customer&.full_name %></td>
   <td><%= l(record.created_at, format: :full, date_format: current_user.date_format) %></td>
-  <td class="text-xs">
-    <a href="#" class="text-indigo-600 hover:text-indigo-900"><%= t('.more') %><span class="sr-only">, Lindsay Walton</span></a>
-    <span>|</span>
-    <a href="#" class="text-indigo-600 hover:text-indigo-900"><%= t('.revert') %><span class="sr-only">, Lindsay Walton</span></a>
+  <td>
+    <div class="text-xs inline-flex gap-2">
+      <button class="btn-link link " data-components-target='modalTrigger'
+            data-modal-target="manage-record-modal" data-url="<%= edit_record_path(record.id) %>">
+        <%= t('.edit') %>
+      </button>
+    
+      <span>|</span>
+
+      <button class="btn-link link" data-components-target='modalTrigger'
+            data-modal-target="manage-record-modal" data-url="<%= revert_record_path(record) %>">
+        <%= t('.revert') %>
+      </button>
+    </div>
   </td>
 </tr>

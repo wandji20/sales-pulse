@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Record, type: :model do
   let(:variant) { create(:variant, quantity: 20) }
   let(:user) { create(:user, role: :admin) }
+  let(:customer) { create(:user, role: :customer, supplier: user) }
   subject { create(:record) }
 
   it { should validate_presence_of(:unit_price) }
@@ -105,6 +106,46 @@ RSpec.describe Record, type: :model do
         expect(new_record.persisted?).to be_falsey
         expect(new_record.service_item.errors[:name]).to include(/too short/)
       end
+    end
+  end
+
+  describe "#update_record" do
+  let(:variant) { create(:variant, buying_price: 175, quantity: 20) }
+  let(:variant1) { create(:variant, quantity: 30) }
+  let(:customer1) { create(:user, role: :customer, supplier: user) }
+    let(:record) { Record.add_record({ category: 'retail', variant:, quantity: 6,
+                    status: 'paid', unit_price: 250, user:, customer_id: customer.id }) }
+
+    it "increases variant stock if quantity is reduced" do
+      expect(record.variant.quantity).to eq(14)
+      record.update_record({ quantity: 4, status: 'unpaid', category: 'supply' })
+
+      expect(record.quantity).to eq(4)
+      expect(record.variant.quantity).to eq(16)
+      expect(record.status).to eq('unpaid')
+      expect(record.category).to eq('supply')
+    end
+
+    it "decreases variant stock if quantity is increased" do
+      expect(record.variant.quantity).to eq(14)
+      record.update_record({ quantity: 9, status: 'unpaid', category: 'supply' })
+
+      expect(record.quantity).to eq(9)
+      expect(record.variant.quantity).to eq(11)
+      expect(record.status).to eq('unpaid')
+      expect(record.category).to eq('supply')
+    end
+
+    it 'only updates :status, :category, :unit_price, :quantity values' do
+      expect(record.variant.quantity).to eq(14)
+      record.update_record({ quantity: 9, status: 'unpaid', customer_id: customer1.id, variant_id: variant1.id })
+      expect(record.quantity).to eq(9)
+      expect(record.variant.quantity).to eq(11)
+      expect(record.status).to eq('unpaid')
+      expect(record.variant_id).to eq(variant.id)
+      expect(record.variant_id).to_not eq(variant1.id)
+      expect(record.customer_id).to eq(customer.id)
+      expect(record.customer_id).to_not eq(customer1.id)
     end
   end
 end

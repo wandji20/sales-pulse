@@ -38,7 +38,9 @@
     }
 
     .table-head th {
-      @apply px-3 py-3.5 text-left text-sm font-semibold text-gray-900 bg-gray-100;
+      @apply px-3 py-3.5 text-left text-sm font-semibold text-gray-900 bg-gray-100 truncate;
+
+      max-width: 200px;
     }
 
     .table-body {
@@ -46,7 +48,13 @@
     }
 
     .table-body td {
-      @apply whitespace-nowrap px-3 py-4 text-sm text-gray-500;
+      @apply whitespace-nowrap px-3 py-4 text-sm text-gray-500 truncate;
+
+      max-width: 200px;
+
+      .btn-link {
+        position: unset;
+      }
     }
   }
 }

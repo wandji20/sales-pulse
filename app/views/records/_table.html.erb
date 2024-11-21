@@ -4,9 +4,6 @@
       <% Record::HEADERS.each do |header| %>
         <th scope="col" class="<%= header_class(header) %>"><%= t(".#{header}") %></th>
       <% end %>
-      <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6 <%= header_class('action') %>">
-        <span class="sr-only"><%= t('.actions') %></span>
-      </th>
     </tr>
   </thead>
   <tbody class="table-body">
