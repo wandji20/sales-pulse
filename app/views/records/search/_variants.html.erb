@@ -1,0 +1,17 @@
+<% list_class = local_assigns[:list_class] || '' %>
+
+<ul class="combobox <%= list_class %>" id="variant-options" role="listbox"
+    data-show="<%= variants.exists? %>" data-combobox-target="options">
+  <% variants.each do |variant| %>
+    <li class="combobox-item <%= 'selected' if variant.id == selected %>"
+      id="<%= dom_id(variant, :option) %>" role="option" tabindex="-1"
+      data-action="click->combobox#selectOption" data-value="<%= variant.id %>">
+
+      <span class="block truncate label"><%= variant.name %></span>
+
+      <span class="combobox-check">
+        <%= render 'shared/svgs/check' %>
+      </span>
+    </li>
+  <% end %>
+</ul>

@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :product do
-    name { Faker::Appliance.unique.brand }
+    name { Faker::Lorem.unique.words(number: 2) }
     association :user
 
     trait :archived do

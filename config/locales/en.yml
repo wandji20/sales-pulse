@@ -28,6 +28,14 @@
 #       enabled: "ON"
 
 en:
+  date:
+    formats:
+      full: "%{date_format}"
+      full_date: "%{date_format}"
+  time:
+    formats:
+      full: "%{date_format} %H:%M"
+      time: "%H:%M"
   errors:
     messages:
       format: "is invalid"
@@ -175,7 +183,7 @@ en:
       delete: "Delete"
       edit: "Edit"
       quantity: "Quantity"
-      selling_price: "Selling price"
+      supply_price: "Supply price"
       price_value: "%{price} FCFA"
       save: "Save"
       manage_stock: 'Manage Stock'
@@ -219,9 +227,122 @@ en:
       notify_on_low_stock: "Notify me when stock is slow?"
       submit: "Save"
       cancel: "Cancel"
-      
-
-      
-    
-
-    
+  records:
+    item: "Item"
+    revert_success: "Successfully revert %{category} record for %{name}"
+    create_success: "Successfully added %{category} record for %{name}"
+    delete_confirm: "Are you sure you want to delete %{category} record for %{name}"
+    revert_confirm: "Are you sure you want to revert %{category} record for %{name}"
+    delete_fail_revert: "Cannot delete unreverted record"
+    errors:
+    errors:
+      exceeds_stock_quantity: "exceeds available stock for product item"
+    index:
+      name: "Sales record"
+      records: "Sales Records"
+      sale: "Sale"
+      service: "Service"
+      search: "Search records"
+      product: "Product"
+      no_match: "No records found for search query %{search}"
+    table:
+      item_name: 'Item / Service name'
+      quantity: "Quantity"
+      unit_price: "Unit price"
+      category: "Category"
+      status: "Status"
+      customer: "Customer"
+      created_on: "Created On"
+      actions: "Actions"
+    table_row:
+      edit: "Edit"
+      revert: "Revert"
+      delete: "Delete"
+      statuses:
+        paid: "Paid"
+        unpaid: "Unpaid"
+        revert: "Revert"
+      categories:
+        retail: "Retail"
+        supply: "Supply"
+        service: 'Service'
+        loss: "Loss"
+    new:
+      title: "Record new %{name}"
+      sale: "Sale"
+      service: "Service"
+    edit:
+      title: "Edit %{category} for %{name}"
+    edit_form:
+      submit: "Update"
+      cancel: "Cancel"
+      service_price:
+        label: "Price"
+        placeholder: "Enter price"
+      price:
+        label: "Unit price"
+        placeholder: "Enter unit price"
+      price:
+        label: "Price"
+        placeholder: "Enter price"
+      quantity:
+        label: "Quantity"
+        placeholder: "Enter quantity"
+      status:
+        label: "Status"
+        paid: "Paid"
+        unpaid: "Unpaid"
+      category:
+        label: "Category"
+        retail: "Retail"
+        supply: "Supply"
+        loss: "Loss"
+    form:
+      submit: "Save"
+      cancel: "Cancel"
+    sales_form:
+      variant:
+        label: "Product Item"
+        placeholder: "Search product items"
+      quantity:
+        label: "Quantity"
+        placeholder: "Enter quantity"
+      price:
+        label: "Unit price"
+        placeholder: "Enter unit price"
+      status:
+        label: "Status"
+        paid: "Paid"
+        unpaid: "Unpaid"
+      category:
+        label: "Category"
+        retail: "Retail"
+        supply: "Supply"
+        loss: "Loss"
+      customer:
+        label: "Customer"
+        placeholder: "Search customers"
+      add_customer: "Add new customer instead?"
+    new_customer_form:
+      full_name:
+        label: "Customer full name"
+        placeholder: "Enter customer full name"
+      telephone:
+        label: "Customer telephone"
+        placeholder: "Enter customer telephone"
+    service_form:
+      service_item:
+        label: "Service Item"
+        placeholder: "Search service items"
+      price:
+        label: "Price"
+        placeholder: "Enter price"
+      status:
+        label: "Status"
+        paid: "Paid"
+        unpaid: "Unpaid"
+      add_service_item: "Add service item instead?"
+    new_service_item_form:
+      name:
+        label: "Service item name"
+        placeholder: "Enter service item name"

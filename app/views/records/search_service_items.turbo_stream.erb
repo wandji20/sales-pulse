@@ -1,0 +1,4 @@
+<%= turbo_stream.replace "service-item-options" do %>
+  <%= render "records/search/service_items", service_items: @service_items,
+        selected: params[:search_service_item], list_class:  @service_items.count > 0 ? '' : 'hidden' %>
+<% end %>

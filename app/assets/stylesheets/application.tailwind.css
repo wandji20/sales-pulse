@@ -19,10 +19,42 @@
     }
   }
 
-  .form-checkbox {
+  .form-checkbox, .form-check-input{
     &:focus {
       outline: none;
       box-shadow: none;
+    }
+  }
+
+  .scrollable-table {
+    max-height: calc(100vh - 240px);
+  }
+
+  .table {
+    @apply min-w-full divide-y divide-gray-300;
+
+    .table-head {
+      @apply bg-gray-100;
+    }
+
+    .table-head th {
+      @apply px-3 py-3.5 text-left text-sm font-semibold text-gray-900 bg-gray-100 truncate;
+
+      max-width: 200px;
+    }
+
+    .table-body {
+      @apply divide-y divide-gray-200 bg-white;
+    }
+
+    .table-body td {
+      @apply whitespace-nowrap px-3 py-4 text-sm text-gray-500 truncate;
+
+      max-width: 200px;
+
+      .btn-link {
+        position: unset;
+      }
     }
   }
 }

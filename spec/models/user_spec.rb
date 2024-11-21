@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  subject { create(:user) }
+  subject { create(:user, role: :admin) }
 
   it { should validate_presence_of(:email_address) }
   it { should validate_uniqueness_of(:email_address).case_insensitive }
@@ -16,6 +16,8 @@ RSpec.describe User, type: :model do
 
   it { should have_one_attached(:avatar) }
   it { should have_many(:products) }
+  it { should belong_to(:supplier).optional.class_name("User") }
+  it { should have_many(:customers).class_name("User") }
 
   describe "validating format" do
     context 'email address' do

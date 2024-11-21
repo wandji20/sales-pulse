@@ -1,0 +1,24 @@
+
+<%= form_with model: record, builder: CustomFormBuilder,
+        id: dom_id(record, :edit), data: { controller: "form" } do |form| %>
+
+<% if record.service? %>
+  <%= form.number_field :unit_price, label: t('.service_price.label'), placeholder: t('.service_price.placeholder') %>
+  <%= form.collection_radio_buttons :status, form_statuses, :first, :last %>
+<% else %>
+  <%= form.number_field :quantity, label: t('.quantity.label'), placeholder: t('.quantity.placeholder') %>
+
+  <%= form.number_field :unit_price, label: t('.price.label'), placeholder: t('.price.placeholder') %>
+
+  <%= form.collection_radio_buttons :status, form_statuses, :first, :last %>
+
+  <%= form.collection_radio_buttons :category, form_categories, :first, :last %>
+<% end %>
+
+  <div class="flex justify-end items-center mt-8 mb-6 gap-2">
+    <%= form.submit t('.submit'), class: "btn btn-primary", disabled: true %>
+    <button type='button' class="btn btn-secondary" data-action="modal#closeModal">
+      <%= t('.cancel') %>
+    </button>
+  </div>
+<% end %>

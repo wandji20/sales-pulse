@@ -1,0 +1,7 @@
+<div>
+  <h3 class="text-xl text-center font-semi-bold tracking-tight text-gray-900 py-4 truncate">
+    <%= t('.title', category: @record.category, name: @record.name) %>
+  </h3>
+
+  <%= render 'records/edit_form', record: @record %>
+</div>

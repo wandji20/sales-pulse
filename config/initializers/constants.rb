@@ -14,4 +14,16 @@ class Constants
 
   # Stocks
   STOCK_OPERATIONS = [ "add", "remove", "set" ]
+
+  DEFAULT_DATE_FORMAT = "%d/%m/%Y".freeze
+  # SUPPORTED_DATE_FORMATS = [
+  #   # US formats
+  #   "%m/%d/%Y", "%m.%d.%Y", "%m. %d. %Y", "%m-%d-%Y", "%-m/%-d/%Y",
+  #   "%-m.%-d.%Y", "%-m. %-d. %Y", "%-m-%-d-%Y",
+  #   # European formats
+  #   "%d/%m/%Y", "%d.%m.%Y", "%d. %m. %Y", "%d-%b-%Y", "%Y-%m-%d",
+  #   "%d.%b.%Y", "%Y/%b/%d", "%d, %B, %Y", "%B, %d, %Y", "%-d/%-m/%Y",
+  #   "%-d.%-m.%Y", "%-d. %-m. %Y", "%d-%m-%Y", "%Y-%-m-%-d", "%-d-%b-%Y",
+  #   "%Y-%b-%-d", "%-d, %B, %Y", "%B, %-d, %Y"
+  # ].freeze
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_06_230250) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_15_234234) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -52,6 +52,32 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_06_230250) do
     t.index ["user_id"], name: "index_products_on_user_id"
   end
 
+  create_table "records", force: :cascade do |t|
+    t.integer "category", default: 0
+    t.float "unit_price", null: false
+    t.integer "quantity"
+    t.integer "variant_id"
+    t.integer "user_id", null: false
+    t.integer "status", default: 0
+    t.integer "service_item_id"
+    t.integer "customer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_records_on_customer_id"
+    t.index ["service_item_id"], name: "index_records_on_service_item_id"
+    t.index ["user_id"], name: "index_records_on_user_id"
+    t.index ["variant_id"], name: "index_records_on_variant_id"
+  end
+
+  create_table "service_items", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_service_items_on_user_id"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "ip_address"
@@ -62,22 +88,25 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_06_230250) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "email_address", null: false
+    t.string "email_address"
     t.string "password_digest", null: false
     t.string "full_name"
     t.string "telephone"
     t.integer "role", default: 0
     t.boolean "is_deleted", default: false
     t.text "settings", default: "{}"
+    t.integer "supplier_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
+    t.index ["supplier_id"], name: "index_users_on_supplier_id"
     t.index ["telephone"], name: "index_users_on_telephone", unique: true
   end
 
   create_table "variants", force: :cascade do |t|
     t.string "name"
-    t.float "price"
+    t.float "supply_price"
+    t.float "buying_price"
     t.integer "quantity", default: 0
     t.integer "product_id", null: false
     t.integer "previous_quantity"
@@ -90,5 +119,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_06_230250) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "products", "users"
+  add_foreign_key "records", "users"
+  add_foreign_key "service_items", "users"
   add_foreign_key "sessions", "users"
 end

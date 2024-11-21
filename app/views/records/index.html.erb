@@ -1,0 +1,52 @@
+
+<div class="mx-auto py-4 bg-white w-full">
+  <div class="container flex w-full items-center mx-auto">
+    <h1 class="hidden sm:block text-3xl font-semi-bold tracking-tight text-gray-900"><%= t('.records') %></h1>
+    <div class="flex gap-2 ml-auto">
+      <%= form_with(url: records_path, method: :get, class: 'relative', data: { turbo_frame: 'records-list', turbo_action: :advance, controller: 'inline-search' }) do %>
+        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+          <%= render 'shared/svgs/search' %>
+        </div>
+        <%= text_field_tag 'search', params[:search], placeholder: t('.search'), class: 'form-control pl-10 pr-3', id: 'search_records' %>
+      <% end %>
+
+      <div class='ml-3 flex gap-2'>
+        <button class="btn icon-btn btn-primary" data-components-target='modalTrigger'
+              data-modal-target="manage-record-modal" data-url="<%= new_record_path %>">
+          <%= render "shared/svgs/plus" %>
+          <span><%= t('.sale') %></span>
+        </button>
+        <button class="btn icon-btn btn-primary" data-components-target='modalTrigger'
+              data-modal-target="manage-record-modal" data-url="<%= new_record_path(category: :service) %>">
+          <%= render "shared/svgs/plus" %>
+          <span><%= t('.service') %></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<turbo-frame id="records-list">
+  <div class="scrollable-table container relative rounded border overflow-auto w-full">
+    <% if @records.any? %>
+      <%= render 'table', records: @records %>
+    <% else %>
+      <p class="flex h-40 justify-center items-center">
+        <%= t('.no_match', search: params[:search]) %>
+      </p>
+    <% end %>
+  </div>
+</turbo-frame>
+
+<div class="modal hidden" aria-labelledby="modal-title" role="dialog"
+  aria-modal="true" data-modal-lazy-load-content-value="<%= true %>" data-controller="modal" id="manage-record-modal">
+  <div class="modal-backdrop" data-modal-target="backdrop" aria-hidden="true"></div>
+
+  <div class='modal-dailog'>
+    <div class="modal-box">
+      <div class="modal-content" data-modal-target="content">
+      </div>
+    </div>
+  </div>
+</div>
+

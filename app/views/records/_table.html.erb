@@ -1,0 +1,14 @@
+<table class="table">
+  <thead class='table-head'>
+    <tr>
+      <% Record::HEADERS.each do |header| %>
+        <th scope="col" class="<%= header_class(header) %>"><%= t(".#{header}") %></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody class="table-body">
+    <% records.each do |record| %>
+      <%= render 'table_row', record: %>
+    <% end %>
+  </tbody>
+</table>
