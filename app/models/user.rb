@@ -17,6 +17,7 @@ class User < ApplicationRecord
   has_many :records, dependent: :destroy
   belongs_to :supplier, class_name: "User", optional: true
   has_many :customers, class_name: "User", foreign_key: :supplier_id
+  has_many :notifications
 
   # Validations
   validates :email_address, presence: true, uniqueness: true, if: -> { !customer? || email_address.present? }
