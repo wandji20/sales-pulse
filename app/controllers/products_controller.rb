@@ -24,7 +24,7 @@ class ProductsController < ApplicationController
     @product = current_user.products.build(product_params)
 
     if @product.save
-      flash[:success] = t("flash_create.success", name: @product.name)
+      flash[:success] = t("flash_create.success", name: @product.escape_value(:name))
       redirect_to edit_product_path(@product)
     else
       render :new, status: :unprocessable_entity
@@ -48,12 +48,12 @@ class ProductsController < ApplicationController
     end
 
     if @product.destroy
-      @type, @message = [ :success, t("flash_delete.success", name: @product.name) ]
+      @type, @message = [ :success, t("flash_delete.success", name: @product.escape_value(:name)) ]
       @deleted = true
     end
 
   rescue
-    @type, @message = [ :error, t("flash_delete.failure", name: @product.name) ]
+    @type, @message = [ :error, t("flash_delete.failure", name: @product.escape_value(:name)) ]
     render :destroy, status: :unprocessable_entity
   end
 

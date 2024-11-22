@@ -1,6 +1,6 @@
 <div>
   <h3 class="text-xl text-center font-semi-bold tracking-tight text-gray-900 py-4 truncate">
-  <%= t('.title', name: @variant.name) %>
+  <%= t('.title', name: @variant.escape_value(:name)) %>
   </h3>
 
   <%= render 'stocks/form', stock: @stock, product: @product, variant: @variant %>
