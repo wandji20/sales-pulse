@@ -31,17 +31,17 @@ class Record < ApplicationRecord
   def variant_name
     return if service?
 
-    attributes["variant_name"] || variant&.name
+    attributes["variant_name"] || variant&.escape_value(:name)
   end
 
   def item_name
     return unless service?
 
-    attributes["item_name"] || service_item&.name
+    attributes["item_name"] || service_item&.escape_value(:name)
   end
 
   def customer_name
-    attributes["customer"] || customer&.full_name
+    attributes["customer"] || customer&.escape_value(:full_name)
   end
 
   def update_record(attrs)

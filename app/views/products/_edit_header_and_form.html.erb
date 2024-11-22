@@ -1,5 +1,5 @@
 <h1 class="text-3xl font-semi-bold tracking-tight text-gray-900 py-4 truncate">
-  <%= t('.title', product: product.name) %>
+  <%= t('.title', product: product.escape_value(:name)) %>
 </h1>
 
 <%= form_with(model: product, builder: CustomFormBuilder, class: "mt-3 md:w-3/5 w-full", data: { controller: 'form' }) do |form| %>

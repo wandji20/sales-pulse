@@ -5,7 +5,7 @@ class VariantsController < ApplicationController
   def create
     @variant = @product.variants.build(variant_params)
     if @variant.save
-      @type, @message = [ :success, t("flash_delete.success", name: @variant.name) ]
+      @type, @message = [ :success, t("flash_delete.success", name: @variant.escape_value(:name)) ]
       render :create
     else
       @target = "new-product-#{@product.id}-variant"
@@ -30,7 +30,7 @@ class VariantsController < ApplicationController
 
   def update
     if @variant.update(variant_params)
-      @type, @message = [ :success, t("flash_update.success", name: @variant.name) ]
+      @type, @message = [ :success, t("flash_update.success", name: @variant.escape_value(:name)) ]
       render :update
     else
       @target = "edit-product-#{@product.id}-variant-#{@variant.id}"
@@ -45,12 +45,12 @@ class VariantsController < ApplicationController
     end
 
     if @variant.destroy
-      @type, @message = [ :success, t("flash_delete.success", name: @variant.name) ]
+      @type, @message = [ :success, t("flash_delete.success", name: @variant.escape_value(:name)) ]
       @deleted = true
     end
 
   rescue
-    @type, @message = [ :error, t("flash_delete.failure", name: @variant.name) ]
+    @type, @message = [ :error, t("flash_delete.failure", name: @variant.escape_value(:name)) ]
     render :destroy, status: :unprocessable_entity
   end
 

@@ -18,7 +18,7 @@ class RecordsController < ApplicationController
 
     if @record.persisted?
       name = @record.service? ? @record.service_item.name : @record.variant.name
-      flash[:success] = t("records.create_success", name:, category: @record.category)
+      flash[:success] = t("records.create_success", name:, category: @record..escape_value(:category))
       redirect_to root_path
     else
       if @record.service?
@@ -69,7 +69,7 @@ class RecordsController < ApplicationController
       @record.destroy!
       @deleted = true
       @type = :success
-      @message = t("flash_delete.success", name: @record.name)
+      @message = t("flash_delete.success", name: @record.escape_value(:name))
     end
   end
 

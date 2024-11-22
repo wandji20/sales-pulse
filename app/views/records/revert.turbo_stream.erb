@@ -1,7 +1,7 @@
 <turbo-stream action="update" target="flash-notifications">
   <template>
     <%= render "shared/flash_message", type: :success,
-                message: t('records.revert_success', name: @record.name, category: @record.category) %>
+                message: t('records.revert_success', name: @record.escape_value(:name), category: @record.escape_value(:category)) %>
   </template>
 </turbo-stream>
 
