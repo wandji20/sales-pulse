@@ -69,14 +69,15 @@ class Record < ApplicationRecord
 
     new_record = new(attrs)
     transaction do
-      new_record.set_variant_stock(:add)
       new_record.find_or_create_customer(customer_attrs)
       new_record.find_or_create_service_item(service_item_attrs)
 
       new_record.save!
+      new_record.set_variant_stock(:add)
       new_record.variant.save! if new_record.variant.present?
       new_record.customer.save! if new_record.customer.present?
       new_record.service_item.save! if new_record.service_item.present?
+      new_record.variant.create_notification if new_record.variant.present?
       new_record
     end
   rescue ActiveRecord::RecordInvalid
