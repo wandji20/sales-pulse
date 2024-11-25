@@ -17,10 +17,10 @@
       
       <% if record.revert? %>
         <%= button_to t('.delete'), record_path(record), method: :delete, form_class: 'btn-link link delete',
-              data: { "turbo-confirm": t("records.delete_confirm", name: record.variant_name || record.item_name, category: record.category)} %>
+              data: { "turbo-confirm": t("records.delete_confirm", name: record.variant_name || record.item_name, category: record.escape_value(:category))} %>
       <% else %>
         <%= button_to t('.revert'), revert_record_path(record), method: :put, form_class: 'btn-link link',
-              data: { "turbo-confirm": t("records.revert_confirm", name: record.variant_name || record.item_name, category: record.category)} %>
+              data: { "turbo-confirm": t("records.revert_confirm", name: record.variant_name || record.item_name, category: record.escape_value(:category))} %>
       <% end %>
     </div>
   </td>

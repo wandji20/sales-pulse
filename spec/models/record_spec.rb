@@ -107,12 +107,41 @@ RSpec.describe Record, type: :model do
         expect(new_record.service_item.errors[:name]).to include(/too short/)
       end
     end
+
+    context "when stock threshold is reached" do
+      let(:variant) { create(:variant, quantity: 100, stock_threshold: 20, buying_price: 1000) }
+
+      it "creates a low_stock notication" do
+        notification_count = Notification.count
+        Record.add_record({ quantity: 80, category: 'supply', unit_price: 1200, variant:, user: })
+        notification = variant.product.user.notifications.last
+        expect(Notification.count).to eq(notification_count + 1)
+        expect(notification.message_type).to eq('low_stock')
+        # No extra notification is sent
+        Record.add_record({ quantity: 10, category: 'supply', unit_price: 1200, variant:, user: })
+        expect(expect(Notification.count).to eq(notification_count + 1))
+        expect(variant.product.user.notifications.last.id).to eq(notification.id)
+      end
+
+
+      it "creates out of stock notication" do
+        notification_count = Notification.count
+        Record.add_record({ quantity: 80, category: 'supply', unit_price: 1200, variant:, user: })
+        notification = variant.product.user.notifications.last
+        expect(Notification.count).to eq(notification_count + 1)
+        expect(notification.message_type).to eq('low_stock')
+        # Now empty stock notification is sent
+        Record.add_record({ quantity: 20, category: 'supply', unit_price: 1200, variant:, user: })
+        expect(expect(Notification.count).to eq(notification_count + 2))
+        expect(variant.product.user.notifications.last.message_type).to eq('out_of_stock')
+      end
+    end
   end
 
   describe "#update_record" do
-  let(:variant) { create(:variant, buying_price: 175, quantity: 20) }
-  let(:variant1) { create(:variant, quantity: 30) }
-  let(:customer1) { create(:user, role: :customer, supplier: user) }
+    let(:variant) { create(:variant, buying_price: 175, quantity: 20) }
+    let(:variant1) { create(:variant, quantity: 30) }
+    let(:customer1) { create(:user, role: :customer, supplier: user) }
     let(:record) { Record.add_record({ category: 'retail', variant:, quantity: 6,
                     status: 'paid', unit_price: 250, user:, customer_id: customer.id }) }
 

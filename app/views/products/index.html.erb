@@ -27,7 +27,7 @@
       </ul>
     <% else %>
       <p class="flex h-40 justify-center items-center">
-        <%= t('.no_match', search: params[:search]) %>
+        <%= t('.no_match', search: escape_input(params[:search])) %>
       </p>
     <% end %>
   </div>

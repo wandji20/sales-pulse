@@ -50,6 +50,11 @@ en:
   flash_create:
     success: "Successfully created %{name}"
     failure: "Failed to create %{name}"
+  notifications:
+    ready: "ready"
+    low_stock_html: "%{variant} for %{product} is running out of stock (%{quantity})"
+    out_of_stock_html: "%{variant} for %{product} is out of stock"
+    end_of_day_html: "End of day report for %{date} is %{ready_link}"
   navbar:
     navbar:
       open_menu: "Open mobile menu"

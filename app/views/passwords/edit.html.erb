@@ -3,10 +3,10 @@
     <%= t('.change_password') %>
   </h1>
 
-  <%= form_with url: password_path(params[:token]), builder: CustomFormBuilder do |form| %>
+  <%= form_with model: @user, url: password_path(params[:token]), method: :put, builder: CustomFormBuilder do |form| %>
     <%= form.password_field :password, required: true, autofocus: true,  label: t('.password.label'), placeholder: t('.password.placeholder') %>
 
-    <%= form.password_field :password_confirmation, required: true,  label: t('.password_confirmation.label'), placeholder: t('.password_confirmation.placeholder') %>
+    <%= form.password_field :password_confirmation, required: true, label: t('.password_confirmation.label'), placeholder: t('.password_confirmation.placeholder') %>
 
     <%= form.submit t('.submit'), class: "mt-6 btn btn-primary" %>
 
