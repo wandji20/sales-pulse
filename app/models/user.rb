@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  attr_accessor :with_password
   # Serialize the settings column as JSON
   serialize :settings, coder: ActiveRecord::Coders::JSON
 
@@ -25,10 +26,10 @@ class User < ApplicationRecord
 
   validates :password, presence: true,
             length: { within: (Constants::MIN_PASSWORD_LENGTH..Constants::MAX_PASSWORD_LENGTH) },
-            on: :create
+            if: -> { validate_password }
   validates :password_confirmation, presence: true,
             length: { within: (Constants::MIN_PASSWORD_LENGTH..Constants::MAX_PASSWORD_LENGTH) },
-            on: :create
+            if: -> { validate_password }
 
   validates :telephone, presence: true, if: -> { customer? }
   validates :telephone, uniqueness: true, if: -> { telephone.present? || (customer? && !email_address.present?) }
@@ -47,6 +48,12 @@ class User < ApplicationRecord
   end
 
   private
+  
+  def validate_password
+    return false if self.with_password == '1'
+
+    with_password || true
+  end
 
   def settings_structure
     errors.add(:settings, :format) unless settings.is_a?(Hash)
