@@ -13,6 +13,17 @@
         }
       }
     }
+
+    &.flyout {
+      .dropdown-menu {
+        width: 350px;
+      }
+
+      .content {
+        overflow-y: auto;
+        max-height: calc(60vh);
+      }
+    }
   }
 
   .combobox {

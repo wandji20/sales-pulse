@@ -51,6 +51,9 @@ en:
     success: "Successfully created %{name}"
     failure: "Failed to create %{name}"
   notifications:
+    index:
+      title: "Notifications"
+      manage: "Manage"
     ready: "ready"
     low_stock_html: "%{variant} for %{product} is running out of stock (%{quantity})"
     out_of_stock_html: "%{variant} for %{product} is out of stock"

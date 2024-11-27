@@ -7,8 +7,6 @@
     </tr>
   </thead>
   <tbody class="table-body">
-    <% records.each do |record| %>
-      <%= render 'table_row', record: %>
-    <% end %>
+      <%= render partial: 'table_row', collection: records, as: :record %>
   </tbody>
 </table>

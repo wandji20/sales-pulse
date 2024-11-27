@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     put :preferences, on: :member
   end
 
+  resources :notifications, only: :index
+
   resources :products
   resources :products, only: [] do
     resources :variants, except: :index
