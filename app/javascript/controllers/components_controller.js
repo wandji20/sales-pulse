@@ -15,9 +15,6 @@ export default class extends Controller {
     // Attach event handler for opening modals
     document.addEventListener('click', this.#handleModalTrigger.bind(this))
 
-    // Attach event handler for toggling dropdowns
-    document.addEventListener('click', this.#handleDropdownToggle.bind(this))
-
     // Attach event handler for toggling sidebar
     this.sidebarToggleTargets.forEach((sidebarToggle) => {
       sidebarToggle.addEventListener('click', this.#toggleSidebar);
@@ -34,9 +31,6 @@ export default class extends Controller {
     // Remove event handler for opening modals
     document.removeEventListener('click', this.#handleModalTrigger.bind(this));
 
-    // Remove event handler for toggling dropdowns
-    document.removeEventListener('click', this.#handleDropdownToggle.bind(this))
-
     // Remove event handler for toggling sidebar
     this.sidebarToggleTargets.forEach((sidebarToggle) => {
       sidebarToggle.removeEventListener('click', this.#toggleSidebar);
@@ -48,13 +42,6 @@ export default class extends Controller {
 
     if (modalTrigger)
       this.#openModal.bind(this)(modalTrigger)
-  }
-
-  #handleDropdownToggle(event) {
-    const dropdownToggle = event.target.closest('.dropdown')
-
-    if(dropdownToggle)
-      dropdownToggle.querySelector('.dropdown-menu').classList.toggle('hidden')
   }
 
   #openModal(triggerElement) {
@@ -76,8 +63,6 @@ export default class extends Controller {
   #handleOpenedComponents(event) {
     this.#closeOffCanvas(event);
 
-    this.#closeDropdowns(event);
-
     this.#closeModals(event);
   }
 
@@ -89,14 +74,6 @@ export default class extends Controller {
     if (event.target.closest('#off-canvas-content')) return
 
     document.querySelector('#mobile-menu').classList.add('hidden');
-  }
-
-  #closeDropdowns(event) {
-    this.dropdownToggleTargets.forEach((dropdownToggle) => {
-      // close all dropdowns except targeted dropdown
-      if(!event.target.closest('.dropdown-toggle'))
-        dropdownToggle.closest('.dropdown').querySelector('.dropdown-menu').classList.add('hidden');
-    });
   }
 
   #closeModals(event) {

@@ -30,9 +30,9 @@
         </button>
 
         <!-- Profile dropdown -->
-        <div class="dropdown ml-0">
+        <div class="dropdown ml-0" data-controller="dropdown" data-dropdown-target="dropdown">
           <div>
-            <button type="button" class="icon-btn rounded-full dropdown-toggle" id="user-menu-button" aria-expanded="false" aria-haspopup="true" data-components-target="dropdownToggle">
+            <button type="button" class="icon-btn rounded-full" id="user-menu-button" aria-expanded="false" aria-haspopup="true" data-action="dropdown#toggle">
               <span class="absolute -inset-1.5"></span>
               <span class="sr-only"><%= t('.open_user_menu') %></span>
               <%= avatar_image %>
