@@ -7,16 +7,18 @@ class PasswordsController < ApplicationController
   def create
     if user = User.find_by(email_address: params[:email_address])
       PasswordsMailer.reset(user).deliver_later
+      redirect_to login_url, notice: t("passwords.instruction_sent")
+    else
+      redirect_to new_user_path, alert: t("passwords.incorrect_email")
     end
 
-    redirect_to login_url, notice: t("users.password.instructions_sent")
   end
 
   def edit; end
 
   def update
     if @user.update(password_params)
-      redirect_to login_url, notice: t("users.password.rest_successful")
+      redirect_to login_url, notice: t("passwords.reset_successful")
     else
       render :edit, status: :unprocessable_entity
     end
@@ -26,7 +28,7 @@ class PasswordsController < ApplicationController
     def set_user_by_token
       @user = User.find_by_password_reset_token!(params[:token])
     rescue ActiveSupport::MessageVerifier::InvalidSignature
-      redirect_to new_password_url, alert: t("users.password.invalid_token")
+      redirect_to new_password_url, alert: t("password.invalid_token")
     end
 
     def password_params

@@ -17,13 +17,13 @@
     </button>
   </div>
   
-  <%= form.text_field :full_name, required: true, autocomplete: 'full_name',
+  <%= form.text_field :full_name, required: false, autocomplete: 'full_name',
       autofocus: true, label: t('.name.label'), placeholder: t('.name.placeholder') %>
 
   <%= form.email_field :email_address, required: true, label: t('.email.label'),
       autocomplete: 'email', placeholder: t('.email.placeholder') %>
 
-  <%= form.text_field :telephone, required: true, label: t('.telephone.label'),
+  <%= form.text_field :telephone, required: false, label: t('.telephone.label'),
       autocomplete: 'telephone', placeholder: t('.telephone.placeholder') %>
 
   <%= form.submit t('.submit'), class: "btn btn-primary", disabled: true %>

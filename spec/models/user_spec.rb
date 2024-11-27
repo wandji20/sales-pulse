@@ -11,7 +11,6 @@ RSpec.describe User, type: :model do
   it { should validate_length_of(:password).is_at_most(Constants::MAX_PASSWORD_LENGTH).on(:create) }
   it { should validate_confirmation_of(:password) }
 
-  it { should validate_presence_of(:full_name).on(:update) }
   it { should validate_uniqueness_of(:telephone).case_insensitive }
 
   it { should have_one_attached(:avatar) }

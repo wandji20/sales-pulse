@@ -37,10 +37,7 @@ class User < ApplicationRecord
 
   validates :full_name, presence: true,
             length: { within: (Constants::MIN_NAME_LENGTH..Constants::MAX_NAME_LENGTH) },
-            if: -> { customer? }
-  validates :full_name, presence: true,
-            length: { within: (Constants::MIN_NAME_LENGTH..Constants::MAX_NAME_LENGTH) },
-            on: :update
+            if: -> { customer? || full_name.present? }
   validate :settings_structure
 
   def date_format

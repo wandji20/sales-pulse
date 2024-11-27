@@ -88,10 +88,6 @@ en:
     sessions:
       invalid_credentials: "Invalid email or password."
       rate_limit_exceeded: "Try again later."
-    password:
-      instruction_sent: "Password reset successfully sent."
-      reset_successful: "Password has been successfully reset."
-      invalid_token: "Password reset token is invalid or has expired."
     edit:
       my_account: "My Account"
       personal_details: "Personal Details"
@@ -129,6 +125,10 @@ en:
         label: "Password"
         placeholder: "Enter your password"
   passwords:
+    instruction_sent: "Password reset successfully sent."
+    reset_successful: "Password has been successfully reset."
+    invalid_token: "Password reset token is invalid or has expired."
+    incorrect_email: "Incorrect email address"
     new:
       forgot_password: "Forgot your password?"
       log_in: "Log in"

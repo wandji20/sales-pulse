@@ -7,6 +7,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @user.role = 'admin'
     if @user.save
       start_new_session_for(@user)
       redirect_to products_path
