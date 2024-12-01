@@ -11,12 +11,12 @@
       <% end %>
 
       <div class='ml-3 flex gap-2'>
-        <button class="btn icon-btn btn-primary" data-components-target='modalTrigger'
+        <button class="btn icon-btn btn-primary" data-interactions-target='modalTrigger'
               data-modal-target="manage-record-modal" data-url="<%= new_record_path %>">
           <%= render "shared/svgs/plus" %>
           <span><%= t('.sale') %></span>
         </button>
-        <button class="btn icon-btn btn-primary" data-components-target='modalTrigger'
+        <button class="btn icon-btn btn-primary" data-interactions-target='modalTrigger'
               data-modal-target="manage-record-modal" data-url="<%= new_record_path(category: :service) %>">
           <%= render "shared/svgs/plus" %>
           <span><%= t('.service') %></span>
@@ -43,7 +43,7 @@
   </div>
 </turbo-frame>
 
-<div class="modal hidden" aria-labelledby="modal-title" role="dialog"
+<div class="modal invisible" aria-labelledby="modal-title" role="dialog"
   aria-modal="true" data-modal-lazy-load-content-value="<%= true %>" data-controller="modal" id="manage-record-modal">
   <div class="modal-backdrop" data-modal-target="backdrop" aria-hidden="true"></div>
 

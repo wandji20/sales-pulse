@@ -22,7 +22,7 @@ module Authentication
     end
 
     def current_user
-      @current_user ||= Current.session&.user
+      @current_user ||= resume_session&.user
     end
 
     def resume_session

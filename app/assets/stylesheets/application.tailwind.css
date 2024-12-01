@@ -93,5 +93,38 @@
       @apply pb-3;
     }
   }
+
+  #mobile-menu{
+    .nav-menu-link{
+
+      @apply block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800;
+
+      &.active {
+        @apply !border-indigo-500 bg-indigo-50 text-indigo-700;
+      }
+    }
+  }
+
+  #mobile-menu {
+    &.hide {
+      .backdrop {
+        @apply transition-opacity ease-linear duration-300 opacity-0;
+      }
+
+      .off-canvas-content {
+        @apply transition ease-in-out duration-300 transform -translate-x-full;
+      }
+    }
+
+    &.show {
+      .backdrop {
+        @apply transition-opacity ease-linear duration-300 opacity-100;
+      }
+
+      .off-canvas-content {
+        @apply transition ease-in-out duration-300 transform translate-x-0;
+      }
+    }
+  }
 }
 

@@ -16,7 +16,9 @@ export default class extends Controller {
   }
 
   async #openModal(event) {
-    this.element.classList.remove('hidden');
+    this.element.classList.remove('invisible');
+    this.element.classList.remove('hide');
+    this.element.classList.add('show');
     document.querySelector('body').classList.add('overflow-y-hidden');
 
     if (this.lazyLoadContentValue) {
@@ -30,7 +32,13 @@ export default class extends Controller {
   }
 
   closeModal() {
-    this.element.classList.add('hidden');
+    this.element.classList.remove('show');
+    this.element.classList.add('hide');
+    //  delay to finish animation
+    setTimeout(() => {
+      this.element.classList.add('invisible');
+    }, 200);
+
     this.contentTarget.innerHTML = '';
     document.querySelector('body').classList.remove('overflow-y-hidden');
   }

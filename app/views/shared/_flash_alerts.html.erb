@@ -1,7 +1,9 @@
-<div id="flash-notifications" class="container fixed top-0 z-20 mt-2 mx-auto">
-  <% flash.each do |type, message| %>
-    <% next unless displayable_flash_type?(type) %>
+<div class="fixed top-0 inset-x-0 z-20 mt-2">
+  <div class="mx-auto px-2 container" id="flash-notifications">
+    <% flash.each do |type, message| %>
+      <% next unless displayable_flash_type?(type) %>
 
-   <%= render 'shared/flash_message', type: type, message: message %>
-  <% end %>
+      <%= render 'shared/flash_message', type: type, message: message %>
+    <% end %>
+  </div>
 </div>
