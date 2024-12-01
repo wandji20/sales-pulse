@@ -144,6 +144,7 @@ en:
     reset_successful: "Password has been successfully reset."
     invalid_token: "Password reset token is invalid or has expired."
     incorrect_email: "Email not found! Contact your admin to get an invite"
+    invitation_sent: "Please confirm your email, check email for confirmation link"
     new:
       forgot_password: "Forgot your password?"
       log_in: "Log in"

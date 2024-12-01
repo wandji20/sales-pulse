@@ -25,10 +25,10 @@ class User < ApplicationRecord
 
   validates :password, presence: true,
             length: { within: (Constants::MIN_PASSWORD_LENGTH..Constants::MAX_PASSWORD_LENGTH) },
-            on: :update, if: -> { admin? }
+            on: :update, if: -> { admin? && password.present? }
   validates :password_confirmation, presence: true,
             length: { within: (Constants::MIN_PASSWORD_LENGTH..Constants::MAX_PASSWORD_LENGTH) },
-            on: :update, if: -> { admin? }
+            on: :update, if: -> { admin? && password.present? }
 
   validates :telephone, presence: true, if: -> { customer? }
   validates :telephone, uniqueness: true, if: -> { telephone.present? || (customer? && !email_address.present?) }
@@ -44,14 +44,20 @@ class User < ApplicationRecord
   end
 
   def invite_user(email_address)
-    password = SecureRandom.hex(8)
-    new_user = User.new(
-      email_address:,
-      role: "admin",
-      invited_by_id: self.id,
-      invited_at: Time.current,
-      password:, password_confirmation: password
-    )
+    new_user = if user = User.find_by(email_address:)
+                  user.invited_at = Time.current
+                  user.invited_by_id = self.id
+                  user
+                else
+                  password = SecureRandom.hex(8)
+                  User.new(
+                    email_address:,
+                    role: "admin",
+                    invited_by_id: self.id,
+                    invited_at: Time.current,
+                    password:, password_confirmation: password
+                  )
+                end
 
     User.transaction do
       new_user.save!
@@ -64,7 +70,9 @@ class User < ApplicationRecord
     new_user
   end
 
-  generates_token_for :invitation, expires_in: 1.week
+  generates_token_for :invitation, expires_in: 1.week do
+    invited_at
+  end
 
   private
 
