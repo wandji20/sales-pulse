@@ -1,5 +1,4 @@
 class User < ApplicationRecord
-  attr_accessor :with_password
   # Serialize the settings column as JSON
   serialize :settings, coder: ActiveRecord::Coders::JSON
 
@@ -26,10 +25,10 @@ class User < ApplicationRecord
 
   validates :password, presence: true,
             length: { within: (Constants::MIN_PASSWORD_LENGTH..Constants::MAX_PASSWORD_LENGTH) },
-            if: -> { validate_password }
+            on: :update, if: -> { admin? }
   validates :password_confirmation, presence: true,
             length: { within: (Constants::MIN_PASSWORD_LENGTH..Constants::MAX_PASSWORD_LENGTH) },
-            if: -> { validate_password }
+            on: :update, if: -> { admin? }
 
   validates :telephone, presence: true, if: -> { customer? }
   validates :telephone, uniqueness: true, if: -> { telephone.present? || (customer? && !email_address.present?) }
@@ -44,13 +43,30 @@ class User < ApplicationRecord
     settings.dig(:preferences, :date_format) || Constants::DEFAULT_DATE_FORMAT
   end
 
-  private
-  
-  def validate_password
-    return false if self.with_password == '1'
+  def invite_user(email_address)
+    password = SecureRandom.hex(8)
+    new_user = User.new(
+      email_address:,
+      role: "admin",
+      invited_by_id: self.id,
+      invited_at: Time.current,
+      password:, password_confirmation: password
+    )
 
-    with_password || true
+    User.transaction do
+      new_user.save!
+      token = new_user.generate_token_for(:invitation)
+      UserMailer.invite(new_user, token).deliver_later
+      new_user
+    end
+
+  rescue ActiveRecord::RecordInvalid
+    new_user
   end
+
+  generates_token_for :invitation, expires_in: 1.week
+
+  private
 
   def settings_structure
     errors.add(:settings, :format) unless settings.is_a?(Hash)

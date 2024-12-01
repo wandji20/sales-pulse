@@ -29,13 +29,8 @@ class UsersController < ApplicationController
 
   private
 
-  def require_admin
-    head :unauthorized unless current_user.admin?
-  end
-
   def user_params
     params.require(:user).permit(
-      :full_name, :email_address, :password, :password_confirmation, :avatar,
-      :with_password)
+      :full_name, :email_address, :password, :password_confirmation, :avatar)
   end
 end

@@ -73,21 +73,34 @@ en:
     signed_in_links:
       log_out: "Log out"
       account: "Account"
-  users:
+  user_mailer:
+    subject: "Invitation to join Sales Pulse"
+  password_mailer:
+    subject: "Reset your password"
+  user_invitations:
+    sent: "An invitation email has been sent to %{email}."
+    invalid_token: "Invitation token is invalid or has expired."
+    confirmed: "You invitation was success accepted"
     new:
-      sign_up: "Sign Up"
-      log_in: "Log in"
-      submit: "Create account"
-      already_have_account: "Already have an account?"
+      title: "Invite user"
+    new_form:
       email:
         label: "Email"
-        placeholder: "Enter your email address"
+        placeholder: "Enter user email address"
+      submit: "Invite"
+    edit:
+      title: "Accept invitation"
+    update_form:
+      email:
+        label: "Email"
       password:
         label: "Password"
         placeholder: "Enter your password"
       password_confirmation:
         label: "Password confirmation"
         placeholder: "Enter your password confirmation"
+      submit: "Save"
+  users:
     sessions:
       invalid_credentials: "Invalid email or password."
       rate_limit_exceeded: "Try again later."

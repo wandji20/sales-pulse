@@ -1,0 +1,6 @@
+<%= form_with model: @user, url: user_invitations_path, builder: CustomFormBuilder, id: 'new-user-form' do |form| %>
+  <%= form.email_field :email_address, required: true, autofocus: true,  label: t('.email.label'),
+      autocomplete: "email_address", placeholder: t('.email.placeholder') %>
+
+  <%= form.submit t('.submit'), class: "mt-6 btn btn-primary" %>
+<% end %>

@@ -1,7 +1,14 @@
 <div class="w-full pt-6">
-  <h1 class="text-3xl font-semi-bold tracking-tight text-gray-900 mb-10">
-    <%= t('.my_account') %>
-  </h1>
+  <div class="flex items-center justify-between mb-10">
+    <h1 class="text-3xl font-semi-bold tracking-tight text-gray-900">
+      <%= t('.my_account') %>
+    </h1>
+
+    <button class="btn btn-primary" data-interactions-target='modalTrigger'
+            data-modal-target="new-admin-modal" data-url="<%= new_user_invitation_path %>">
+        <span><%= t('.invite_user') %></span>
+      </button>
+  </div>
 
   <section class='pb-6'>
     <h1 class="text-2xl font-semi-bold tracking-tight text-gray-900 mb-10">
@@ -17,4 +24,17 @@
     <%= render 'users/preferences' %>
   </section>
 </div>
+
+<div class="modal invisible" aria-labelledby="modal-title" role="dialog"
+  aria-modal="true" data-modal-lazy-load-content-value="<%= true %>" data-controller="modal" id="new-admin-modal">
+  <div class="modal-backdrop" data-modal-target="backdrop" aria-hidden="true"></div>
+
+  <div class='modal-dailog'>
+    <div class="modal-box">
+      <div class="modal-content" data-modal-target="content">
+      </div>
+    </div>
+  </div>
+</div>
+
 

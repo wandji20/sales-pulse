@@ -6,9 +6,9 @@ RSpec.describe User, type: :model do
   it { should validate_presence_of(:email_address) }
   it { should validate_uniqueness_of(:email_address).case_insensitive }
 
-  it { should validate_presence_of(:password).on(:create) }
-  it { should validate_length_of(:password).is_at_least(Constants::MIN_PASSWORD_LENGTH).on(:create) }
-  it { should validate_length_of(:password).is_at_most(Constants::MAX_PASSWORD_LENGTH).on(:create) }
+  it { should validate_presence_of(:password).on(:update) }
+  it { should validate_length_of(:password).is_at_least(Constants::MIN_PASSWORD_LENGTH).on(:update) }
+  it { should validate_length_of(:password).is_at_most(Constants::MAX_PASSWORD_LENGTH).on(:update) }
   it { should validate_confirmation_of(:password) }
 
   it { should validate_uniqueness_of(:telephone).case_insensitive }
@@ -64,5 +64,11 @@ RSpec.describe User, type: :model do
         end
       end
     end
+  end
+
+  let(:user) { create(:user, role: 'admin') }
+  it "invites new user" do
+    new_user = user.invite_user('one@email.com')
+    expect(new_user.persisted?).to be_truthy
   end
 end

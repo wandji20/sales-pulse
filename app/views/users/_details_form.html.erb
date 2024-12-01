@@ -1,6 +1,5 @@
 <%= form_with(model: current_user, builder: CustomFormBuilder, class: "mt-3 md:w-3/5 w-full",
       id: dom_id(current_user, :personal_details), data: { controller: 'form' }) do |form| %>
-    <%= form.hidden_field :with_password, value: '1' %>
   <div class='flex gap-4 mb-8' data-controller='file-upload'>
     <div>
       <%= form.file_field :avatar, class: 'hidden', data: { 'file-upload-target': 'fileInput', action: "file-upload#setFilename"} %>

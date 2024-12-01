@@ -1,0 +1,4 @@
+<p>
+  You can accept your invitation within the next one week on
+  <%= link_to "confirm invitation", edit_user_invitation_url(id: @user.id, token: @token) %>.
+</p>
