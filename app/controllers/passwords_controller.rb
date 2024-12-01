@@ -9,9 +9,8 @@ class PasswordsController < ApplicationController
       PasswordsMailer.reset(user).deliver_later
       redirect_to login_url, notice: t("passwords.instruction_sent")
     else
-      redirect_to new_user_path, alert: t("passwords.incorrect_email")
+      redirect_to root_path, alert: t("passwords.incorrect_email")
     end
-
   end
 
   def edit; end

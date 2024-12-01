@@ -119,7 +119,6 @@ en:
       log_in: "Log in"
       submit: "Log in"
       forgot_password: "Forgot password?"
-      do_not_have_account: "Don't have an account?"
       sign_up: "Sign up"
       email:
         label: "Email"
@@ -131,13 +130,12 @@ en:
     instruction_sent: "Password reset successfully sent."
     reset_successful: "Password has been successfully reset."
     invalid_token: "Password reset token is invalid or has expired."
-    incorrect_email: "Incorrect email address"
+    incorrect_email: "Email not found! Contact your admin to get an invite"
     new:
       forgot_password: "Forgot your password?"
       log_in: "Log in"
       sign_up: "Sign up"
       submit: "Send me reset password instructions"
-      do_not_have_account: "Don't have an account?"
       email:
         label: "Email"
         placeholder: "Enter your email address"
@@ -146,7 +144,6 @@ en:
       log_in: "Log in"
       sign_up: "Sign up"
       submit: "Change my password"
-      do_not_have_account: "Don't have an account?"
       password:
         label: "Password"
         placeholder: "Enter your password"

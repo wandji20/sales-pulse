@@ -32,7 +32,6 @@
               <%= button_to t('.sign_out'), logout_path, method: :delete, class: 'nav-menu-link' %>
             <% else %>
               <%= link_to t('.sign_in'), login_path, class: "nav-menu-link #{active_class('new', 'sessions')}" %>
-              <%= link_to t('.sign_up'), new_user_path, class: "nav-menu-link #{active_class('new', 'users')}" %>
             <% end %>
   
           </div>

@@ -1,23 +1,8 @@
 class UsersController < ApplicationController
-  allow_unauthenticated_access only: %i[ new create ]
-  before_action :require_admin, only: %i[index destroy preferences]
+  before_action :require_admin
 
   def index
-  end
-
-  def create
-    @user = User.new(user_params)
-    @user.role = 'admin'
-    if @user.save
-      start_new_session_for(@user)
-      redirect_to products_path
-    else
-      render :new, status: :unprocessable_entity
-    end
-  end
-
-  def new
-    @user = User.new
+    @pagy, @records = pagy(current_user.customers)
   end
 
   def edit

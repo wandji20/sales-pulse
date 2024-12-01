@@ -4,9 +4,11 @@ Rails.application.routes.draw do
   delete "logout", to: "sessions#destroy"
   get "account", to: "users#edit"
 
-  resources :users, except: :edit do
+  resources :users, except: %i[new create update] do
     put :preferences, on: :member
   end
+
+  resources :user_invitations, only: %i[new create edit update]
 
   resources :notifications, only: :index
 
