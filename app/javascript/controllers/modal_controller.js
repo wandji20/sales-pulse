@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ['backdrop', 'content']
+  static targets = ['backdrop', 'content', 'loader']
   static values = { lazyLoadContent: { type: Boolean, default: false }}
 
   connect() {
@@ -25,6 +25,9 @@ export default class extends Controller {
       const url = event.detail.triggerElement?.dataset?.url
       if (!url) return;
 
+      // // append loader
+      // const loader = this.loaderTarget.content.cloneNode(true);
+      // this.contentTarget.appendChild(loader)
       const response = await fetch(url, { headers: { "Accept": "application/json" } });
       const data = await response.json();
       this.contentTarget.innerHTML = data.html;

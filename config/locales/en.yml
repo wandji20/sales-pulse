@@ -216,9 +216,12 @@ en:
       name:
         label: "Name"
         placeholder: "Enter variant name"
-      price:
-        label: "Selling price"
-        placeholder: "Enter selling price"
+      buying_price:
+        label: "Buying price"
+        placeholder: "Enter buying price"
+      supply_price:
+        label: "Supply price"
+        placeholder: "Enter supply price"
   stocks:
     errors:
       inclusion: "must be one of %{options}"
