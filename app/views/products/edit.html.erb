@@ -8,8 +8,8 @@
       <%= t('.variants', count: 2) %>
     </h2>
     <div class="flex gap-2 ml-auto">
-      <button class="btn icon-btn btn-primary" data-interactions-target='modalTrigger'
-            data-modal-target="variants-modal" data-url="<%= new_product_variant_path(@product) %>">
+      <button class="btn icon-btn btn-primary" data-controller="modal-trigger" data-action="modal-trigger#fireModalEvent"
+            data-target="#variants-modal" data-url="<%= new_product_variant_path(@product) %>">
         <%= render "shared/svgs/plus" %>
         <span><%= t('.variants', count: 1) %></span>
       </button>
@@ -22,14 +22,4 @@
   </div>
 </section>
 
-<div class="modal invisible" aria-labelledby="modal-title" role="dialog"
-  aria-modal="true" data-modal-lazy-load-content-value="<%= true %>" data-controller="modal" id="variants-modal">
-  <div class="modal-backdrop" data-modal-target="backdrop" aria-hidden="true"></div>
-
-  <div class='modal-dailog'>
-    <div class="modal-box">
-      <div class="modal-content" data-modal-target="content">
-      </div>
-    </div>
-  </div>
-</div>
+<%= render "shared/modal", id: "variants-modal" %>

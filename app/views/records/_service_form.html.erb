@@ -4,8 +4,9 @@
   <div class="mb-5 relative">
     <%= form.hidden_field :service_item_id, value: record.service_item_id || params.dig(:record, :service_item_id),
            data: { "combobox-target": "hiddenInput" } %>
-    <input id="service_item" type="text" name="search_service_item" class="form-control <%= "#{'is-invalid' if record.errors[:service_item_id].present?}" %>"
-      role="combobox" value="<%= record.service_item_id %>"
+    <input id="service_item" type="text" name="search_service_item"
+      class="form-control <%= "#{'is-invalid' if record.errors[:service_item_id].present?}" %>"
+      role="combobox" value="<%= record.service_item_id %>" autofocus="true"
       aria-controls="service_item-options" aria-expanded="false" placeholder="<%= t('.service_item.placeholder') %>"
       data-combobox-target="input" data-action="combobox#search keydown.esc->combobox#closeList">
 

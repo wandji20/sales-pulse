@@ -10,8 +10,8 @@
         <%= text_field_tag 'search', params[:search], placeholder: t('.search'), class: 'form-control pl-10 pr-3', id: 'search_products' %>
       <% end %>
 
-      <button class="btn icon-btn btn-primary" data-interactions-target='modalTrigger'
-            data-modal-target="new-product-modal" data-url="<%= new_product_path %>">
+      <button class="btn icon-btn btn-primary" data-controller="modal-trigger" data-action="modal-trigger#fireModalEvent"
+            data-target="#new-product-modal" data-url="<%= new_product_path %>">
         <%= render "shared/svgs/plus" %>
         <span><%= t('.product') %></span>
       </button>
@@ -33,14 +33,4 @@
   </div>
 </turbo-frame>
 
-<div class="modal invisible" aria-labelledby="modal-title" role="dialog"
-  aria-modal="true" data-modal-lazy-load-content-value="<%= true %>" data-controller="modal" id="new-product-modal">
-  <div class="modal-backdrop" data-modal-target="backdrop" aria-hidden="true"></div>
-
-  <div class='modal-dailog'>
-    <div class="modal-box">
-      <div class="modal-content" data-modal-target="content">
-      </div>
-    </div>
-  </div>
-</div>
+<%= render "shared/modal", id: "new-product-modal" %>

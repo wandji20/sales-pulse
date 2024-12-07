@@ -8,8 +8,8 @@
   <td><%= l(record.created_at, format: :full, date_format: current_user.date_format) %></td>
   <td>
     <div class="text-xs inline-flex gap-2">
-      <button class="btn-link link" data-interactions-target='modalTrigger' disabled: <%= record.revert? %>
-            data-modal-target="manage-record-modal" data-url="<%= edit_record_path(record.id) %>">
+      <button class="btn-link link" data-controller="modal-trigger" data-action="modal-trigger#fireModalEvent"
+              disabled: <%= record.revert? %> data-target="#manage-record-modal" data-url="<%= edit_record_path(record.id) %>">
         <%= t('.edit') %>
       </button>
     

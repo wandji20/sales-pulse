@@ -11,13 +11,13 @@
       <% end %>
 
       <div class='ml-3 flex gap-2'>
-        <button class="btn icon-btn btn-primary" data-interactions-target='modalTrigger'
-              data-modal-target="manage-record-modal" data-url="<%= new_record_path %>">
+        <button class="btn icon-btn btn-primary" data-controller="modal-trigger" data-action="modal-trigger#fireModalEvent"
+              data-target="#manage-record-modal" data-url="<%= new_record_path %>">
           <%= render "shared/svgs/plus" %>
           <span><%= t('.sale') %></span>
         </button>
-        <button class="btn icon-btn btn-primary" data-interactions-target='modalTrigger'
-              data-modal-target="manage-record-modal" data-url="<%= new_record_path(category: :service) %>">
+        <button class="btn icon-btn btn-primary" data-controller="modal-trigger" data-action="modal-trigger#fireModalEvent"
+              data-target="#manage-record-modal" data-url="<%= new_record_path(category: :service) %>">
           <%= render "shared/svgs/plus" %>
           <span><%= t('.service') %></span>
         </button>
@@ -43,15 +43,4 @@
   </div>
 </turbo-frame>
 
-<div class="modal invisible" aria-labelledby="modal-title" role="dialog"
-  aria-modal="true" data-modal-lazy-load-content-value="<%= true %>" data-controller="modal" id="manage-record-modal">
-  <div class="modal-backdrop" data-modal-target="backdrop" aria-hidden="true"></div>
-
-  <div class='modal-dailog'>
-    <div class="modal-box">
-      <div class="modal-content" data-modal-target="content">
-      </div>
-    </div>
-  </div>
-</div>
-
+<%= render "shared/modal", id: "manage-record-modal" %>
