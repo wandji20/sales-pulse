@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   def update
     if current_user.update(user_params)
       flash[:success] = t("flash_update.success", name: t("users.edit.my_account").downcase)
-      redirect_to account_path(current_user)
+      redirect_to account_path
     else
       render :update, status: :unprocessable_entity
     end
