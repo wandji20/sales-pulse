@@ -10,9 +10,9 @@ module Notifications
       case message_type.to_sym
       when :low_stock
         I18n.t("notifications.#{message_type}_html",
-              variant: variant_link, product: product_name, quantity: subjectable.quantity)
+              variant: variant_link, product: product_name, quantity: subjectable.quantity).html_safe
       when :out_of_stock
-        I18n.t("notifications.#{message_type}_html", product: product_name, variant: variant_link)
+        I18n.t("notifications.#{message_type}_html", product: product_name, variant: variant_link).html_safe
       else
         raise "Unknown message_type"
       end

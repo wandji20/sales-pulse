@@ -25,7 +25,7 @@
       <%= render 'table', customers: @records, pagy: @pagy %>
     <% else %>
       <p class="flex h-40 justify-center items-center">
-        <%= t('.no_match', search: escape_input(params[:search])) %>
+        <%= t('.no_match', search: sanitize(params[:search])) %>
       </p>
     <% end %>
   </div>
