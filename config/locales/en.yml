@@ -78,16 +78,18 @@ en:
   password_mailer:
     subject: "Reset your password"
   user_invitations:
+    new:
+      title: "Invite new user"
     sent: "An invitation email has been sent to %{email}."
     invalid_token: "Invitation token is invalid or has expired."
     confirmed: "You invitation was success accepted"
-    new:
-      title: "Invite user"
     new_form:
       email:
         label: "Email"
         placeholder: "Enter user email address"
       submit: "Invite"
+    new:
+      title: "Invite user"
     edit:
       title: "Accept invitation"
     update_form:
@@ -101,6 +103,20 @@ en:
         placeholder: "Enter your password confirmation"
       submit: "Save"
   users:
+    delete_confirm: "are you sure you want to delete %{customer}"
+    index:
+      customers: "Customers"
+      search: "Search"
+      customer: "Customer"
+    table:
+      full_name: "Full name"
+      telephone: "Telephone"
+      email: "Email"
+      created_on: "Created On"
+      actions: "Actions"
+    table_row:
+      edit: "Edit"
+      delete: "Delete"
     sessions:
       invalid_credentials: "Invalid email or password."
       rate_limit_exceeded: "Try again later."

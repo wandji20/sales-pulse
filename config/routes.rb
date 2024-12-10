@@ -3,9 +3,10 @@ Rails.application.routes.draw do
   post "login", to: "sessions#create"
   delete "logout", to: "sessions#destroy"
   get "account", to: "users#edit"
+  put "preferences", to: "users#preferences"
 
-  resources :users, except: %i[new create update] do
-    put :preferences, on: :member
+  resources :users, except: %i[new create] do
+    get :manage_customer, on: :member
   end
 
   resources :user_invitations, only: %i[new create edit update]

@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  # Constants
+  HEADERS = [ "full_name", "email", "telephone", "created_on", "actions" ]
+  
   # Serialize the settings column as JSON
   serialize :settings, coder: ActiveRecord::Coders::JSON
 

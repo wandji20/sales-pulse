@@ -1,0 +1,19 @@
+<tr id="<%= dom_id(customer, :customer) %>">
+  <td><%= customer.full_name %></td>
+  <td><%= customer.email_address %></td>
+  <td><%= customer.telephone %></td>
+  <td><%= l(customer.created_at, format: :full, date_format: current_user.date_format) %></td>
+  <td>
+    <div class="text-xs inline-flex gap-2">
+      <button class="btn-link link" data-controller="modal-trigger" data-action="modal-trigger#fireModalEvent"
+              data-target="#manage-customer-modal" data-url="<%= manage_customer_user_path(customer) %>">
+        <%= t('.edit') %>
+      </button>
+    
+      <span>|</span>
+      
+      <%= button_to t('.delete'), manage_customer_user_path(customer), method: :delete, form_class: 'btn-link link delete',
+            data: { "turbo-confirm": t("users.delete_confirm", customer: customer.full_name)} %>
+    </div>
+  </td>
+</tr>
