@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   # Constants
   HEADERS = [ "full_name", "email", "telephone", "created_on", "actions" ].freeze
-  
+
   # Serialize the settings column as JSON
   serialize :settings, coder: ActiveRecord::Coders::JSON
 
@@ -50,7 +50,7 @@ class User < ApplicationRecord
                   user.invited_at = Time.current
                   user.invited_by_id = self.id
                   user
-                else
+    else
                   password = SecureRandom.hex(8)
                   User.new(
                     email_address:,
@@ -59,7 +59,7 @@ class User < ApplicationRecord
                     invited_at: Time.current,
                     password:, password_confirmation: password
                   )
-                end
+    end
 
     User.transaction do
       new_user.save!
