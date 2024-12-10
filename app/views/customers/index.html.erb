@@ -3,7 +3,7 @@
   <div class="container flex w-full items-center mx-auto">
     <h1 class="hidden sm:block text-3xl font-semi-bold tracking-tight text-gray-900"><%= t('.customers') %></h1>
     <div class="flex gap-2 ml-auto">
-      <%= form_with(url: users_path, method: :get, class: 'relative', data: { turbo_frame: 'customers-list', turbo_action: :advance, controller: 'inline-search' }) do %>
+      <%= form_with(url: customers_path, method: :get, class: 'relative', data: { turbo_frame: 'customers-list', turbo_action: :advance, controller: 'inline-search' }) do %>
         <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
           <%= render 'shared/svgs/search' %>
         </div>
@@ -11,7 +11,7 @@
       <% end %>
 
       <button class="btn icon-btn btn-primary" data-controller="modal-trigger" data-action="modal-trigger#fireModalEvent"
-            data-target="#customer-modal" data-url="<%= 'new_customer_path' %>">
+            data-target="#customer-modal" data-url="<%= new_customer_path %>">
         <%= render "shared/svgs/plus" %>
         <span><%= t('.customer') %></span>
       </button>

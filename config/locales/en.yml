@@ -50,6 +50,36 @@ en:
   flash_create:
     success: "Successfully created %{name}"
     failure: "Failed to create %{name}"
+  customers:
+    delete_confirm: "are you sure you want to delete %{customer}"
+    new:
+      new_customer: "Create new customer"
+    edit:
+      title: "Edit customer"
+    customer_form:
+      email:
+        label: 'Email address'
+        placeholder: "Enter email address"
+      full_name:
+        label: 'Full name'
+        placeholder: "Enter full name"
+      telephone:
+        label: "Telephone"
+        placeholder: "Enter telephone eg 6xxxxxxxx"
+      submit: "Create"
+    index:
+      customers: "Customers"
+      search: "Search"
+      customer: "Customer"
+    table:
+      full_name: "Full name"
+      telephone: "Telephone"
+      email: "Email"
+      created_on: "Created On"
+      actions: "Actions"
+    table_row:
+      edit: "Edit"
+      delete: "Delete"
   notifications:
     index:
       title: "Notifications"
@@ -103,20 +133,6 @@ en:
         placeholder: "Enter your password confirmation"
       submit: "Save"
   users:
-    delete_confirm: "are you sure you want to delete %{customer}"
-    index:
-      customers: "Customers"
-      search: "Search"
-      customer: "Customer"
-    table:
-      full_name: "Full name"
-      telephone: "Telephone"
-      email: "Email"
-      created_on: "Created On"
-      actions: "Actions"
-    table_row:
-      edit: "Edit"
-      delete: "Delete"
     sessions:
       invalid_credentials: "Invalid email or password."
       rate_limit_exceeded: "Try again later."

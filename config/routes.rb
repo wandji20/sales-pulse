@@ -5,9 +5,8 @@ Rails.application.routes.draw do
   get "account", to: "users#edit"
   put "preferences", to: "users#preferences"
 
-  resources :users, except: %i[new create] do
-    get :manage_customer, on: :member
-  end
+  resources :users, except: %i[new create index]
+  resources :customers
 
   resources :user_invitations, only: %i[new create edit update]
 

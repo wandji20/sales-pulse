@@ -1,10 +1,6 @@
 class UsersController < ApplicationController
   before_action :require_admin
 
-  def index
-    @pagy, @records = pagy(current_user.customers)
-  end
-
   def edit
   end
 
