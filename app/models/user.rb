@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   # Constants
-  HEADERS = [ "full_name", "email", "telephone", "created_on", "actions" ]
+  HEADERS = [ "full_name", "email", "telephone", "created_on", "actions" ].freeze
   
   # Serialize the settings column as JSON
   serialize :settings, coder: ActiveRecord::Coders::JSON
@@ -42,9 +42,8 @@ class User < ApplicationRecord
             if: -> { customer? || full_name.present? }
   validate :settings_structure
 
-  def date_format
-    settings.dig(:preferences, :date_format) || Constants::DEFAULT_DATE_FORMAT
-  end
+  # Filters
+  scope :active, -> { where(archived: false) }
 
   def invite_user(email_address)
     new_user = if user = User.find_by(email_address:)
@@ -89,7 +88,6 @@ class User < ApplicationRecord
       end_of_day_sales: true
     },
     preferences: {
-      date_format: Constants::DEFAULT_DATE_FORMAT,
       end_of_day_time: "19:00",
       show_profit_on_sales: false
     } }

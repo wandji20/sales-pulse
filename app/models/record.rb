@@ -1,6 +1,6 @@
 class Record < ApplicationRecord
   # Constants
-  HEADERS = [ "item_name", "quantity", "unit_price", "category", "status", "customer", "created_on", "actions" ]
+  HEADERS = [ "item_name", "quantity", "unit_price", "category", "status", "customer", "created_on", "actions" ].freeze
 
   # Validations
   validates :unit_price, presence: true, numericality: { greater_than: 0 }

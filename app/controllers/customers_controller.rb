@@ -3,7 +3,7 @@ class CustomersController < ApplicationController
   before_action :set_customer, only: %i[update edit destroy]
 
   def index
-    customers = current_user.customers
+    customers = current_user.customers.active
     if params[:search].present?
       customers = customers.where("full_name LIKE ?", "%#{User.sanitize_sql_like(params[:search])}%")
     end
@@ -57,8 +57,8 @@ class CustomersController < ApplicationController
 
   def destroy
     @customer.update(archived: true)
-
-    render turbo_stream: turbo_stream.remove(@customer)
+    flash[:success] = t("flash_delete.success", name: @customer.full_name)
+    redirect_back fallback_location: customers_path
   end
 
   private

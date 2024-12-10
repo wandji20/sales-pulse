@@ -30,11 +30,11 @@
 en:
   date:
     formats:
-      full: "%{date_format}"
-      full_date: "%{date_format}"
+      full: "%d/%m/%Y"
+      full_date: "%d/%m/%Y"
   time:
     formats:
-      full: "%{date_format} %H:%M"
+      full: "%d/%m/%Y %H:%M"
       time: "%H:%M"
   errors:
     messages:
@@ -42,7 +42,7 @@ en:
   general:
     close: "Close"
   flash_delete:
-    success: "Successfully created %{name}"
+    success: "Successfully deleted %{name}"
     failure: "Failed to create %{name}"
   flash_update:
     success: "Successfully updated %{name}"

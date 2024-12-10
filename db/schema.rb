@@ -111,6 +111,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_21_222758) do
     t.integer "supplier_id"
     t.integer "invited_by_id"
     t.datetime "invited_at"
+    t.boolean "archived", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email_address"], name: "index_users_on_email_address", unique: true

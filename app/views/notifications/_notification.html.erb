@@ -1,6 +1,6 @@
 <div class='w-full border-b'>
   <%= notification.message.html_safe %>
   <span class='block ms-auto italic font-light text-xs my-2 text-right px-2'>
-    <%= l(notification.created_at, format: :full, date_format: current_user.date_format) %>
+    <%= l(notification.created_at, format: :full) %>
   </span>
 </div>

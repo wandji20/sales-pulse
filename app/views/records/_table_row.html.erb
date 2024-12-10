@@ -5,7 +5,7 @@
   <td><%= t(".categories.#{record.category}") %></td>
   <td><%= t(".statuses.#{record.status}") %></td>
   <td><%= record.customer&.full_name %></td>
-  <td><%= l(record.created_at, format: :full, date_format: current_user.date_format) %></td>
+  <td><%= l(record.created_at, format: :full) %></td>
   <td>
     <div class="text-xs inline-flex gap-2">
       <button class="btn-link link" data-controller="modal-trigger" data-action="modal-trigger#fireModalEvent"

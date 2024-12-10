@@ -11,6 +11,7 @@ class CreateUsers < ActiveRecord::Migration[8.0]
       t.integer :supplier_id, null: true
       t.integer :invited_by_id
       t.datetime :invited_at
+      t.boolean :archived, default: false
 
       t.timestamps
     end
