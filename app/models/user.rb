@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  # Constants
+  HEADERS = [ "full_name", "email", "telephone", "created_on", "actions" ].freeze
+
   # Serialize the settings column as JSON
   serialize :settings, coder: ActiveRecord::Coders::JSON
 
@@ -17,6 +20,7 @@ class User < ApplicationRecord
   has_many :records, dependent: :destroy
   belongs_to :supplier, class_name: "User", optional: true
   has_many :customers, class_name: "User", foreign_key: :supplier_id
+  has_many :notifications
 
   # Validations
   validates :email_address, presence: true, uniqueness: true, if: -> { !customer? || email_address.present? }
@@ -24,10 +28,10 @@ class User < ApplicationRecord
 
   validates :password, presence: true,
             length: { within: (Constants::MIN_PASSWORD_LENGTH..Constants::MAX_PASSWORD_LENGTH) },
-            on: :create
+            on: :update, if: -> { admin? && password.present? }
   validates :password_confirmation, presence: true,
             length: { within: (Constants::MIN_PASSWORD_LENGTH..Constants::MAX_PASSWORD_LENGTH) },
-            on: :create
+            on: :update, if: -> { admin? && password.present? }
 
   validates :telephone, presence: true, if: -> { customer? }
   validates :telephone, uniqueness: true, if: -> { telephone.present? || (customer? && !email_address.present?) }
@@ -35,14 +39,41 @@ class User < ApplicationRecord
 
   validates :full_name, presence: true,
             length: { within: (Constants::MIN_NAME_LENGTH..Constants::MAX_NAME_LENGTH) },
-            if: -> { customer? }
-  validates :full_name, presence: true,
-            length: { within: (Constants::MIN_NAME_LENGTH..Constants::MAX_NAME_LENGTH) },
-            on: :update
+            if: -> { customer? || full_name.present? }
   validate :settings_structure
 
-  def date_format
-    settings.dig(:preferences, :date_format) || Constants::DEFAULT_DATE_FORMAT
+  # Filters
+  scope :active, -> { where(archived: false) }
+
+  def invite_user(email_address)
+    new_user = if user = User.find_by(email_address:)
+                  user.invited_at = Time.current
+                  user.invited_by_id = self.id
+                  user
+    else
+                  password = SecureRandom.hex(8)
+                  User.new(
+                    email_address:,
+                    role: "admin",
+                    invited_by_id: self.id,
+                    invited_at: Time.current,
+                    password:, password_confirmation: password
+                  )
+    end
+
+    User.transaction do
+      new_user.save!
+      token = new_user.generate_token_for(:invitation)
+      UserMailer.invite(new_user, token).deliver_later
+      new_user
+    end
+
+  rescue ActiveRecord::RecordInvalid
+    new_user
+  end
+
+  generates_token_for :invitation, expires_in: 1.week do
+    invited_at
   end
 
   private
@@ -57,7 +88,6 @@ class User < ApplicationRecord
       end_of_day_sales: true
     },
     preferences: {
-      date_format: Constants::DEFAULT_DATE_FORMAT,
       end_of_day_time: "19:00",
       show_profit_on_sales: false
     } }

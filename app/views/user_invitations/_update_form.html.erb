@@ -1,0 +1,13 @@
+<%= form_with model: @user, url: user_invitation_path(token: params[:token]), method: :put,
+        builder: CustomFormBuilder, id: dom_id(@user, :invite) do |form| %>
+  <%= form.email_field :email_address, required: true, autofocus: false,  label: t('.email.label'),
+      autocomplete: "email_address", placeholder: t('.email.placeholder'), disabled: true %>
+
+  <%= form.password_field :password, required: true, autocomplete: false, autofocus: true,
+      label: t('.password.label'), placeholder: t('.password.placeholder') %>
+
+  <%= form.password_field :password_confirmation, required: true, autocomplete: false,
+      label: t('.password_confirmation.label'), placeholder: t('.password_confirmation.placeholder') %>
+
+  <%= form.submit t('.submit'), class: "mt-6 btn btn-primary" %>
+<% end %>

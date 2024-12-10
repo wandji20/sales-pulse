@@ -3,10 +3,14 @@ Rails.application.routes.draw do
   post "login", to: "sessions#create"
   delete "logout", to: "sessions#destroy"
   get "account", to: "users#edit"
+  put "preferences", to: "users#preferences"
 
-  resources :users, except: :edit do
-    put :preferences, on: :member
-  end
+  resources :users, except: %i[new create index]
+  resources :customers
+
+  resources :user_invitations, only: %i[new create edit update]
+
+  resources :notifications, only: :index
 
   resources :products
   resources :products, only: [] do
@@ -30,6 +34,10 @@ Rails.application.routes.draw do
       get :search_service_items
     end
   end
+
+  # Dashboard
+  get "/dashboard", to: "dashboard#index"
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

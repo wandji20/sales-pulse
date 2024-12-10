@@ -1,11 +1,16 @@
 class RecordsController < ApplicationController
   before_action :set_record, only: %i[edit update revert destroy]
   def index
-    @records = current_user.records
-                           .left_outer_joins(:variant, :customer, :service_item)
-                           .select("records.*, variants.name AS 'variant_name',
-                              users.full_name AS 'customer', service_items.name AS 'item_name'")
-                           .order(created_at: :desc)
+    result = current_user.records
+                         .left_outer_joins(:variant, :customer, :service_item)
+                         .select("records.*, variants.name AS 'variant_name',
+                            users.full_name AS 'customer', service_items.name AS 'item_name'")
+                          .where("variants.name LIKE ? OR service_items.name LIKE ?",
+                            "%#{Record.sanitize_sql_like(params[:search] || '')}%",
+                            "%#{Record.sanitize_sql_like(params[:search] || '')}%")
+                         .order(created_at: :desc)
+
+    @pagy, @records = pagy(result)
   end
 
   def create
@@ -13,7 +18,7 @@ class RecordsController < ApplicationController
 
     if @record.persisted?
       name = @record.service? ? @record.service_item.name : @record.variant.name
-      flash[:success] = t("records.create_success", name:, category: @record.category)
+      flash[:success] = t("records.create_success", name:, category: @record.escape_value(:category))
       redirect_to root_path
     else
       if @record.service?
@@ -64,7 +69,7 @@ class RecordsController < ApplicationController
       @record.destroy!
       @deleted = true
       @type = :success
-      @message = t("flash_delete.success", name: @record.name)
+      @message = t("flash_delete.success", name: @record.escape_value(:name))
     end
   end
 

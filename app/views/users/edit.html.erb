@@ -1,16 +1,23 @@
 <div class="w-full pt-6">
-  <h1 class="text-3xl font-semi-bold tracking-tight text-gray-900 mb-10">
-    <%= t('.my_account') %>
-  </h1>
+  <div class="flex items-center justify-between mb-10">
+    <h1 class="text-3xl font-semi-bold tracking-tight text-gray-900">
+      <%= t('.my_account') %>
+    </h1>
 
-  <section class='pb-6'>
+    <button class="btn btn-primary" data-controller="modal-trigger" data-action="modal-trigger#fireModalEvent"
+            data-target="#new-admin-modal" data-url="<%= new_user_invitation_path %>">
+        <span><%= t('.invite_user') %></span>
+      </button>
+  </div>
+
+  <section class='pb-6 md:w-3/5 w-full'>
     <h1 class="text-2xl font-semi-bold tracking-tight text-gray-900 mb-10">
       <%= t('.personal_details') %>
     </h1>
     <%= render 'users/details_form' %>
   </section>
 
-  <section class='pb-6'>
+  <section class='pb-6 md:w-3/5 w-full'>
     <h1 class="text-2xl font-semi-bold tracking-tight text-gray-900 mb-10">
       <%= t('.preferences') %>
     </h1>
@@ -18,3 +25,4 @@
   </section>
 </div>
 
+<%= render "shared/modal", id: "new-admin-modal" %>

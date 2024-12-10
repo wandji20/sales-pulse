@@ -21,8 +21,9 @@ def create_products_and_variants
     (6..15).to_a.sample.times do |n|
       buying_price = (2..10).to_a.sample * 1000
       supply_price = [ 100, 200, 300, 400, 500 ].sample
+      stock_threshold = [ nil, 6, 10, 5 ].sample
       product.variants.create!(name: "#{Faker::Appliance.equipment} - #{n + 1}",
-      buying_price:, supply_price:, quantity: (10..20).to_a.sample)
+      buying_price:, supply_price:, stock_threshold:, quantity: (10..20).to_a.sample)
     end
   end
 end

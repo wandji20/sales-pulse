@@ -1,23 +1,5 @@
 class UsersController < ApplicationController
-  allow_unauthenticated_access only: %i[ new create ]
-  before_action :require_admin, only: %i[index destroy preferences]
-
-  def index
-  end
-
-  def create
-    @user = User.new(user_params)
-    if @user.save
-      start_new_session_for(@user)
-      redirect_to products_path
-    else
-      render :new, status: :unprocessable_entity
-    end
-  end
-
-  def new
-    @user = User.new
-  end
+  before_action :require_admin
 
   def edit
   end
@@ -25,7 +7,7 @@ class UsersController < ApplicationController
   def update
     if current_user.update(user_params)
       flash[:success] = t("flash_update.success", name: t("users.edit.my_account").downcase)
-      redirect_to account_path(current_user)
+      redirect_to account_path
     else
       render :update, status: :unprocessable_entity
     end
@@ -42,10 +24,6 @@ class UsersController < ApplicationController
   def destroy; end
 
   private
-
-  def require_admin
-    head :unauthorized unless current_user.admin?
-  end
 
   def user_params
     params.require(:user).permit(

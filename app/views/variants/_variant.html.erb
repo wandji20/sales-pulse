@@ -10,8 +10,8 @@
       </p>
     </div>
     <div class='flex gap-3 text-sm self-start'>
-      <button class="btn-link link" data-components-target='modalTrigger'
-            data-modal-target="variants-modal" data-url="<%= edit_product_variant_path(product, variant) %>">
+      <button class="btn-link link" data-controller="modal-trigger" data-action="modal-trigger#fireModalEvent"
+            data-target="#variants-modal" data-url="<%= edit_product_variant_path(product, variant) %>">
         <%= t('.edit') %>
       </button>
       <%= button_to t('.delete'), product_variant_path(product, variant),
@@ -26,8 +26,8 @@
       </p>
     </div>
     <p class=''>
-      <button class="btn-link link" data-components-target='modalTrigger'
-            data-modal-target="variants-modal" data-url="<%= edit_product_variant_stocks_path(product, variant) %>">
+      <button class="btn-link link" data-controller="modal-trigger" data-action="modal-trigger#fireModalEvent"
+            data-target="#variants-modal" data-url="<%= edit_product_variant_stocks_path(product, variant) %>">
         <%= t('.manage_stock') %>
       </button>
     </p>

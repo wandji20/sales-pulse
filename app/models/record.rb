@@ -1,6 +1,6 @@
 class Record < ApplicationRecord
   # Constants
-  HEADERS = [ "item_name", "quantity", "unit_price", "category", "status", "customer", "created_on", "actions" ]
+  HEADERS = [ "item_name", "quantity", "unit_price", "category", "status", "customer", "created_on", "actions" ].freeze
 
   # Validations
   validates :unit_price, presence: true, numericality: { greater_than: 0 }
@@ -31,17 +31,17 @@ class Record < ApplicationRecord
   def variant_name
     return if service?
 
-    attributes["variant_name"] || variant&.name
+    attributes["variant_name"] || variant&.escape_value(:name)
   end
 
   def item_name
     return unless service?
 
-    attributes["item_name"] || service_item&.name
+    attributes["item_name"] || service_item&.escape_value(:name)
   end
 
   def customer_name
-    attributes["customer"] || customer&.full_name
+    attributes["customer"] || customer&.escape_value(:full_name)
   end
 
   def update_record(attrs)
@@ -69,14 +69,15 @@ class Record < ApplicationRecord
 
     new_record = new(attrs)
     transaction do
-      new_record.set_variant_stock(:add)
       new_record.find_or_create_customer(customer_attrs)
       new_record.find_or_create_service_item(service_item_attrs)
 
       new_record.save!
+      new_record.set_variant_stock(:add)
       new_record.variant.save! if new_record.variant.present?
       new_record.customer.save! if new_record.customer.present?
       new_record.service_item.save! if new_record.service_item.present?
+      new_record.variant.create_notification if new_record.variant.present?
       new_record
     end
   rescue ActiveRecord::RecordInvalid

@@ -1,6 +1,6 @@
 <div>
   <h3 class="text-xl text-center font-semi-bold tracking-tight text-gray-900 py-4 truncate">
-    <%= t('.title', category: @record.category, name: @record.name) %>
+    <%= t('.title', category: @record.escape_value(:category), name: @record.escape_value(:name)) %>
   </h3>
 
   <%= render 'records/edit_form', record: @record %>

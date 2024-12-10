@@ -5,11 +5,11 @@
   <td><%= t(".categories.#{record.category}") %></td>
   <td><%= t(".statuses.#{record.status}") %></td>
   <td><%= record.customer&.full_name %></td>
-  <td><%= l(record.created_at, format: :full, date_format: current_user.date_format) %></td>
+  <td><%= l(record.created_at, format: :full) %></td>
   <td>
     <div class="text-xs inline-flex gap-2">
-      <button class="btn-link link" data-components-target='modalTrigger' disabled: <%= record.revert? %>
-            data-modal-target="manage-record-modal" data-url="<%= edit_record_path(record.id) %>">
+      <button class="btn-link link" data-controller="modal-trigger" data-action="modal-trigger#fireModalEvent"
+              disabled: <%= record.revert? %> data-target="#manage-record-modal" data-url="<%= edit_record_path(record.id) %>">
         <%= t('.edit') %>
       </button>
     
@@ -17,10 +17,10 @@
       
       <% if record.revert? %>
         <%= button_to t('.delete'), record_path(record), method: :delete, form_class: 'btn-link link delete',
-              data: { "turbo-confirm": t("records.delete_confirm", name: record.variant_name || record.item_name, category: record.category)} %>
+              data: { "turbo-confirm": t("records.delete_confirm", name: record.variant_name || record.item_name, category: record.escape_value(:category))} %>
       <% else %>
         <%= button_to t('.revert'), revert_record_path(record), method: :put, form_class: 'btn-link link',
-              data: { "turbo-confirm": t("records.revert_confirm", name: record.variant_name || record.item_name, category: record.category)} %>
+              data: { "turbo-confirm": t("records.revert_confirm", name: record.variant_name || record.item_name, category: record.escape_value(:category))} %>
       <% end %>
     </div>
   </td>

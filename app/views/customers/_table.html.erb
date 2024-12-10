@@ -1,0 +1,12 @@
+<table class="table">
+  <thead class='table-head'>
+    <tr>
+      <% User::HEADERS.each do |header| %>
+        <th scope="col" class="<%= header_class(header) %>"><%= t(".#{header}") %></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody class="table-body" id="customers-table">
+      <%= render partial: 'table_row', collection: customers, as: :customer %>
+  </tbody>
+</table>

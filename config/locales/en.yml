@@ -30,11 +30,11 @@
 en:
   date:
     formats:
-      full: "%{date_format}"
-      full_date: "%{date_format}"
+      full: "%d/%m/%Y"
+      full_date: "%d/%m/%Y"
   time:
     formats:
-      full: "%{date_format} %H:%M"
+      full: "%d/%m/%Y %H:%M"
       time: "%H:%M"
   errors:
     messages:
@@ -42,7 +42,7 @@ en:
   general:
     close: "Close"
   flash_delete:
-    success: "Successfully created %{name}"
+    success: "Successfully deleted %{name}"
     failure: "Failed to create %{name}"
   flash_update:
     success: "Successfully updated %{name}"
@@ -50,6 +50,44 @@ en:
   flash_create:
     success: "Successfully created %{name}"
     failure: "Failed to create %{name}"
+  customers:
+    delete_confirm: "are you sure you want to delete %{customer}"
+    new:
+      new_customer: "Create new customer"
+    edit:
+      title: "Edit customer"
+    customer_form:
+      email:
+        label: 'Email address'
+        placeholder: "Enter email address"
+      full_name:
+        label: 'Full name'
+        placeholder: "Enter full name"
+      telephone:
+        label: "Telephone"
+        placeholder: "Enter telephone eg 6xxxxxxxx"
+      submit: "Create"
+    index:
+      customers: "Customers"
+      search: "Search"
+      customer: "Customer"
+    table:
+      full_name: "Full name"
+      telephone: "Telephone"
+      email: "Email"
+      created_on: "Created On"
+      actions: "Actions"
+    table_row:
+      edit: "Edit"
+      delete: "Delete"
+  notifications:
+    index:
+      title: "Notifications"
+      manage: "Manage"
+    ready: "ready"
+    low_stock_html: "%{variant} for %{product} is running out of stock (%{quantity})"
+    out_of_stock_html: "%{variant} for %{product} is out of stock"
+    end_of_day_html: "End of day report for %{date} is %{ready_link}"
   navbar:
     navbar:
       open_menu: "Open mobile menu"
@@ -65,28 +103,39 @@ en:
     signed_in_links:
       log_out: "Log out"
       account: "Account"
-  users:
+  user_mailer:
+    subject: "Invitation to join Sales Pulse"
+  password_mailer:
+    subject: "Reset your password"
+  user_invitations:
     new:
-      sign_up: "Sign Up"
-      log_in: "Log in"
-      submit: "Create account"
-      already_have_account: "Already have an account?"
+      title: "Invite new user"
+    sent: "An invitation email has been sent to %{email}."
+    invalid_token: "Invitation token is invalid or has expired."
+    confirmed: "You invitation was success accepted"
+    new_form:
       email:
         label: "Email"
-        placeholder: "Enter your email address"
+        placeholder: "Enter user email address"
+      submit: "Invite"
+    new:
+      title: "Invite user"
+    edit:
+      title: "Accept invitation"
+    update_form:
+      email:
+        label: "Email"
       password:
         label: "Password"
         placeholder: "Enter your password"
       password_confirmation:
         label: "Password confirmation"
         placeholder: "Enter your password confirmation"
+      submit: "Save"
+  users:
     sessions:
       invalid_credentials: "Invalid email or password."
       rate_limit_exceeded: "Try again later."
-    password:
-      instruction_sent: "Password reset successfully sent."
-      reset_successful: "Password has been successfully reset."
-      invalid_token: "Password reset token is invalid or has expired."
     edit:
       my_account: "My Account"
       personal_details: "Personal Details"
@@ -115,7 +164,6 @@ en:
       log_in: "Log in"
       submit: "Log in"
       forgot_password: "Forgot password?"
-      do_not_have_account: "Don't have an account?"
       sign_up: "Sign up"
       email:
         label: "Email"
@@ -124,12 +172,16 @@ en:
         label: "Password"
         placeholder: "Enter your password"
   passwords:
+    instruction_sent: "Password reset successfully sent."
+    reset_successful: "Password has been successfully reset."
+    invalid_token: "Password reset token is invalid or has expired."
+    incorrect_email: "Email not found! Contact your admin to get an invite"
+    invitation_sent: "Please confirm your email, check email for confirmation link"
     new:
       forgot_password: "Forgot your password?"
       log_in: "Log in"
       sign_up: "Sign up"
       submit: "Send me reset password instructions"
-      do_not_have_account: "Don't have an account?"
       email:
         label: "Email"
         placeholder: "Enter your email address"
@@ -138,7 +190,6 @@ en:
       log_in: "Log in"
       sign_up: "Sign up"
       submit: "Change my password"
-      do_not_have_account: "Don't have an account?"
       password:
         label: "Password"
         placeholder: "Enter your password"
@@ -197,9 +248,12 @@ en:
       name:
         label: "Name"
         placeholder: "Enter variant name"
-      price:
-        label: "Selling price"
-        placeholder: "Enter selling price"
+      buying_price:
+        label: "Buying price"
+        placeholder: "Enter buying price"
+      supply_price:
+        label: "Supply price"
+        placeholder: "Enter supply price"
   stocks:
     errors:
       inclusion: "must be one of %{options}"

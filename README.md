@@ -1,8 +1,8 @@
 # Sales Pulse
 
-> A Progressive web App that allows shop owners to keep sales records and manage stocks for items they sell, thereby providing them with
-> real-time updates and inventory management of their stock.
-> With a fully integrated dashboard for relevant data over specific periods for the various products they sell.
+> A Progressive web App that allow shop owners to keep record of sales, thereby providing them with
+> real-time update and inventory management of their stock.
+> With a fully intergrated dashboard to relevant data over specific periods for the various products they sell.
 
 ## Built With
 

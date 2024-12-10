@@ -5,8 +5,9 @@
   <div class="relative mb-5">
     <%= form.hidden_field :variant_id, data: { "combobox-target": "hiddenInput" } %>
 
-    <input id="variant" name='search_variant' type="text" class="form-control <%= "#{'is-invalid' if record.errors[:variant_id].present?}" %>"
-      role="combobox" value="<%= record.variant&.name%>"
+    <input id="variant" name='search_variant' type="text"
+      class="form-control <%= "#{'is-invalid' if record.errors[:variant_id].present?}" %>"
+      role="combobox" value="<%= record.variant&.name%>" autofocus="true"
       aria-controls="variant-options" aria-expanded="false" placeholder="<%= t('.variant.placeholder') %>"
       data-combobox-target="input" data-action="combobox#search keydown.esc->combobox#closeList">
 

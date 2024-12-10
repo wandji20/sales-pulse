@@ -20,5 +20,25 @@
 
       max-height: calc(100vh - 4rem);
     }
+
+    &.hide {
+      .modal-backdrop {
+        @apply opacity-0 ease-in duration-200;
+      }
+
+      .modal-content {
+        @apply opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95 ease-in duration-200;
+      }
+    }
+
+    &.show {
+      .modal-backdrop {
+        @apply opacity-100 ease-out duration-300;
+      }
+
+      .modal-content {
+        @apply opacity-100 translate-y-0 sm:scale-100 ease-out duration-300;
+      }
+    }
   }
 }
