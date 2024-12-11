@@ -1,43 +1,25 @@
-<div data-controller="combobox" data-combobox-search-url-value="<%= search_service_items_records_path %>"
-    data-combobox-selected-value="<%= record.service_item_id || params.dig(:record, :service_item_id) %>">
-  <label for="service_item" class="form-label" data-combobox-target="label"><%= t('.service_item.label') %></label>
-  <div class="mb-5 relative">
-    <%= form.hidden_field :service_item_id, value: record.service_item_id || params.dig(:record, :service_item_id),
-           data: { "combobox-target": "hiddenInput" } %>
-    <input id="service_item" type="text" name="search_service_item"
-      class="form-control <%= "#{'is-invalid' if record.errors[:service_item_id].present?}" %>"
-      role="combobox" value="<%= record.service_item_id %>" autofocus="true"
-      aria-controls="service_item-options" aria-expanded="false" placeholder="<%= t('.service_item.placeholder') %>"
-      data-combobox-target="input" data-action="combobox#search keydown.esc->combobox#closeList">
+<% selected_item = record.service_item_id || params.dig(:record, :service_item_id) %>
 
-    <button type="button" class="absolute top-2 right-0 rounded-r-md px-2 focus:outline-none"
-          data-action="combobox#toggleList">
-      <%= render 'shared/svgs/chevron_up_down' %>
-    </button>
-
-    <% if record.errors[:service_item_id].present? %>
-      <div class="invalid-feedback">
-        <% record.errors[:service_item_id].each do |error| %>
-          <span><%= error %></span>
-        <% end %>
-      </div>
-    <% end %>
-  
-    <%= render "records/search/service_items", service_items: service_items,
-          list_class: 'hidden', selected: record.service_item_id %>
-
-    <p class="py-4">
-      <button class="link text-xs" type="button" data-action="combobox#toggleNewOptionGroup">
-        <%= t('.add_service_item') %>
-      </button>
-    </p>
-
-    <div data-combobox-target="newOptionGroup"
-          class="<%= 'hidden' unless params[:add_new_option] == 'true' %>">
-      <%= render 'records/new_service_item_form', form:, record: %>
-    </div>
-  </div>
-</div>
+<%= render 'shared/combobox',
+  form: form,
+  search_url: search_service_items_records_path,
+  selected: selected_item.present? ? [selected_item.to_s] : [],
+  label: t('.service_item.label'),
+  field: :service_item_id,
+  value: record.service_item_id || params.dig(:record, :service_item_id),
+  display_value: record.service_item_id || params.dig(:record, :service_item_id),
+  search_field_name: 'search_service_item',
+  record: record,
+  placeholder: t('.service_item.placeholder'),
+  search_locals: { partial: "records/search/service_items",
+    locals: { service_items: service_items, list_class: 'hidden',
+    selected: record.service_item_id } },
+  add_new_locals: { partial: 'records/new_service_item_form',
+    form: form,
+    placeholder: t('.add_service_item'),
+    show_form: params[:add_new_option] == 'true',
+    locals: { form: form, record: record }}
+%>
 
 <%= form.number_field :unit_price, label: t('.price.label'), placeholder: t('.price.placeholder') %>
 

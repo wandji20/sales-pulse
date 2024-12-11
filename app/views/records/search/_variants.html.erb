@@ -5,7 +5,8 @@
   <% variants.each do |variant| %>
     <li class="combobox-item <%= 'selected' if variant.id == selected %>"
       id="<%= dom_id(variant, :option) %>" role="option" tabindex="-1"
-      data-action="click->combobox#selectOption" data-value="<%= variant.id %>">
+      data-action="click->combobox#selectOption" data-value="<%= variant.id %>"
+      data-combobox-target="option">
 
       <span class="block truncate label"><%= variant.name %></span>
 

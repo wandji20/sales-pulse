@@ -1,0 +1,46 @@
+<div data-controller="combobox" data-combobox-search-url-value=<%= search_url %>
+    data-combobox-selected-value=<%= selected %>>
+  <label for="customer" class="form-label" data-combobox-target="label"><%= label %></label>
+  <div class="mb-5 relative">
+    <%= form.hidden_field field.to_sym, value: value,
+           data: { "combobox-target": "hiddenInput" } %>
+    <input type="text" name="<%= search_field_name %>"
+      class="form-control <%= "#{'is-invalid' if record.present? && record.errors[field.to_sym].present?}" %>"
+      role="combobox" value="<%= display_value %>"
+      aria-controls="customer-options" aria-expanded="false" placeholder="<%= placeholder %>"
+      data-combobox-target="input" data-action="combobox#search keydown.esc->combobox#closeList">
+
+    <button type="button" class="absolute top-2 right-0 rounded-r-md px-2 focus:outline-none"
+          data-action="combobox#toggleList">
+      <%= render 'shared/svgs/chevron_up_down' %>
+    </button>
+
+    <% if record.present? && record.errors[field.to_sym].present? %>
+      <div class="invalid-feedback">
+        <% record.errors[field.to_sym].each do |error| %>
+          <span><%= error %></span>
+        <% end %>
+      </div>
+    <% end %>
+
+    
+    <% if local_assigns[:search_locals].present? %>
+      <%= render search_locals[:partial], **search_locals[:locals] %>
+    <% end %>
+
+    <% if local_assigns[:add_new_locals].present? && record.present? %>
+
+      <p class="py-4">
+        <button class="link text-xs" type="button" data-action="combobox#toggleNewOptionGroup">
+          <%= add_new_locals[:placeholder] %>
+        </button>
+      </p>
+
+      <div data-combobox-target="newOptionGroup"
+            class="<%= 'hidden' unless add_new_locals[:show_form] %>">
+        <%= render add_new_locals[:partial], form: add_new_locals[:form], record: record %>
+      </div>
+    <% end %>
+
+  </div>
+</div>

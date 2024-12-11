@@ -5,6 +5,7 @@
   <% service_items.each do |service_item| %>
     <li class="combobox-item <%= 'selected' if service_item.id == selected %>"
       id="<%= dom_id(service_item, :option) %>" role="option" tabindex="-1"
+      data-combobox-target="option"
       data-action="click->combobox#selectOption" data-value="<%= service_item.id %>">
 
       <span class="block truncate label"><%= service_item.name %></span>

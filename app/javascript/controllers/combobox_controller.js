@@ -1,10 +1,11 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static values = { searchUrl: String, selected: { type: String, default: '' } }
-  static targets = ["input", "hiddenInput", "label", "options", "newOptionGroup"]
+  static values = { searchUrl: String, selected: { type: Array, default: [] }, multiple: false }
+  static targets = ["input", "hiddenInput", "label", "options", "option", "newOptionGroup"]
 
   connect() {
+    this.#updateSeachValue();
     document.addEventListener('click', this.handleClickOutside.bind(this));
   }
 
@@ -27,8 +28,19 @@ export default class extends Controller {
   }
 
   selectOption(event) {
-    this.selectedValue = event.currentTarget.dataset.value;
-    this.#updateSelectedOption();
+    let values = this.selectedValue
+    if (this.multipleValue === false) {
+      values = [event.currentTarget.dataset.value]
+    }else if (values.includes(event.currentTarget.dataset.value)) {
+      values = values.filter(val => val !== event.currentTarget.dataset.value);
+    } else {
+      values.push(event.currentTarget.dataset.value);
+    }
+
+    this.selectedValue = values;
+  
+    this.#updateSeachValue();
+    this.#updateSelectedOptions();
   }
 
   closeList(event = null) {
@@ -60,33 +72,49 @@ export default class extends Controller {
     }
   }
 
-  #updateSelectedOption() {
-    const listItem = this.optionsTarget.querySelector(`li[data-value="${this.selectedValue}"]`);
+  #updateSelectedOptions() {
+    this.optionTargets.forEach((listItem) => {
 
-    // Update input value to selected name
-    const name = listItem.querySelector('.label').innerHTML
-    this.inputTarget.value = name;
+      // Mark selected option
+      if (this.selectedValue.includes(listItem.dataset.value)) {
+        listItem.classList.add('selected');
+      } else {
+        listItem.classList.remove('selected');
+      }
 
-    // Mark selected option
-    this.optionsTarget.querySelectorAll('li').forEach(option => {
-      option.classList.remove('selected');
+      // set value for hidden input
+      this.#updateHiddenInputvalue();
+
+      if (listItem.dataset.value === 'new') {
+        if (this.hasNewOptionGroupTarget) {
+          this.newOptionGroupTarget.classList.remove('hidden');
+        }
+      }
     });
 
-    if (!listItem)
-      return;
+    if (this.multipleValue !== true) this.closeList();
+  }
 
-    listItem.classList.add('selected');
-  
-    // set value for hidden input
-    if (listItem.dataset.value === 'new') {
-      if (this.hasNewOptionGroupTarget) {
-        this.newOptionGroupTarget.classList.remove('hidden')
-        this.newOptionGroupTarget.querySelector("input[name='customer[name]']").value = name;
-      }
-    } else {
+  #updateSeachValue() {
+    if (this.selectedValue.length === 0) return;
+
+    if (this.selectedValue.length > 1 && this.multipleValue === true) {
+      this.inputTarget.value = `${this.selectedValue.length} selected`;
       this.hiddenInputTarget.value = listItem.dataset.value;
+
+      return;
     }
 
-    this.closeList();
+    const listItem = this.optionsTarget.querySelector(`li[data-value="${this.selectedValue[0]}"]`);
+    const name = listItem.querySelector('.label').innerHTML;
+    this.inputTarget.value = name;
+  }
+
+  #updateHiddenInputvalue() {
+    if (this.multiple) {
+      this.hiddenInputTarget.value = this.selectedValue;
+    } else {
+      this.hiddenInputTarget.value = this.selectedValue[0];
+    }
   }
 }
