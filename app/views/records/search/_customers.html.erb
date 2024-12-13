@@ -1,18 +1,19 @@
 <% list_class = local_assigns[:list_class] || '' %>
 
-<ul class="combobox <%= list_class %>" id="customer-options" role="listbox"
-    data-show="<%= customers.exists? %>" data-combobox-target="options">
-  <% customers.each do |customer| %>
-    <li class="combobox-item <%= 'selected' if customer.id == selected %>"
-      id="<%= dom_id(customer, :option) %>" role="option" tabindex="-1"
-      data-action="click->combobox#selectOption" data-value="<%= customer.id %>"
-      data-combobox-target="option">
+<ul class="select-dropdown <%= list_class %>" id="customer-options" role="listbox"
+    data-show="<%= customers.present? %>" data-select-dropdown-target="options">
+  <% customers.each_with_index do |option, idx| %>
+    <li class="select-dropdown-item"
+        role="option" tabindex="-1"
+        data-action='click->select-dropdown#toggleOption' role='button'
+        data-select-dropdown-target='option'
+        data-value="<%= option.id %>"
+        data-label="<%= option.full_name %>">
 
-      <span class="block truncate label"><%= customer.full_name %></span>
-
-      <span class="combobox-check">
-        <%= render 'shared/svgs/check' %>
-      </span>
+      <%= check_box_tag "customer-option-#{idx}", option.id, option.id == selected,
+            name: "record[customer_id]", id: "customer-option-#{idx}", disable: true %>
+      <%= label_tag "customer-option-#{idx}", option.full_name,
+            class: "form-check-label" %>
     </li>
   <% end %>
 </ul>
