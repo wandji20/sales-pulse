@@ -1,35 +1,61 @@
-<%# required locals id, selected:Array. placeholder, label, name %>
+<%# required locals are selected:Array. placeholder, label, name %>
 <% search_url = local_assigns[:search_url] %>
 <% selected = local_assigns[:selected] %>
+<% id = local_assigns[:id] || '' %>
 <% multiple = local_assigns[:multiple] || false %>
 <% record = local_assigns[:record] %>
 <% search_locals = local_assigns[:search_locals] %>
 <% add_new_locals = local_assigns[:add_new_locals] %>
 <% options = local_assigns[:options] %>
 <% autofocus = local_assigns[:autofocus] %>
+<% name = local_assigns[:name] || '' %>
+<% filter_target = local_assigns[:filter_target] || '' %>
 
 <div data-controller="select-dropdown"
-    data-select-dropdown-search-url-value=<%= search_url %>
+    data-select-dropdown-search-url-value="<%= search_url %>"
     data-select-dropdown-selected-value=<%= selected %> 
-    data-select-dropdown-multiple-value=<%= multiple %>>
+    data-select-dropdown-multiple-value=<%= multiple %>
+    data-field-name="<%= name %>"
+    data-filter-target="<%= filter_target %>"
+    data-action="dropdown:selected->select-dropdown#filter"
+    id="<%= id %>">
+
+  <template data-select-dropdown-target="placeholder">
+    <span class="text-gray-400"><%= placeholder %></span>
+  </template>
 
   <label for="customer" class="form-label" data-select-dropdown-target="label"><%= label %></label>
 
   <div class="mb-5 relative">
 
     <%# Search field %>
-    <input type="text" name="search"
-      class="form-control <%= "#{'is-invalid' if record.present? && record.errors[field.to_sym].present?}" %>"
-      role="select-dropdown"
-      autofocus=<%= autofocus == true %>
-      aria-controls="customer-options" aria-expanded="false" placeholder="<%= placeholder %>"
-      data-select-dropdown-target="input"
-      data-action="select-dropdown#search keydown.esc->select-dropdown#closeList">
+    
+    <% if search_locals %>
+      <input type="text" name="search"
+        class="form-control <%= "#{'is-invalid' if record.present? && record.errors[field.to_sym].present?}" %>"
+        role="select-dropdown"
+        autofocus=<%= autofocus == true %>
+        aria-controls="customer-options" aria-expanded="false" placeholder="<%= placeholder %>"
+        data-select-dropdown-target="input"
+        data-action="select-dropdown#search keydown.esc->select-dropdown#closeList">
 
-    <button type="button" class="absolute top-2 right-0 rounded-r-md px-2 focus:outline-none"
-          data-action="select-dropdown#toggleDropdown">
-      <%= render 'shared/svgs/chevron_up_down' %>
-    </button>
+      <button type="button" class="absolute top-2 right-0 rounded-r-md px-2 focus:outline-none"
+            data-action="select-dropdown#toggleDropdown">
+        <%= render 'shared/svgs/chevron_up_down' %>
+      </button>
+    <% else %>
+     <button type="button" class="form-control relative px-3 text-left"
+            data-action="select-dropdown#toggleDropdown"
+            data-select-dropdown-target="button">
+      <%# use by js controller to label button %>
+      <span></span>
+
+      <span class="absolute top-2 right-0 rounded-r-md px-2 focus:outline-none">
+        <%= render 'shared/svgs/chevron_up_down' %>
+      </span>
+    </button> 
+    <% end %>
+    
 
     <% if record.present? && record.errors[field.to_sym].present? %>
       <div class="invalid-feedback">
@@ -43,17 +69,22 @@
     <% if search_locals.present? %>
       <%= render search_locals[:partial], **search_locals[:locals] %>
     <% elsif options.present? %>
-      <ul class="select-dropdown">
+      <ul class="select-dropdown" data-select-dropdown-target="options"
+          data-show="true">
         <% options.each_with_index do |option, idx| %>
           <li class="select-dropdown-item"
-                data-action='click->select-dropdown#toggleOption' role='button'
+                role="option" tabindex="-1"
                 data-select-dropdown-target='option'
                 data-value="<%= option[1] %>"
                 data-label="<%= option[0] %>">
-            <%= check_box_tag "#{id}-option-#{idx}", option[1], option[1].in?(selected),
-                  name: name, id: "#{id}-option-#{idx}", class: "#{'d-none' unless multiple }", disable: true %>
-            <%= label_tag "", option[0],
-                  class: "form-check-label ea-btn-text-link ps-0 ea-text-black" %>
+
+            <%= label_tag "#{id}-option-#{idx}" do %>
+              <%= check_box_tag "#{id}-option-#{idx}", option[1], option[1].in?(selected),
+                    name: name, id: "#{id}-option-#{idx}", data: { action: "select-dropdown#toggleOption" } %>
+
+             <%= option[0] %>
+            <% end %>
+                  
           </li>
         <% end %>
       </ul>

@@ -2,9 +2,12 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static values = { searchUrl: String, selected: { type: Array, default: [] }, multiple: false }
-  static targets = ["input", "label", "options", "option", "newOptionGroup"]
+  static targets = ["button", "input", "label", "options", "option", "placeholder", "newOptionGroup"]
 
   connect() {
+    this.fieldName = this.element.dataset.fieldName;
+    this.filterTarget = this.element.dataset.filterTarget;
+
     this.#setDisplayValue();
     document.addEventListener('click', this.handleClickOutside.bind(this));
   }
@@ -13,19 +16,33 @@ export default class extends Controller {
     document.removeEventListener('click', this.handleClickOutside.bind(this));
   }
 
-  search() {
+  search(_e, params = '') {
     if (!this.searchUrlValue) return;
     clearTimeout(this.debouncedSearch);
 
     this.debouncedSearch = setTimeout(async () => {
-      const response = await fetch(`${this.searchUrlValue}?search=${this.inputTarget.value}`, { headers: { "Accept": "text/vnd.turbo-stream.html" } });
+      if (this.inputTarget.value === '') {
+        this.selectedValue = [];
+      }
+    
+      const response = await fetch(
+        `${this.searchUrlValue}?search=${this.inputTarget.value}&${params}`,
+        { headers: { "Accept": "text/vnd.turbo-stream.html" } }
+      );
       const streamContent = await response.text();
       Turbo.renderStreamMessage(streamContent);
     }, 500);
   }
 
+  filter(e) {
+    // Reset selected values and search
+    this.selectedValue = [];
+    this.#setDisplayValue();
+    this.search(null, e.detail.params);
+  }
+
   toggleOption(e) {
-    const value = e.currentTarget.dataset.value;
+    const value = e.target.closest('li').dataset.value;
     this.#updateValues(value);
   }
 
@@ -37,7 +54,12 @@ export default class extends Controller {
   }
 
   toggleDropdown() {
-    this.inputTarget.focus();
+    if (this.hasInputTarget) {
+      this.inputTarget.focus();
+    } else {
+      this.buttonTarget.focus();
+    }
+  
     if (this.optionsTarget.dataset.show === 'true') 
       this.optionsTarget.classList.toggle('hidden');
   }
@@ -83,6 +105,7 @@ export default class extends Controller {
     this.#setDisplayValue();
 
     this.#markSelected();
+    // this.#updateOptionsQueryParams();
   }
 
   #markSelected() {
@@ -91,19 +114,24 @@ export default class extends Controller {
       const optionValue = option.dataset.value;
       if (this.selectedValue.includes(optionValue)) {
         if (checkbox) checkbox.checked = true;
-      
-        option.classList.add('selected');
       } else {
         if (checkbox) checkbox.checked = false;
-
-        option.classList.remove('selected');
       }
     })
+
+    this.#sendFilterEvent();
   }
 
   #setDisplayValue() {
     if (this.selectedValue.length === 0) {
-      this.inputTarget.value = '';
+      if (this.hasInputTarget) {
+        this.inputTarget.value = '';
+      } else {
+        const span = this.buttonTarget.querySelector("span");
+        span.innerHTML = null;
+        span.appendChild(this.placeholderTarget.content.cloneNode(true))
+      }
+
       return
     }
   
@@ -114,6 +142,30 @@ export default class extends Controller {
       const total = this.selectedValue.filter(val => val !== 'all').length;
       if (total > 1) label = `${total} selected`;
     }
-    this.inputTarget.value = label;
+
+    if (this.hasInputTarget) {
+      this.inputTarget.value = label;
+    } else {
+      const span = this.buttonTarget.querySelector("span");
+      span.innerHTML = label;
+    }
+  }
+
+  #sendFilterEvent() {
+    // set params and dispatch controller selected event
+    if (this.fieldName && this.filterTarget) {
+      let params = new URLSearchParams();
+
+      this.selectedValue.forEach(val => {
+        params.append(this.fieldName, val);
+      });
+
+      document.querySelector(this.filterTarget).dispatchEvent(
+        new CustomEvent(
+          "dropdown:selected",
+          { detail: { params: params.toString() } }
+        )
+      );
+    }
   }
 }
