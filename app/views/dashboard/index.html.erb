@@ -1,0 +1,15 @@
+
+<div class="mx-auto py-4 bg-white w-full">
+
+  <h1 class="text-2xl sm:text-3xl font-semi-bold tracking-tight text-gray-900">
+    <%= t('.title') %>
+  </h1>
+
+  <div class="w-auto mt-2">
+    <%= render 'filters' %>
+  </div>
+  
+  <%= turbo_frame_tag 'charts' do %>
+    <canvas id="charts-canvas"></canvas>
+  <% end %>
+

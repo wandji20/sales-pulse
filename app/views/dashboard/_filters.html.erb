@@ -1,0 +1,85 @@
+<%= form_with(url: dashboard_path, method: :get, class: 'relative flex items-center',
+      data: { turbo_frame: 'charts', turbo_action: :advance, controller: 'dashboard-form' }) do |form| %>
+  <div class="flex gap-3 flex-wrap items-center">
+
+    <%= form.collection_radio_buttons :period, period_options, :first, :last, checked: 'days' do |b| %>
+      <%= b.label(class: "flex items-center gap-2 cursor-pointer") do %>
+        <%= b.radio_button(data: { action: "dashboard-form#toggleFilterOption" }, class: "cursor-pointer") %>
+        <%= b.text %>
+      <% end %>
+    <% end %>
+    
+  </div>
+
+  <div class="dropdown flyout ml-auto" data-controller="dropdown" data-dropdown-target="dropdown">
+    <div>
+      <button type="button" class="icon-btn" data-action="dropdown#toggle" aria-expanded="false" aria-haspopup="true" type="button">
+        <span class="absolute -inset-1.5"></span>
+        <%= render 'shared/svgs/filter' %>
+        <span class=""><%= t('.title') %></span>
+      </button>
+    </div>
+
+    <div class="hidden dropdown-menu px-2 !py-3" role="menu" aria-orientation="vertical" aria-labelledby="dashboard-advance-filters-button" tabindex="-1">
+      <div class="" data-dashboard-form-target="period" data-value="days">
+        Date picker
+      </div>
+
+      <div class="hidden" data-dashboard-form-target="period" data-value="months">
+        <%= render 'shared/select_dropdown',
+          multiple: true,
+          selected: params[:months_ids].present? ? params[:months_ids] : [],
+          name: "months[]",
+          id: "month",
+          options: month_options,
+          label: t('.months.label'),
+          placeholder: t('.months.placeholder')
+        %>
+      </div>
+
+      <div class="hidden" data-dashboard-form-target="period" data-value="years">
+        <%= render 'shared/select_dropdown',
+          multiple: true,
+          selected: params[:year_ids].present? ? params[:year_ids] : [],
+          name: "years[]",
+          id: "year",
+          options: year_options(current_user),
+          label: t('.years.label'),
+          placeholder: t('.years.placeholder')
+        %>
+      </div>
+
+      <%= render 'shared/select_dropdown',
+        search_url: dashboard_search_products_path,
+        multiple: true,
+        selected: params[:product_ids].present? ? params[:product_ids] : [],
+        label: t('.product.label'),
+        outlet: '#variant-filter',
+        placeholder: t('.product.placeholder'),
+        name: 'product_ids[]',
+        filter_target: '#variants-filter',
+        search_locals: { partial: "dashboard/search/products",
+          locals: { products: @products, list_class: "#{'hidden' if @products.present?}", selected: params[:product_ids] || [] } }
+      %>
+
+      <%= render 'shared/select_dropdown',
+        search_url: dashboard_search_variants_path,
+        multiple: true,
+        id: 'variants-filter',
+        selected: params[:variant_ids].present? ? params[:variant_ids] : [],
+        label: t('.variant.label'),
+        placeholder: t('.variant.placeholder'),
+        filter_attr: 'product_ids[]',
+        search_locals: { partial: "dashboard/search/variants",
+          locals: { variants: @variants, list_class: "#{'hidden' if @variants.present?}", selected: params[:variant_ids] || [] } }
+      %>
+
+      <div class="flex w-full ml-auto justify-end items-center gap-2">
+        <button class="btn btn-secondary" type="button" role="button">
+          <%= t(".cancel") %>
+        </button>
+        <%= form.submit t(".apply"), class: "btn btn-primary" %>
+      </div>
+    </div>
+  </div>
+<% end %>

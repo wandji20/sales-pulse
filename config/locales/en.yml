@@ -29,6 +29,18 @@
 
 en:
   date:
+    jan: "January"
+    feb: "February"
+    mar: "March"
+    apr: "April"
+    may: "May"
+    jun: "June"
+    jul: "July"
+    aug: "August"
+    sep: "September"
+    oct: "October"
+    nov: "November"
+    dec: "December"
     formats:
       full: "%d/%m/%Y"
       full_date: "%d/%m/%Y"
@@ -80,6 +92,32 @@ en:
     table_row:
       edit: "Edit"
       delete: "Delete"
+  dashboard:
+    index:
+      title: "Sales/Services analysis"
+      periods:
+        year: "Year"
+        months: "Months"
+        days: "Days"
+    filters:
+      title: "Filters"
+      days:
+        label: "Days"
+        placeholder: "Select days"
+      months:
+        label: "Months"
+        placeholder: "Select months"
+      years:
+        label: "Years"
+        placeholder: "Select years"
+      product:
+        label: "Product(s)"
+        placeholder: "Search products"
+      variant:
+        label: "Variants(s)"
+        placeholder: "Search product variants"
+      apply: "Apply"
+      cancel: "Cancel"
   notifications:
     index:
       title: "Notifications"

@@ -1,0 +1,21 @@
+<% list_class = local_assigns[:list_class] || '' %>
+
+<ul class="select-dropdown <%= list_class %>" id="variant-options" role="listbox"
+    data-show="<%= variants.present? %>" data-select-dropdown-target="options">
+  <% variants.each_with_index do |option, idx| %>
+    <li class="select-dropdown-item"
+        role="option" tabindex="-1"
+        data-action='click->select-dropdown#toggleOption' role='button'
+        data-select-dropdown-target='option'
+        data-value="<%= option.id %>"
+        data-label="<%= option.name %>">
+
+      <%= label_tag "variant-option-#{idx}" do %>
+        <%= check_box_tag "variant-option-#{idx}", option.id, option.id.in?(selected),
+              name: "variant_ids[]", id: "variant-option-#{idx}", data: { action: "select-dropdown#toggleOption" } %>
+
+        <%= option.name %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
