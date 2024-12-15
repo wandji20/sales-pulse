@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static values = { searchUrl: String, selected: { type: Array, default: [] }, multiple: false }
+  static values = { searchUrl: String, selected: { type: Array, default: [] }, multiple: false, params: String }
   static targets = ["button", "input", "label", "options", "option", "placeholder", "newOptionGroup"]
 
   connect() {
@@ -16,7 +16,7 @@ export default class extends Controller {
     document.removeEventListener('click', this.handleClickOutside.bind(this));
   }
 
-  search(_e, params = '') {
+  search(_e, hideOptions = false) {
     if (!this.searchUrlValue) return;
     clearTimeout(this.debouncedSearch);
 
@@ -26,11 +26,12 @@ export default class extends Controller {
       }
     
       const response = await fetch(
-        `${this.searchUrlValue}?search=${this.inputTarget.value}&${params}`,
+        `${this.searchUrlValue}?search=${this.inputTarget.value}&${this.paramsValue}&hide=${hideOptions}`,
         { headers: { "Accept": "text/vnd.turbo-stream.html" } }
       );
       const streamContent = await response.text();
-      Turbo.renderStreamMessage(streamContent);
+      await Turbo.renderStreamMessage(streamContent);
+    
     }, 500);
   }
 
@@ -38,7 +39,8 @@ export default class extends Controller {
     // Reset selected values and search
     this.selectedValue = [];
     this.#setDisplayValue();
-    this.search(null, e.detail.params);
+    this.paramsValue = e.detail.params;
+    this.search(null, true);
   }
 
   toggleOption(e) {

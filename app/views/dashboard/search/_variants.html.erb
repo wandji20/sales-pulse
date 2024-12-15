@@ -5,7 +5,6 @@
   <% variants.each_with_index do |option, idx| %>
     <li class="select-dropdown-item"
         role="option" tabindex="-1"
-        data-action='click->select-dropdown#toggleOption' role='button'
         data-select-dropdown-target='option'
         data-value="<%= option.id %>"
         data-label="<%= option.name %>">

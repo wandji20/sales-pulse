@@ -15,7 +15,7 @@ class DashboardController < ApplicationController
     render turbo_stream: turbo_stream.replace("variant-options",
       partial: "dashboard/search/variants",
         locals: { variants: @variants, selected: params[:variant_ids] || [],
-          list_class:  @variants.present? ? "" : "hidden" })
+          list_class:  @variants.present? && params[:hide] != "true" ? "" : "hidden" })
   end
 
   private
@@ -45,8 +45,8 @@ class DashboardController < ApplicationController
     if params[:variant_ids]
       @variants = current_user.products.joins(:variants)
                                        .where(id: params[:product_ids])
-                                       .where("variants.id IN ?", params[:variant_ids]) +
-                    @variants.where.not("variants.id IN ?", params[:variant_ids])
+                                       .where(variants: { id: params[:variant_ids] }) +
+                    @variants.where.not(variants: { id: params[:variant_ids] })
     end
   end
 end

@@ -1,5 +1,5 @@
 <%= form_with(url: dashboard_path, method: :get, class: 'relative flex items-center',
-      data: { turbo_frame: 'charts', turbo_action: :advance, controller: 'dashboard-form' }) do |form| %>
+      data: { turbo_frame: 'charts', controller: 'dashboard-form' }) do |form| %>
   <div class="flex gap-3 flex-wrap items-center">
 
     <%= form.collection_radio_buttons :period, period_options, :first, :last, checked: 'days' do |b| %>
@@ -22,7 +22,10 @@
 
     <div class="hidden dropdown-menu px-2 !py-3" role="menu" aria-orientation="vertical" aria-labelledby="dashboard-advance-filters-button" tabindex="-1">
       <div class="" data-dashboard-form-target="period" data-value="days">
-        Date picker
+
+        <%= form.label :days, t('.days.label'), class: 'form-label'  %>
+        <%= form.text_field :days, class: "form-control mb-5", placeholder: t('.days.placeholder'),
+              data: { controller: "flatpickr", 'flatpickr-init-conf-value': { mode: "range", dateFormat: "d-M-Y" } } %>
       </div>
 
       <div class="hidden" data-dashboard-form-target="period" data-value="months">
@@ -75,10 +78,10 @@
       %>
 
       <div class="flex w-full ml-auto justify-end items-center gap-2">
-        <button class="btn btn-secondary" type="button" role="button">
+        <button class="btn btn-secondary" type="button" role="button" data-action="dropdown#close">
           <%= t(".cancel") %>
         </button>
-        <%= form.submit t(".apply"), class: "btn btn-primary" %>
+        <%= form.submit t(".apply"), class: "btn btn-primary", name: nil, data: { action: "dropdown#close"} %>
       </div>
     </div>
   </div>
