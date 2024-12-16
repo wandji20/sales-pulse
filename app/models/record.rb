@@ -4,7 +4,7 @@ class Record < ApplicationRecord
 
   # Validations
   validates :unit_price, presence: true, numericality: { greater_than: 0 }
-  validates :quantity, presence: true, numericality: { greater_than: 0 }, unless: -> { service? }
+  validates :quantity, presence: true, numericality: { greater_than: 0 }
   validates :status, presence: true
   validates :category, presence: true
   validates :variant_id, presence: true, unless: -> { service? }

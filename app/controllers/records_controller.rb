@@ -37,6 +37,7 @@ class RecordsController < ApplicationController
   def new
     @record = current_user.records.new(category: params[:category])
     if @record.service?
+      @record.quantity = 1
       set_service_items(params[:search_service_items] || "")
     else
       set_variants(params[:search_variants] || "")
