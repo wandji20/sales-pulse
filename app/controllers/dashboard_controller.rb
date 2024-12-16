@@ -1,7 +1,14 @@
 class DashboardController < ApplicationController
-  before_action :set_products, only: %i[index search_products]
-  before_action :set_variants, only: %i[index search_variants]
+  before_action :set_products, only: %i[index search_products filter]
+  before_action :set_variants, only: %i[index search_variants filter]
+
   def index
+    @data = ChartData.call({ period: "today" }, current_user)
+  end
+
+  def filter
+    @data = ChartData.call(params, current_user)
+    render :index
   end
 
   def search_products

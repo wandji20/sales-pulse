@@ -103,6 +103,12 @@ en:
         custom: "Custom"
     filters:
       title: "Filters"
+      statuses:
+        paid: "Paid"
+        unpaid: "Unpaid"
+      status:
+        label: "Status"
+        placeholder: "Select status(es)"
       custom:
         label: "Days"
         placeholder: "Select days"
@@ -113,7 +119,7 @@ en:
         label: "Variants(s)"
         placeholder: "Search product variants"
       apply: "Apply"
-      cancel: "Cancel"
+      clear: "Clear"
   notifications:
     index:
       title: "Notifications"

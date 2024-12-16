@@ -40,19 +40,23 @@ class ChartData
     end
 
     @records = if @start_date.present? && @end_date.present?
-      @user.records.where("records.created_at >= ? AND records.created_at <= ?", @start_date, @end_date)
+      @user.records.not_revert.where("records.created_at >= ? AND records.created_at <= ?", @start_date, @end_date)
     else
-      @user.records
+      @user.records.not_revert
+    end
+
+    if @params[:status].present?
+      @records = @records.where(status: @params[:status])
     end
 
     # filter by products
-    @records = @records.joins(:variant).where(varaint: { product_id: @params[:product_ids] }) if @params[:product_ids]
+    @records = @records.joins(:variant).where("variants.product_id IN (?)", @params[:product_ids]) if @params[:product_ids].present?
     # filter by variants
-    @records = @records.joins(:variant).where(varaint: { id: @params[:variant_ids] }) if @params[:variant_ids]
+    @records = @records.joins(:variant).where("variants.id IN (?)", @params[:variant_ids]) if @params[:variant_ids].present?
   end
 
   def set_data
-    pie_data = @records.select("category, SUM(quantity) AS total_quantity, SUM(quantity * unit_price) AS total_price")
+    pie_data = @records.select("category, SUM(records.quantity) AS total_quantity, SUM(records.quantity * records.unit_price) AS total_price")
                        .group(:category)
                        .map { |record| record.attributes }
 
@@ -62,6 +66,7 @@ class ChartData
                                       SUM(records.quantity * unit_price) AS total_price").order("variants.product_id, total_quantity")
                             .group("variants.product_id, variants.name")
                             .map { |record| record.attributes }
+
     service_items = @records.service
                             .joins(:service_item)
                             .select("service_items.name, SUM(records.quantity) AS total_quantity")
