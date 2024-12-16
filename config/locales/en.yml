@@ -96,20 +96,16 @@ en:
     index:
       title: "Sales/Services analysis"
       periods:
-        year: "Year"
-        months: "Months"
-        days: "Days"
+        today: "Today"
+        yesterday: "Yesterday"
+        week: "This week"
+        month: "This Month"
+        custom: "Custom"
     filters:
       title: "Filters"
-      days:
+      custom:
         label: "Days"
         placeholder: "Select days"
-      months:
-        label: "Months"
-        placeholder: "Select months"
-      years:
-        label: "Years"
-        placeholder: "Select years"
       product:
         label: "Product(s)"
         placeholder: "Search products"
