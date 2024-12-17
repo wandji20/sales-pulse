@@ -5,11 +5,45 @@
     <%= t('.title') %>
   </h1>
 
-  <div class="w-auto mt-2">
+  <div class="w-auto my-4">
     <%= render 'filters' %>
   </div>
-  
+
   <%= turbo_frame_tag 'charts' do %>
-    <canvas id="charts-canvas"></canvas>
+    
+    <% if @data[:pie_data][0].nil? %>
+      <div class="ml-6 mt-6">
+        <%= t(".no_sales_found") %>
+      </div>
+    <% else %>
+      <div class="flex flex-col gap-3">
+        <h3 class="font-medium">
+          <%= total_sales_label(@data[:pie_data].map{|option| option['total_price'] }.sum, params[:period]) %>
+        </h3>
+
+        <div class="max-w-80 h-full" data-controller="chart" data-chart-config-value="<%= chart_config('doughnut', @data[:pie_data]) %>">
+          <canvas class="w-full h-full" data-chart-target="chart"></canvas>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-4 my-4 max-w-3xl">
+        <h3 class="font-medium">
+          <%= t(".product_sales") %>
+        </h3>
+
+        <% partition_by_product(@data[:bar_data]).each do |partition| %>
+          <div class="ml-2">
+            <h6 class="font-medium">
+              <%= t(".chart_label", product: partition[0]['product_name']) %>
+            </h6>
+            
+            <div class="w-auto h-auto" data-controller="chart" data-chart-config-value="<%= chart_config('bar', partition) %>">
+              <canvas class="w-full h-full" data-chart-target="chart"></canvas>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
   <% end %>
 

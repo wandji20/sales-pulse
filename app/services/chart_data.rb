@@ -61,15 +61,17 @@ class ChartData
                        .map { |record| record.attributes }
 
     product_items = @records.not_service
-                            .joins(:variant)
+                            .joins(variant: :product)
                             .select("variants.name, variants.product_id, SUM(records.quantity) AS total_quantity,
-                                      SUM(records.quantity * unit_price) AS total_price").order("variants.product_id, total_quantity")
+                                      SUM(records.quantity * unit_price) AS total_price, products.name AS product_name")
+                            .order("variants.product_id, total_quantity")
                             .group("variants.product_id, variants.name")
                             .map { |record| record.attributes }
 
     service_items = @records.service
                             .joins(:service_item)
-                            .select("service_items.name, SUM(records.quantity) AS total_quantity")
+                            .select("service_items.name, SUM(records.quantity) AS total_quantity,
+                                     SUM(records.quantity * unit_price) AS total_price")
                             .order("total_quantity")
                             .group("service_items.name")
                             .map { |record| record.attributes }

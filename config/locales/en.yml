@@ -44,6 +44,13 @@ en:
     formats:
       full: "%d/%m/%Y"
       full_date: "%d/%m/%Y"
+  number:
+    currency:
+      format:
+        unit: "FCFA"
+        format: "%n %u"  # Number comes first, then currency symbol
+        separator: "."
+        delimiter: ","
   time:
     formats:
       full: "%d/%m/%Y %H:%M"
@@ -101,6 +108,15 @@ en:
         week: "This week"
         month: "This Month"
         custom: "Custom"
+      total_sales:
+        today: "Total Sales for today is %{amount}"
+        yesterday: "Total Sales for yesterday was %{amount}"
+        week: "Total Sales for the week is %{amount}"
+        month: "Total Sales for the month is %{amount}"
+        custom: "Total Sales from %{interval} is %{amount}"
+      product_sales: "Product sales"
+      chart_label: "Chart for %{product}"
+      no-sales_found: "No sales found"
     filters:
       title: "Filters"
       statuses:
