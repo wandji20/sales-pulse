@@ -16,7 +16,7 @@
     }
 
     .modal-content {
-      @apply relative transform overflow-auto rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 w-full max-w-md md:max-w-lg sm:p-6;
+      @apply relative transform overflow-auto rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 w-full max-w-md md:max-w-lg;
 
       max-height: calc(100vh - 4rem);
     }

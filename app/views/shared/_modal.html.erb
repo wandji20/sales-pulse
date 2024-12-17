@@ -6,7 +6,15 @@
 
   <div class='modal-dailog'>
     <div class="modal-box">
-      <div class="modal-content" data-modal-target="content">
+      <div class="modal-content">
+        <div class="flex justify-end">
+          <button type="button" class="btn text-gray-400" data-action="modal#closeModal">
+            <%= render "shared/svgs/close" %>
+          </button>
+        </div>
+
+        <div data-modal-target="content">
+        </div>
       </div>
     </div>
   </div>

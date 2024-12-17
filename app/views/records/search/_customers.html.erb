@@ -9,11 +9,13 @@
         data-select-dropdown-target='option'
         data-value="<%= option.id %>"
         data-label="<%= option.full_name %>">
+      
+      <%= label_tag "customer-option-#{idx}" do %>
+        <%= check_box_tag "customer-option-#{idx}", option.id, option.id == selected,
+              name: "record[customer_id]", id: "customer-option-#{idx}", data: { action: "select-dropdown#toggleOption" } %>
 
-      <%= check_box_tag "customer-option-#{idx}", option.id, option.id == selected,
-            name: "record[customer_id]", id: "customer-option-#{idx}", disable: true %>
-      <%= label_tag "customer-option-#{idx}", option.full_name,
-            class: "form-check-label" %>
+        <%= option.full_name %>
+      <% end %>
     </li>
   <% end %>
 </ul>

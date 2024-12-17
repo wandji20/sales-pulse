@@ -41,7 +41,7 @@ class Record < ApplicationRecord
   end
 
   def customer_name
-    attributes["customer"] || customer&.escape_value(:full_name)
+    attributes["customer_name"] || customer&.escape_value(:full_name)
   end
 
   def update_record(attrs)

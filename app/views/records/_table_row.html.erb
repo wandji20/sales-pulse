@@ -4,7 +4,7 @@
   <td><%= record.unit_price %></td>
   <td><%= t(".categories.#{record.category}") %></td>
   <td><%= t(".statuses.#{record.status}") %></td>
-  <td><%= record.customer&.full_name %></td>
+  <td><%= record.customer_name %></td>
   <td><%= l(record.created_at, format: :full) %></td>
   <td>
     <div class="text-xs inline-flex gap-2">

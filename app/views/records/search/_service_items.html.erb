@@ -5,15 +5,16 @@
   <% service_items.each_with_index do |option, idx| %>
     <li class="select-dropdown-item"
         role="option" tabindex="-1"
-        data-action='click->select-dropdown#toggleOption' role='button'
         data-select-dropdown-target='option'
         data-value="<%= option.id %>"
         data-label="<%= option.name %>">
 
-      <%= check_box_tag "service-item-option-#{idx}", option.id, option.id == selected,
-            name: "record[service_item_id]", id: "service-item-option-#{idx}", disable: true %>
-      <%= label_tag "service-item-option-#{idx}", option.name,
-            class: "form-check-label" %>
+      <%= label_tag "service-item-option-#{idx}" do %>
+        <%= check_box_tag "service-item-option-#{idx}", option.id, option.id == selected,
+              name: "record[service_item_id]", id: "service-item-option-#{idx}", data: { action: "select-dropdown#toggleOption" } %>
+
+        <%= option.name %>
+      <% end %>
     </li>
   <% end %>
 </ul>

@@ -4,7 +4,7 @@ class RecordsController < ApplicationController
     result = current_user.records
                          .left_outer_joins(:variant, :customer, :service_item)
                          .select("records.*, variants.name AS 'variant_name',
-                            users.full_name AS 'customer', service_items.name AS 'item_name'")
+                            users.full_name AS 'customer_name', service_items.name AS 'item_name'")
                           .where("variants.name LIKE ? OR service_items.name LIKE ?",
                             "%#{Record.sanitize_sql_like(params[:search] || '')}%",
                             "%#{Record.sanitize_sql_like(params[:search] || '')}%")
@@ -37,7 +37,6 @@ class RecordsController < ApplicationController
   def new
     @record = current_user.records.new(category: params[:category])
     if @record.service?
-      @record.quantity = 1
       set_service_items(params[:search_service_items] || "")
     else
       set_variants(params[:search_variants] || "")
@@ -164,6 +163,7 @@ class RecordsController < ApplicationController
   def record_attrs
     attrs = record_params.merge({ user: current_user })
     if record_params[:category] == "service"
+      attrs[:quantity] = 1
       attrs.merge!({ service_item: service_item_params }) if params[:add_new_option] == "true"
     else
       attrs.merge!({ customer: customer_params }) if params[:add_new_option] == "true"
