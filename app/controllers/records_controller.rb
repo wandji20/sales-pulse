@@ -163,7 +163,6 @@ class RecordsController < ApplicationController
   def record_attrs
     attrs = record_params.merge({ user: current_user })
     if record_params[:category] == "service"
-      attrs[:quantity] = 1
       attrs.merge!({ service_item: service_item_params }) if params[:add_new_option] == "true"
     else
       attrs.merge!({ customer: customer_params }) if params[:add_new_option] == "true"
