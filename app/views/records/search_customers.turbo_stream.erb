@@ -1,4 +1,0 @@
-<%= turbo_stream.replace "customer-options" do %>
-  <%= render "records/search/customers", customers: @customers,
-        selected: params[:search_customer], list_class:  @customers.count > 0 ? '' : 'hidden' %>
-<% end %>

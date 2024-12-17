@@ -10,8 +10,8 @@
         data-label="<%= option.name %>">
 
       <%= label_tag "variant-option-#{idx}" do %>
-        <%= check_box_tag "variant-option-#{idx}", option.id, option.id == selected,
-              name: "record[variant_id]", id: "variant-option-#{idx}", data: { action: "select-dropdown#toggleOption" } %>
+        <%= check_box_tag "variant-option-#{idx}", option.id, option.id.in?(selected),
+              name: "variant_ids[]", id: "variant-option-#{idx}", data: { action: "select-dropdown#toggleOption" } %>
 
         <%= option.name %>
       <% end %>

@@ -1,5 +1,5 @@
 <%= form_with model: record, builder: CustomFormBuilder,
-        id: dom_id(record), data: { controller: "form" } do |form| %>
+        id: dom_id(record) do |form| %>
 
   <% if record.service? %>
     <%= render 'records/service_form', form:, record:, service_items: %>
@@ -10,7 +10,7 @@
   <% end %>
 
   <div class="flex justify-end items-center mt-8 mb-6 gap-2">
-    <%= form.submit t('.submit'), class: "btn btn-primary", disabled: true %>
+    <%= form.submit t('.submit'), class: "btn btn-primary" %>
     <button type='button' class="btn btn-secondary" data-action="modal#closeModal">
       <%= t('.cancel') %>
     </button>

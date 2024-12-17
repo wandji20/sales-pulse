@@ -26,30 +26,19 @@
     }
   }
 
-  .combobox {
-    @apply absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm;
+  .select-dropdown {
+    @apply absolute z-20 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm;
 
-    .combobox-item {
-      @apply relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900;
+    .select-dropdown-item {
+      @apply relative select-none text-gray-900;
 
-      .combobox-check {
-        @apply hidden absolute inset-y-0 right-0 flex items-center pr-4 text-indigo-600;
+      label {
+        @apply flex gap-2 items-center py-2 pl-3 w-full cursor-pointer;
       }
-  
+
       &:hover {
-        @apply text-white bg-indigo-600 outline-none;
+        @apply text-white bg-indigo-400 outline-none;
 
-        .combobox-check {
-          @apply text-white;
-        }
-      }
-
-      &.selected {
-        @apply font-semibold;
-
-        .combobox-check {
-          @apply flex;
-        }
       }
     }
   }

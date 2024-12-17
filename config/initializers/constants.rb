@@ -9,7 +9,9 @@ class Constants
   MAX_PRICE = 1000000000
 
   # Stocks
-  STOCK_OPERATIONS = [ "add", "remove", "set" ]
+  STOCK_OPERATIONS = [ "add", "remove", "set" ].freeze
 
-  DEFAULT_DATE_FORMAT = "%d/%m/%Y".freeze
+  DEFAULT_DATE_FORMAT = "%d-%b-%Y".freeze
+
+  PERIOD = [ "today", "yesterday", "week", "month", "custom" ].freeze
 end

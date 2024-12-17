@@ -4,7 +4,7 @@ class RecordsController < ApplicationController
     result = current_user.records
                          .left_outer_joins(:variant, :customer, :service_item)
                          .select("records.*, variants.name AS 'variant_name',
-                            users.full_name AS 'customer', service_items.name AS 'item_name'")
+                            users.full_name AS 'customer_name', service_items.name AS 'item_name'")
                           .where("variants.name LIKE ? OR service_items.name LIKE ?",
                             "%#{Record.sanitize_sql_like(params[:search] || '')}%",
                             "%#{Record.sanitize_sql_like(params[:search] || '')}%")
@@ -22,23 +22,25 @@ class RecordsController < ApplicationController
       redirect_to root_path
     else
       if @record.service?
-        @service_items = set_service_items(params[:search_service_items] || "")
+        set_service_items(params[:search_service_items] || "")
       else
-        @variants = set_variants(params[:search_variant] || "")
-        @customers = set_customers(params[:search_customer] || "")
+        set_variants(params[:search_variant] || "")
+        set_customers(params[:search_customer] || "")
       end
 
-      render :new, status: :unprocessable_entity
+      render turbo_stream: turbo_stream.replace("new_record", partial: "records/form",
+        locals: { record: @record, customers: @customers, variants: @variants, service_items: @service_items }),
+        status: :unprocessable_entity
     end
   end
 
   def new
     @record = current_user.records.new(category: params[:category])
     if @record.service?
-      @service_items = set_service_items(params[:search_service_items] || "")
+      set_service_items(params[:search_service_items] || "")
     else
-      @variants = set_variants(params[:search_variants] || "")
-      @customers = set_customers(params[:search_customers] || "")
+      set_variants(params[:search_variants] || "")
+      set_customers(params[:search_customers] || "")
     end
 
     respond_to do |format|
@@ -78,15 +80,24 @@ class RecordsController < ApplicationController
   end
 
   def search_variants
-    @variants = set_variants(params[:search])
+    set_variants(params[:search])
+
+    render turbo_stream: turbo_stream.replace("variant-options", partial: "records/search/variants",
+      locals: { variants: @variants,  selected: [], list_class:  @variants.present? ? "" : "hidden" })
   end
 
   def search_customers
     set_customers(params[:search])
+
+    render turbo_stream: turbo_stream.replace("customer-options", partial: "records/search/customers",
+      locals: { customers: @customers,  selected: [], list_class:  @customers.present? ? "" : "hidden" })
   end
 
   def search_service_items
     set_service_items(params[:search])
+
+    render turbo_stream: turbo_stream.replace("service-item-options", partial: "records/search/service_items",
+      locals: { service_items: @service_items,  selected: [], list_class:  @service_items.present? ? "" : "hidden" })
   end
 
   private
@@ -98,6 +109,11 @@ class RecordsController < ApplicationController
                   .select("users.id, users.full_name")
                   .order("users.full_name")
                   .limit(10)
+
+    if @record&.customer_id?
+      @customers = current_user.customers.where(id: @record.customer_id) +
+                      @customers.where.not(id: @record.customer_id)
+    end
   end
 
   def set_variants(search_term)
@@ -109,12 +125,27 @@ class RecordsController < ApplicationController
                   .select("variants.id, variants.name, variants.quantity")
                   .order("variants.name")
                   .limit(10)
+
+    if @record&.variant_id?
+      @variants = current_user.products.joins(:variants)
+                              .where("variants.id = ?", @record.variant_id)
+                              .select("variants.id, variants.name, variants.quantity") +
+                              @variants.where.not("variants.id = ?", @record.variant_id)
+
+    end
   end
+
 
   def set_service_items(search_term)
     @service_items =
       current_user.service_items
                   .where("service_items.name LIKE ?", "%#{ServiceItem.sanitize_sql_like(search_term)}%")
+                  .order(:name)
+
+    if @record&.service_item_id?
+      @service_items = current_user.service_items.where(id: @record.service_item_id) +
+                        @service_items.where.not(id: @record.service_item_id)
+    end
   end
 
   def customer_params
@@ -132,6 +163,7 @@ class RecordsController < ApplicationController
   def record_attrs
     attrs = record_params.merge({ user: current_user })
     if record_params[:category] == "service"
+      attrs[:quantity] = 1
       attrs.merge!({ service_item: service_item_params }) if params[:add_new_option] == "true"
     else
       attrs.merge!({ customer: customer_params }) if params[:add_new_option] == "true"

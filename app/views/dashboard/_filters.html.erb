@@ -1,0 +1,73 @@
+<%= form_with(url: dashboard_filter_path, method: :get, class: 'relative flex items-center',
+      data: { turbo_frame: 'charts', controller: 'dashboard-form' }) do |form| %>
+  <div class="flex gap-3 flex-wrap items-center">
+
+    <%= form.collection_radio_buttons :period, period_options, :first, :last, checked: 'today' do |b| %>
+      <%= b.label(class: "flex items-center gap-2 cursor-pointer text-sm") do %>
+        <%= b.radio_button(data: { action: "dashboard-form#applyPeriod" }, class: "cursor-pointer") %>
+        <%= b.text %>
+      <% end %>
+    <% end %>
+    
+  </div>
+
+  <div class="dropdown flyout ml-auto self-start" data-controller="dropdown" data-dropdown-target="dropdown">
+    <div>
+      <button type="button" class="icon-btn p-0" data-action="dropdown#toggle" aria-expanded="false" aria-haspopup="true" type="button">
+        <span class="absolute -inset-1.5"></span>
+        <%= render 'shared/svgs/filter' %>
+        <span class=""><%= t('.title') %></span>
+      </button>
+    </div>
+
+    <div class="hidden dropdown-menu px-2 !py-3" role="menu"
+          aria-orientation="vertical" aria-labelledby="dashboard-advance-filters-button" tabindex="-1">
+
+      <%= render 'shared/select_dropdown',
+        selected: params[:status].present? ? params[:status] : [],
+        name: "status",
+        id: "status",
+        options: status_options,
+        label: t('.status.label'),
+        placeholder: t('.status.placeholder')
+      %>
+
+      <div class="hidden" data-dashboard-form-target="custom" data-value="custom">
+        <%= form.label :interval, t('.custom.label'), class: 'form-label'  %>
+        <%= form.text_field :interval, class: "form-control mb-5", placeholder: t('.custom.placeholder'), disabled: true,
+              data: { controller: "flatpickr", 'flatpickr-init-conf-value': { mode: "range", dateFormat: "d-M-Y" } } %>
+      </div>
+
+      <%= render 'shared/select_dropdown',
+        search_url: dashboard_search_products_path,
+        multiple: true,
+        selected: params[:product_ids].present? ? params[:product_ids] : [],
+        label: t('.product.label'),
+        outlet: '#variant-filter',
+        placeholder: t('.product.placeholder'),
+        name: 'product_ids[]',
+        filter_target: '#variants-filter',
+        search_locals: { partial: "dashboard/search/products",
+          locals: { products: @products, list_class: "#{'hidden' if @products.present?}", selected: params[:product_ids] || [] } }
+      %>
+
+      <%= render 'shared/select_dropdown',
+        search_url: dashboard_search_variants_path,
+        multiple: true,
+        id: 'variants-filter',
+        selected: params[:variant_ids].present? ? params[:variant_ids] : [],
+        label: t('.variant.label'),
+        placeholder: t('.variant.placeholder'),
+        filter_attr: 'product_ids[]',
+        search_locals: { partial: "dashboard/search/variants",
+          locals: { variants: @variants, list_class: "#{'hidden' if @variants.present?}", selected: params[:variant_ids] || [] } }
+      %>
+
+      <div class="flex w-full ml-auto justify-end items-center gap-2">
+        <%= link_to t(".clear"), dashboard_path, class: "btn btn-secondary", turbo_frame: "_top" %>
+
+        <%= form.submit t(".apply"), class: "btn btn-primary", name: nil, data: { action: "dropdown#close"} %>
+      </div>
+    </div>
+  </div>
+<% end %>

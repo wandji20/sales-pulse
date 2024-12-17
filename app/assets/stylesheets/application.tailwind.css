@@ -19,11 +19,17 @@
     }
   }
 
-  .form-checkbox, .form-check-input{
+  .form-checkbox, .form-check-input, input[type='radio'], input[type='checkbox'] {
+    @apply text-indigo-500;
+  
     &:focus {
       outline: none;
       box-shadow: none;
     }
+  }
+
+  input[type='checkbox'] {
+    @apply rounded;
   }
 
   .scrollable-table {

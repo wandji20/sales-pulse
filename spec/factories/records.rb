@@ -8,5 +8,7 @@ FactoryBot.define do
     association :service_item
     association :user
     customer { association :user }
+    created_at { DateTime.current }
+    updated_at { DateTime.current }
   end
 end

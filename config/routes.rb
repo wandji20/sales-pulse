@@ -37,6 +37,9 @@ Rails.application.routes.draw do
 
   # Dashboard
   get "/dashboard", to: "dashboard#index"
+  get "/dashboard/filter", to: "dashboard#filter"
+  get "/dashboard/search_products", to: "dashboard#search_products"
+  get "/dashboard/search_variants", to: "dashboard#search_variants"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

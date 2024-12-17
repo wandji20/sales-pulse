@@ -1,17 +1,20 @@
 <% list_class = local_assigns[:list_class] || '' %>
 
-<ul class="combobox <%= list_class %>" id="service-item-options" role="listbox"
-    data-show="<%= service_items.exists? %>" data-combobox-target="options">
-  <% service_items.each do |service_item| %>
-    <li class="combobox-item <%= 'selected' if service_item.id == selected %>"
-      id="<%= dom_id(service_item, :option) %>" role="option" tabindex="-1"
-      data-action="click->combobox#selectOption" data-value="<%= service_item.id %>">
+<ul class="select-dropdown <%= list_class %>" id="service-item-options" role="listbox"
+    data-show="<%= service_items.present? %>" data-select-dropdown-target="options">
+  <% service_items.each_with_index do |option, idx| %>
+    <li class="select-dropdown-item"
+        role="option" tabindex="-1"
+        data-select-dropdown-target='option'
+        data-value="<%= option.id %>"
+        data-label="<%= option.name %>">
 
-      <span class="block truncate label"><%= service_item.name %></span>
+      <%= label_tag "service-item-option-#{idx}" do %>
+        <%= check_box_tag "service-item-option-#{idx}", option.id, option.id == selected,
+              name: "record[service_item_id]", id: "service-item-option-#{idx}", data: { action: "select-dropdown#toggleOption" } %>
 
-      <span class="combobox-check">
-        <%= render 'shared/svgs/check' %>
-      </span>
+        <%= option.name %>
+      <% end %>
     </li>
   <% end %>
 </ul>

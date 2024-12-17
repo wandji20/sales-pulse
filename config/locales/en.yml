@@ -29,9 +29,28 @@
 
 en:
   date:
+    jan: "January"
+    feb: "February"
+    mar: "March"
+    apr: "April"
+    may: "May"
+    jun: "June"
+    jul: "July"
+    aug: "August"
+    sep: "September"
+    oct: "October"
+    nov: "November"
+    dec: "December"
     formats:
       full: "%d/%m/%Y"
       full_date: "%d/%m/%Y"
+  number:
+    currency:
+      format:
+        unit: "FCFA"
+        format: "%n %u"  # Number comes first, then currency symbol
+        separator: "."
+        delimiter: ","
   time:
     formats:
       full: "%d/%m/%Y %H:%M"
@@ -80,6 +99,43 @@ en:
     table_row:
       edit: "Edit"
       delete: "Delete"
+  dashboard:
+    index:
+      title: "Sales/Services analysis"
+      periods:
+        today: "Today"
+        yesterday: "Yesterday"
+        week: "This week"
+        month: "This Month"
+        custom: "Custom"
+      total_sales:
+        today: "Total Sales for today is %{amount}"
+        yesterday: "Total Sales for yesterday was %{amount}"
+        week: "Total Sales for the week is %{amount}"
+        month: "Total Sales for the month is %{amount}"
+        custom: "Total Sales from %{interval} is %{amount}"
+      product_sales: "Product sales"
+      chart_label: "Chart for %{product}"
+      no-sales_found: "No sales found"
+    filters:
+      title: "Filters"
+      statuses:
+        paid: "Paid"
+        unpaid: "Unpaid"
+      status:
+        label: "Status"
+        placeholder: "Select status(es)"
+      custom:
+        label: "Days"
+        placeholder: "Select days"
+      product:
+        label: "Product(s)"
+        placeholder: "Search products"
+      variant:
+        label: "Variants(s)"
+        placeholder: "Search product variants"
+      apply: "Apply"
+      clear: "Clear"
   notifications:
     index:
       title: "Notifications"
