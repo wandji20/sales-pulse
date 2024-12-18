@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "User Session", type: :system do
-  let!(:user) { create(:user, role: 'admin') }
+  let!(:user) { create(:user, role: 'admin', confirmed: true) }
 
   describe "login" do
     it 'displays flash error with wrong user credential' do

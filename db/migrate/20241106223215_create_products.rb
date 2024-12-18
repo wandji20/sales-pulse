@@ -6,6 +6,7 @@ class CreateProducts < ActiveRecord::Migration[8.0]
       t.boolean :archived, default: false
       t.belongs_to :archived_by, null: true
       t.datetime :archived_on
+      t.integer :variants_count, default: 0, null: false
 
       t.timestamps
     end

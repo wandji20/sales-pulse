@@ -164,6 +164,7 @@ en:
   password_mailer:
     subject: "Reset your password"
   user_invitations:
+    unconfirmed_message: "Please confirm your account to continue."
     new:
       title: "Invite new user"
     sent: "An invitation email has been sent to %{email}."
@@ -174,8 +175,6 @@ en:
         label: "Email"
         placeholder: "Enter user email address"
       submit: "Invite"
-    new:
-      title: "Invite user"
     edit:
       title: "Accept invitation"
     update_form:
@@ -196,6 +195,7 @@ en:
       my_account: "My Account"
       personal_details: "Personal Details"
       preferences: "Preferences"
+      invite_user: "Invite user"
     details_form:
       change: "Change"
       name:

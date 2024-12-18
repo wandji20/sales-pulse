@@ -1,5 +1,5 @@
 class Variant < ApplicationRecord
-  belongs_to :product
+  belongs_to :product, counter_cache: true
 
   validates :name, presence: true,
             uniqueness: { scope: :product_id },

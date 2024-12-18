@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "User Account", type: :system do
-  let!(:user) { create(:user, role: 'admin') }
+  let!(:user) { create(:user, role: 'admin', confirmed: true) }
 
   describe 'account update' do
     before(:each) do

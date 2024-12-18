@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "User Password", type: :system do
-  let!(:user) { create(:user, role: 'admin') }
+  let!(:user) { create(:user, role: 'admin', confirmed: true) }
 
   describe "password reset" do
     it 'redirects to new session path with wrong email' do

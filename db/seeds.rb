@@ -10,7 +10,7 @@
 def create_user
   User.create!(email_address: 'admin@email.com',
   password: 'password', password_confirmation: 'password',
-  telephone: '678163222', role: 1)
+  telephone: '678163222', role: 1, confirmed: true)
 end
 
 def create_products_and_variants
