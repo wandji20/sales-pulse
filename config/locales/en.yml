@@ -263,6 +263,7 @@ en:
       delete: "Delete"
       total: "Total:"
       view_all: "View all"
+      delete_confirm: "This action will delete %{product} and its associated items"
       variants:
         one: "Variant:"
         other: "Variants:"
@@ -294,6 +295,7 @@ en:
       price_value: "%{price} FCFA"
       save: "Save"
       manage_stock: 'Manage Stock'
+      delete_confirm: "This action will delete %{variant}"
     new:
       title: 'New variant for %{product}'
     edit:
