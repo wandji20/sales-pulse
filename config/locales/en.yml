@@ -169,7 +169,7 @@ en:
       title: "Invite new user"
     sent: "An invitation email has been sent to %{email}."
     invalid_token: "Invitation token is invalid or has expired."
-    confirmed: "You invitation was success accepted"
+    confirmed: "You invitation was successfully accepted"
     new_form:
       email:
         label: "Email"
