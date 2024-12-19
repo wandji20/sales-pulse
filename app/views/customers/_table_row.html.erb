@@ -12,8 +12,8 @@
     
       <span>|</span>
       
-      <%= button_to t('.delete'), customer_path(customer), method: :delete, form_class: 'btn-link link delete',
-            data: { "turbo-confirm": t("customers.delete_confirm", customer: customer.full_name), "turbo_frame": "_top"} %>
+      <%= button_to t('.archive'), customer_path(customer), method: :delete, form_class: 'btn-link link delete',
+            data: { "turbo-confirm": t("customers.archive_confirm", customer: customer.full_name), "turbo_frame": "_top"} %>
     </div>
   </td>
 </tr>

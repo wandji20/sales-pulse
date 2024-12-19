@@ -70,7 +70,7 @@ en:
     success: "Successfully created %{name}"
     failure: "Failed to create %{name}"
   customers:
-    delete_confirm: "are you sure you want to delete %{customer}"
+    archive_confirm: "are you sure you want to archive %{customer}"
     new:
       new_customer: "Create new customer"
     edit:
@@ -98,7 +98,7 @@ en:
       actions: "Actions"
     table_row:
       edit: "Edit"
-      delete: "Delete"
+      archive: "Archive"
   dashboard:
     index:
       title: "Sales/Services analysis"
