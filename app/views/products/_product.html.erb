@@ -11,14 +11,15 @@
     </div>
     <div class='flex gap-3 text-sm self-start'>
       <%= link_to t('.edit'), edit_product_path(product), class: "link", data: { turbo: false } %>
-      <%= button_to t('.delete'), product_path(product), method: :delete, class: "link delete", form_class: 'text-sm' %>
+      <%= button_to t('.delete'), product_path(product), method: :delete, class: "link delete",
+            form_class: 'text-sm', data: { turbo_confirm: t('.delete_confirm', product: product.name)} %>
     </div>
   </div>
   <div class="flex w-full items-center justify-between">
     <div class="flex-1 truncate">
       <p class="mt-1 truncate text-sm text-gray-500 flex items-center gap-2">
-        <span><%= t('.variants', count: product.variants.count) %></span>
-        <span><%= product.variants.count %></span>
+        <span><%= t('.variants', count: product.variants_count) %></span>
+        <span><%= product.variants_count %></span>
       </p>
     </div>
     <p class=''>

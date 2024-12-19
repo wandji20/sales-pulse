@@ -1,6 +1,6 @@
 class UserInvitationsController < ApplicationController
   allow_unauthenticated_access only: %i[edit update]
-  before_action :require_admin, only: %i[create new]
+  skip_before_action :require_admin, only: %i[edit update]
   before_action :set_user_by_token, only: %i[edit update]
 
   def new
@@ -25,7 +25,7 @@ class UserInvitationsController < ApplicationController
   def edit; end
 
   def update
-    if @user.update(params.require(:user).permit(:password, :password_confirmation).merge(invited_at: nil))
+    if @user.update(params.require(:user).permit(:password, :password_confirmation).merge(invited_at: nil, confirmed: true))
       start_new_session_for(@user)
 
       flash[:success] = t("user_invitations.confirmed")

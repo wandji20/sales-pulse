@@ -10,7 +10,7 @@
 def create_user
   User.create!(email_address: 'admin@email.com',
   password: 'password', password_confirmation: 'password',
-  telephone: '678163222', role: 1)
+  telephone: '678163222', role: 1, confirmed: true)
 end
 
 def create_products_and_variants
@@ -56,7 +56,7 @@ def create_sales_and_services
   end
 
   [ "Phone sale", "Media transfers" ].each do |name|
-    admin.service_items.create!(name:, description: Faker::Lorem.words(number: 20))
+    admin.service_items.create!(name:, description: Faker::Lorem.words(number: 20).join(' '))
   end
 
   # create service records

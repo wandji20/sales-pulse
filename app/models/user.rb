@@ -46,7 +46,7 @@ class User < ApplicationRecord
   scope :active, -> { where(archived: false) }
 
   def invite_user(email_address)
-    new_user = if user = User.find_by(email_address:)
+    new_user = if user = User.where(confirmed: false).find_by(email_address:)
                   user.invited_at = Time.current
                   user.invited_by_id = self.id
                   user

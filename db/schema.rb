@@ -58,6 +58,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_21_222758) do
     t.boolean "archived", default: false
     t.integer "archived_by_id"
     t.datetime "archived_on"
+    t.integer "variants_count", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["archived_by_id"], name: "index_products_on_archived_by_id"
@@ -68,7 +69,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_21_222758) do
   create_table "records", force: :cascade do |t|
     t.integer "category", default: 0
     t.float "unit_price", null: false
-    t.integer "quantity"
+    t.integer "quantity", default: 1
     t.integer "variant_id"
     t.integer "user_id", null: false
     t.integer "status", default: 0
@@ -111,6 +112,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_21_222758) do
     t.integer "supplier_id"
     t.integer "invited_by_id"
     t.datetime "invited_at"
+    t.boolean "confirmed", default: false, null: false
     t.boolean "archived", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

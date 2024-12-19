@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  subject { create(:user, role: :admin) }
+  subject { create(:user, role: :admin, confirmed: true) }
 
   it { should validate_presence_of(:email_address) }
   it { should validate_uniqueness_of(:email_address).case_insensitive }
@@ -66,9 +66,27 @@ RSpec.describe User, type: :model do
     end
   end
 
-  let(:user) { create(:user, role: 'admin') }
-  it "invites new user" do
-    new_user = user.invite_user('one@email.com')
-    expect(new_user.persisted?).to be_truthy
+  describe "#invite_user" do
+    let(:user) { create(:user, role: 'admin', confirmed: true) }
+
+    it "invites new user" do
+      new_user = user.invite_user('one@email.com')
+      expect(new_user.persisted?).to be_truthy
+    end
+
+    it "resends new user invite if user is unconfirmed" do
+      create(:user, email_address: "one@email.com")
+
+      new_user = user.invite_user('one@email.com')
+      expect(new_user.persisted?).to be_truthy
+    end
+
+    it "fails to invite new user with confirmed email" do
+      create(:user, email_address: "one@email.com", confirmed: true)
+
+      new_user = user.invite_user('one@email.com')
+      expect(new_user.persisted?).to be_falsey
+      expect(new_user.errors.messages[:email_address]).to include(/has already been taken/)
+    end
   end
 end
