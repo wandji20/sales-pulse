@@ -56,7 +56,7 @@ def create_sales_and_services
   end
 
   [ "Phone sale", "Media transfers" ].each do |name|
-    admin.service_items.create!(name:, description: Faker::Lorem.words(number: 20))
+    admin.service_items.create!(name:, description: Faker::Lorem.words(number: 20).join(' '))
   end
 
   # create service records

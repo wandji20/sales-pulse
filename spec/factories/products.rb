@@ -10,7 +10,7 @@ FactoryBot.define do
 
     factory :product_with_variants do
       transient do
-        variants_count { 5 }
+        variants_count { 2 }
       end
 
       after(:create) do |product, evaluator|

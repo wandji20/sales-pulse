@@ -60,6 +60,7 @@ en:
       format: "is invalid"
   general:
     close: "Close"
+    open_dropdown: "Open dropdown"
   flash_delete:
     success: "Successfully deleted %{name}"
     failure: "Failed to create %{name}"
@@ -343,6 +344,8 @@ en:
     item: "Item"
     revert_success: "Successfully revert %{category} record for %{name}"
     create_success: "Successfully added %{category} record for %{name}"
+    update_success: "Successfully updated %{category} record for %{name}"
+    delete_success: "Successfully deleted %{category} record for %{name}"
     delete_confirm: "Are you sure you want to delete %{category} record for %{name}"
     revert_confirm: "Are you sure you want to revert %{category} record for %{name}"
     delete_fail_revert: "Cannot delete unreverted record"

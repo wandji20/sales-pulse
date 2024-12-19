@@ -10,9 +10,9 @@
   <% end %>
 
   <div class="flex justify-end items-center mt-8 mb-6 gap-2">
-    <%= form.submit t('.submit'), class: "btn btn-primary" %>
     <button type='button' class="btn btn-secondary" data-action="modal#closeModal">
       <%= t('.cancel') %>
     </button>
+    <%= form.submit t('.submit'), class: "btn btn-primary" %>
   </div>
 <% end %>

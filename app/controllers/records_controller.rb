@@ -71,7 +71,7 @@ class RecordsController < ApplicationController
       @record.destroy!
       @deleted = true
       @type = :success
-      @message = t("flash_delete.success", name: @record.escape_value(:name))
+      @message = t("records.delete_success", name: @record.escape_value(:name), category: @record.escape_value(:category))
     end
   end
 
@@ -141,6 +141,7 @@ class RecordsController < ApplicationController
       current_user.service_items
                   .where("service_items.name LIKE ?", "%#{ServiceItem.sanitize_sql_like(search_term)}%")
                   .order(:name)
+                  .limit(10)
 
     if @record&.service_item_id?
       @service_items = current_user.service_items.where(id: @record.service_item_id) +
