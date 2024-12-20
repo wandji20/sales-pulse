@@ -15,7 +15,8 @@
         <%= t('.edit') %>
       </button>
       <%= button_to t('.delete'), product_variant_path(product, variant),
-          method: :delete, class: "link delete", form_class: 'text-sm' %>
+          method: :delete, class: "link delete", form_class: 'text-sm',
+          data: { turbo_confirm: t('.delete_confirm', variant: variant.name)} %>
     </div>
   </div>
   <div class="flex w-full items-center justify-between">

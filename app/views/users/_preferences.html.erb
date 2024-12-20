@@ -1,36 +1,39 @@
 
 <div class="flex flex-col gap-5" id="user-preferences">
   <div class="flex items-center justify-between gap-6">
-    <span class="text-sm" id="low-stock-reminder">
+    <span class="text-sm">
       <span class="font-medium"><%= t('.low_stock_reminder') %></span>
     </span>
 
     <%= button_to preferences_path, method: :put, params: { settings: {notifications: 'low_stock_reminder' } },
-        class: "toggle-button #{toggle_button_state(current_user, ['notifications', 'low_stock_reminder'])}" do %>
+        class: "toggle-button #{toggle_button_state(current_user, ['notifications', 'low_stock_reminder'])}",
+        id: "low-stock-reminder" do %>
     
       <span aria-hidden="true" class="<%= "toggler #{toggle_button_state(current_user, ['notifications', 'low_stock_reminder'])}" %>"></span>
     <% end %>
   </div>
 
   <div class="flex items-center justify-between gap-6">
-    <span class="text-sm" id="end-of-day-sales">
+    <span class="text-sm">
       <span class="font-medium"><%= t('.end_of_day_sales') %></span>
     </span>
 
     <%= button_to preferences_path, method: :put, params: { settings: {'notifications': 'end_of_day_sales' } },
-        class: "toggle-button #{toggle_button_state(current_user, ['notifications', 'end_of_day_sales'])}" do %>
+        class: "toggle-button #{toggle_button_state(current_user, ['notifications', 'end_of_day_sales'])}",
+        id: "end-of-day-sales" do %>
     
       <span aria-hidden="true" class="<%= "toggler #{toggle_button_state(current_user, ['notifications', 'end_of_day_sales'])}" %>"></span>
     <% end %>
   </div>
 
   <div class="flex items-center justify-between gap-6">
-    <span class="text-sm" id="show-profit-on-sales">
+    <span class="text-sm">
       <span class="font-medium"><%= t('.show_profit_on_sales') %></span>
     </span>
 
     <%= button_to preferences_path, method: :put, params: { settings: {"preferences": "show_profit_on_sales" } },
-        class: "toggle-button #{toggle_button_state(current_user, ['preferences', 'show_profit_on_sales'])}" do %>
+        class: "toggle-button #{toggle_button_state(current_user, ['preferences', 'show_profit_on_sales'])}",
+        id: "show-profit-on-sales" do %>
 
       <span aria-hidden="true" class="<%= "toggler #{toggle_button_state(current_user, ['preferences', 'show_profit_on_sales'])}" %>"></span>
     <% end %>

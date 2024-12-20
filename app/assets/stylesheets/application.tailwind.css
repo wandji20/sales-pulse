@@ -17,6 +17,10 @@
     &.delete {
       @apply text-red-600 focus-within:ring-red-600 hover:text-red-500;
     }
+
+    &:disabled {
+      @apply text-gray-400 cursor-not-allowed;
+    }
   }
 
   .form-checkbox, .form-check-input, input[type='radio'], input[type='checkbox'] {

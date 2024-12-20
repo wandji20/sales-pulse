@@ -27,8 +27,7 @@ RSpec.describe Notification, type: :model do
         # To do
         # Add dashbord generated url when added
         # expect(notification.message).to include("/products/#{variant.product.id}/edit?variant_name=")
-        expect(notification.message).to include("End of day report for #{I18n.l(notification.created_at,
-                                                format: notification.user.date_format)}")
+        expect(notification.message).to include("End of day report for #{I18n.l(notification.created_at)}")
       end
     end
   end

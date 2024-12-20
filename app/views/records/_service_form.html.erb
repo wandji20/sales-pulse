@@ -1,6 +1,7 @@
 <% selected_item = record.service_item_id || params.dig(:record, :service_item_id) %>
 
 <%= render 'shared/select_dropdown',
+  id: "record_service_item_id",
   autofocus: true,
   search_url: search_service_items_records_path,
   selected: selected_item.present? ? [selected_item.to_s] : [],

@@ -42,6 +42,7 @@
       <button type="button" class="absolute top-2 right-0 rounded-r-md px-2 focus:outline-none"
             data-action="select-dropdown#toggleDropdown">
         <%= render 'shared/svgs/chevron_up_down' %>
+        <span class="sr-only"><%= t('general.open_dropdown') %></span>
       </button>
     <% else %>
      <button type="button" class="form-control relative px-3 text-left"
@@ -52,6 +53,7 @@
 
       <span class="absolute top-2 right-0 rounded-r-md px-2 focus:outline-none">
         <%= render 'shared/svgs/chevron_up_down' %>
+        <span class="sr-only"><%= t('general.open_dropdown') %></span>
       </span>
     </button> 
     <% end %>

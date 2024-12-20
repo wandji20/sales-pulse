@@ -21,6 +21,9 @@ class Record < ApplicationRecord
   enum :category, %i[retail supply service loss]
   enum :status, %i[paid unpaid revert]
 
+  # Hooks
+  before_validation -> { self.quantity = 1 if service? && self.quantity != 1 }
+
   def name
     return service_item.name if service? && service_item_id?
     return variant.name if !service? && variant_id?

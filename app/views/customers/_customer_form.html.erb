@@ -2,16 +2,16 @@
 
 <%= form_with model: customer, builder: CustomFormBuilder, id: "customer-form", url: url, data: { controller: 'form' } do |form| %>
   <%= form.text_field :full_name, required: true, autofocus: true,  label: t('.full_name.label'),
-      autocomplete: "telephone", placeholder: t('.telephone.placeholder') %>
-  <%= form.email_field :email_address, required: false, autofocus: true,  label: t('.email.label'),
+      autocomplete: "telephone", placeholder: t('.full_name.placeholder') %>
+  <%= form.email_field :email_address, required: false, autofocus: false,  label: t('.email.label'),
       autocomplete: "email_address", placeholder: t('.email.placeholder') %>
-  <%= form.text_field :telephone, required: false, autofocus: true,  label: t('.telephone.label'),
+  <%= form.text_field :telephone, required: false, autofocus: false,  label: t('.telephone.label'),
       autocomplete: "telephone", placeholder: t('.telephone.placeholder') %>
 
   <div class="flex justify-end items-center mt-8 mb-6 gap-2">
-    <%= form.submit t('.submit'), class: "btn btn-primary", disabled: true %>
     <button type='button' class="btn btn-secondary" data-action="modal#closeModal">
       <%= t('.cancel') %>
     </button>
+    <%= form.submit t('.submit'), class: "btn btn-primary", disabled: true %>
   </div>
 <% end %>

@@ -5,5 +5,15 @@ FactoryBot.define do
     password { 'password' }
     password_confirmation { 'password' }
     email_address { Faker::Internet.unique.email }
+    confirmed { false }
+
+    trait :confirmed do
+      confirmed { true }
+    end
+
+    trait :confimed_admin do
+      confirmed { true }
+      role { 'admin' }
+    end
   end
 end

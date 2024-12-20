@@ -7,7 +7,7 @@ class ProductsController < ApplicationController
                             .select('products.*,
                                     COALESCE(SUM(variants.quantity), 0) as total_quantity')
     if params[:search].present?
-      @products = @products.where("name LIKE ?", "%#{Product.sanitize_sql_like(params[:search])}%")
+      @products = @products.where("products.name LIKE ?", "%#{Product.sanitize_sql_like(params[:search])}%")
     end
   end
 

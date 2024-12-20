@@ -1,5 +1,7 @@
 class SessionsController < ApplicationController
   allow_unauthenticated_access only: %i[ new create ]
+  skip_before_action :require_admin, only: %i[ new create ]
+
   rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to login_url, alert: t("users.sessions.rate_limit_exceeded") }
 
   def new; end

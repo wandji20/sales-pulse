@@ -107,7 +107,6 @@ export default class extends Controller {
     this.#setDisplayValue();
 
     this.#markSelected();
-    // this.#updateOptionsQueryParams();
   }
 
   #markSelected() {
@@ -151,6 +150,8 @@ export default class extends Controller {
       const span = this.buttonTarget.querySelector("span");
       span.innerHTML = label;
     }
+
+    if (!this.multipleValue) this.closeList();
   }
 
   #sendFilterEvent() {

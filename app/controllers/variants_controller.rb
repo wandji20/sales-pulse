@@ -5,7 +5,7 @@ class VariantsController < ApplicationController
   def create
     @variant = @product.variants.build(variant_params)
     if @variant.save
-      @type, @message = [ :success, t("flash_delete.success", name: @variant.escape_value(:name)) ]
+      @type, @message = [ :success, t("flash_create.success", name: @variant.escape_value(:name)) ]
       render :create
     else
       @target = "new-product-#{@product.id}-variant"

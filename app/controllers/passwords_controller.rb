@@ -1,5 +1,7 @@
 class PasswordsController < ApplicationController
   allow_unauthenticated_access
+  skip_before_action :require_admin
+
   before_action :set_user_by_token, only: %i[ edit update ]
   before_action :verify_invitation_token, only: %i[ edit update ]
 
