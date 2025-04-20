@@ -1,6 +1,6 @@
 @layer components {
   .btn {
-    @apply relative flex rounded bg-white text-sm focus:outline-none cursor-pointer;
+    @apply relative flex rounded-sm bg-white text-sm focus:outline-none cursor-pointer;
 
     &:disabled {
       @apply pointer-events-none;

@@ -27,7 +27,7 @@
 </div>
 
 <turbo-frame id="records-list" action='advance'>
-  <div class="scrollable-table container relative rounded border overflow-auto w-full">
+  <div class="scrollable-table container relative rounded-sm border-1 border-gray-200 overflow-auto w-full">
     <% if @records.any? %>
       <%= render 'table', records: @records, pagy: @pagy %>
     <% else %>

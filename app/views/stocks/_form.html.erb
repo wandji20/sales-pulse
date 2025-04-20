@@ -32,14 +32,14 @@
   </div>
 
   <div class="flex justify-between items-center mt-3 mb-5 text-gray-500 text-normal">
-    <div class="bg-gray-100 text-center rounded p-5">
+    <div class="bg-gray-100 text-center rounded-sm p-5">
       <span class="block"><%= t('.current_quantity') %></span>
       <span class="block mt-2"><%= variant.quantity %></span>
     </div>
 
     <%= render 'shared/svgs/arrow_long_right' %>
 
-    <div class="bg-gray-100 text-center rounded p-5">
+    <div class="bg-gray-100 text-center rounded-sm p-5">
       <span class="block"><%= t('.new_quantity') %></span>
       <span class="block mt-2" data-variant-stock-target='newQuantity'><%= variant.quantity %></span>
     </div>
