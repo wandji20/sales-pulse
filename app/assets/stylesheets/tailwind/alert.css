@@ -1,5 +1,5 @@
 .alert {
-  @apply flex items-center rounded p-1.5;
+  @apply flex items-center rounded-sm p-1.5;
 
   .icon-btn {
     @apply inline-flex rounded-md p-1.5 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2;

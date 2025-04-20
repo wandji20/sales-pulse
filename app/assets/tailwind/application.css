@@ -1,13 +1,10 @@
-@import "tailwind/alert.css";
-@import "tailwind/button.css";
-@import "tailwind/dropdown.css";
-@import "tailwind/input.css";
-@import "tailwind/modal.css";
+@import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+@import "../stylesheets/tailwind/alert.css";
+@import "../stylesheets/tailwind/button.css";
+@import "../stylesheets/tailwind/dropdown.css";
+@import "../stylesheets/tailwind/input.css";
+@import "../stylesheets/tailwind/modal.css";
 
 
 @layer components {
@@ -33,7 +30,7 @@
   }
 
   input[type='checkbox'] {
-    @apply rounded;
+    @apply rounded-sm;
   }
 
   .scrollable-table {
@@ -41,7 +38,7 @@
   }
 
   .table {
-    @apply min-w-full divide-y divide-gray-300;
+    @apply min-w-full divide-y divide-gray-300 rounded-sm;
 
     .table-head {
       @apply bg-gray-100;
