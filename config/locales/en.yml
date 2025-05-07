@@ -86,7 +86,9 @@ en:
       telephone:
         label: "Telephone"
         placeholder: "Enter telephone eg 6xxxxxxxx"
-      submit: "Create"
+      submit:
+        create: "Create"
+        update: "Update"
     index:
       customers: "Customers"
       search: "Search"
