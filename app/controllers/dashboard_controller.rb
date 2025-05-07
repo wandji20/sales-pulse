@@ -30,7 +30,7 @@ class DashboardController < ApplicationController
   def set_products
     @products =
       current_user.products
-                  .where("products.name LIKE ?", "%#{Product.sanitize_sql_like(params[:search] || '')}%")
+                  .where("products.name ILIKE ?", "%#{Product.sanitize_sql_like(params[:search] || '')}%")
                   .select("products.id, products.name")
                   .order("products.name")
 
@@ -45,7 +45,7 @@ class DashboardController < ApplicationController
       current_user.products
                   .joins(:variants)
                   .where(id: params[:product_ids])
-                  .where("variants.name LIKE ?", "%#{Variant.sanitize_sql_like(params[:search] || '')}%")
+                  .where("variants.name ILIKE ?", "%#{Variant.sanitize_sql_like(params[:search] || '')}%")
                   .select("variants.id, variants.name")
                   .order("variants.name")
 

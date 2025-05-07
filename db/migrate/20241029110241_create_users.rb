@@ -7,7 +7,7 @@ class CreateUsers < ActiveRecord::Migration[8.0]
       t.string :telephone, null: true
       t.integer :role, default: 0
       t.boolean :is_deleted, default: false
-      t.text :settings, default: '{}'
+      t.jsonb :settings, null: false
       t.integer :supplier_id, null: true
       t.integer :invited_by_id
       t.datetime :invited_at

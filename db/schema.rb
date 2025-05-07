@@ -11,6 +11,9 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[8.0].define(version: 2024_11_21_222758) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_catalog.plpgsql"
+
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -41,11 +44,11 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_21_222758) do
 
   create_table "notifications", force: :cascade do |t|
     t.string "type"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.integer "message_type", null: false
     t.integer "delivery_type", null: false
     t.string "subjectable_type"
-    t.integer "subjectable_id"
+    t.bigint "subjectable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["subjectable_type", "subjectable_id"], name: "index_notifications_on_subjectable"
@@ -54,9 +57,9 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_21_222758) do
 
   create_table "products", force: :cascade do |t|
     t.string "name"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.boolean "archived", default: false
-    t.integer "archived_by_id"
+    t.bigint "archived_by_id"
     t.datetime "archived_on"
     t.integer "variants_count", default: 0, null: false
     t.datetime "created_at", null: false
@@ -71,10 +74,10 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_21_222758) do
     t.float "unit_price", null: false
     t.integer "quantity", default: 1
     t.integer "variant_id"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.integer "status", default: 0
     t.integer "service_item_id"
-    t.integer "customer_id"
+    t.bigint "customer_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["customer_id"], name: "index_records_on_customer_id"
@@ -86,14 +89,14 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_21_222758) do
   create_table "service_items", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_service_items_on_user_id"
   end
 
   create_table "sessions", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.string "ip_address"
     t.string "user_agent"
     t.datetime "created_at", null: false
@@ -108,7 +111,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_21_222758) do
     t.string "telephone"
     t.integer "role", default: 0
     t.boolean "is_deleted", default: false
-    t.text "settings", default: "{}"
+    t.jsonb "settings", null: false
     t.integer "supplier_id"
     t.integer "invited_by_id"
     t.datetime "invited_at"

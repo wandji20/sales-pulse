@@ -2,12 +2,9 @@ class User < ApplicationRecord
   # Constants
   HEADERS = [ "full_name", "email", "telephone", "created_on", "actions" ].freeze
 
-  # Serialize the settings column as JSON
-  serialize :settings, coder: ActiveRecord::Coders::JSON
-
   # Hooks
   normalizes :email_address, with: ->(e) { e.strip.downcase }
-  before_save -> { self.settings = default_settings }
+  before_validation -> { self.settings = default_settings unless settings.present? }
 
   enum :role, %i[customer admin]
 

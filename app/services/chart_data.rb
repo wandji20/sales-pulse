@@ -65,7 +65,7 @@ class ChartData
                             .select("variants.name, variants.product_id, SUM(records.quantity) AS total_quantity,
                                       SUM(records.quantity * unit_price) AS total_price, products.name AS product_name")
                             .order("variants.product_id, total_quantity")
-                            .group("variants.product_id, variants.name")
+                            .group("variants.product_id, variants.name, product_name")
                             .map { |record| record.attributes }
 
     service_items = @records.service

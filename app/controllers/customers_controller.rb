@@ -4,7 +4,7 @@ class CustomersController < ApplicationController
   def index
     customers = current_user.customers.active
     if params[:search].present?
-      customers = customers.where("full_name LIKE ?", "%#{User.sanitize_sql_like(params[:search])}%")
+      customers = customers.where("full_name ILIKE ?", "%#{User.sanitize_sql_like(params[:search])}%")
     end
 
     @pagy, @records = pagy(customers.order(created_at: :desc))
