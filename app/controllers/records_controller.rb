@@ -3,9 +3,9 @@ class RecordsController < ApplicationController
   def index
     result = current_user.records
                          .left_outer_joins(:variant, :customer, :service_item)
-                         .select("records.*, variants.name AS 'variant_name',
-                            users.full_name AS 'customer_name', service_items.name AS 'item_name'")
-                          .where("variants.name LIKE ? OR service_items.name LIKE ?",
+                         .select("records.*, variants.name AS variant_name,
+                            users.full_name AS customer_name, service_items.name AS item_name")
+                          .where("variants.name ILIKE ? OR service_items.name ILIKE ?",
                             "%#{Record.sanitize_sql_like(params[:search] || '')}%",
                             "%#{Record.sanitize_sql_like(params[:search] || '')}%")
                          .order(created_at: :desc)
@@ -105,7 +105,7 @@ class RecordsController < ApplicationController
   def set_customers(search_term)
     @customers =
       current_user.customers
-                  .where("users.full_name LIKE ?", "%#{Record.sanitize_sql_like(search_term)}%")
+                  .where("users.full_name ILIKE ?", "%#{Record.sanitize_sql_like(search_term)}%")
                   .select("users.id, users.full_name")
                   .order("users.full_name")
                   .limit(10)
@@ -120,7 +120,7 @@ class RecordsController < ApplicationController
     @variants =
       current_user.products
                   .joins(:variants)
-                  .where("variants.name LIKE ?", "%#{Record.sanitize_sql_like(search_term)}%")
+                  .where("variants.name ILIKE ?", "%#{Record.sanitize_sql_like(search_term)}%")
                   .where("variants.quantity > 0")
                   .select("variants.id, variants.name, variants.quantity")
                   .order("variants.name")
@@ -139,7 +139,7 @@ class RecordsController < ApplicationController
   def set_service_items(search_term)
     @service_items =
       current_user.service_items
-                  .where("service_items.name LIKE ?", "%#{ServiceItem.sanitize_sql_like(search_term)}%")
+                  .where("service_items.name ILIKE ?", "%#{ServiceItem.sanitize_sql_like(search_term)}%")
                   .order(:name)
                   .limit(10)
 

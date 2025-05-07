@@ -32,7 +32,7 @@ RSpec.describe "Product", type: :system do
       end
       product.reload
       expect(page).to have_content("Edit variant for #{product.name}")
-      within "#edit-product-1-variant-#{variant.id}" do
+      within "#edit-product-#{product.id}-variant-#{variant.id}" do
         # Put invalid attributes
         fill_in "variant[name]", with: "N"
         fill_in "variant[buying_price]", with: 1
@@ -122,7 +122,7 @@ RSpec.describe "Product", type: :system do
 
       click_button "Variant"
       expect(page).to have_content("New variant for #{product.name}")
-      within "#new-product-1-variant" do
+      within "#new-product-#{product.id}-variant" do
         # Put invalid attributes
         fill_in "variant[name]", with: "N"
         fill_in "variant[buying_price]", with: 1

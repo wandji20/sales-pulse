@@ -7,7 +7,7 @@
   }
 
   .form-control {
-    @apply block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-1 focus:-outline-offset-1 focus:outline-indigo-600 sm:text-sm/6;
+    @apply block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-1 h-9 focus:-outline-offset-1 focus:outline-indigo-600 sm:text-sm/6;
   }
 
   .form-checkbox {
